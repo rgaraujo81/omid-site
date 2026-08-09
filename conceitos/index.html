@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OMID — três direções</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box}*{margin:0}
+:root{--bg:#0C0B0A;--fg:#EFEAE1;--mut:#8F887E;--fio:#26221E;--ease:cubic-bezier(.16,1,.3,1)}
+body{background:var(--bg);color:var(--fg);font-family:Inter,system-ui,sans-serif;font-weight:300;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.mono{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
+.wrap{max-width:1240px;margin-inline:auto;padding:clamp(40px,8vh,90px) clamp(20px,5vw,56px)}
+h1{font-weight:400;font-size:clamp(1.9rem,4.6vw,3.4rem);line-height:1.06;letter-spacing:-.03em;margin:22px 0 18px;max-width:20ch}
+.intro{color:var(--mut);max-width:62ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1px;background:var(--fio);border:1px solid var(--fio);margin-top:clamp(34px,6vh,60px)}
+.c{background:var(--bg);padding:clamp(24px,3vw,38px);display:grid;gap:14px;align-content:start;
+  transition:background .5s var(--ease);min-height:340px;position:relative;overflow:hidden}
+.c:hover{background:#131110}
+.c__n{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.2em;color:var(--mut)}
+.c h2{font-weight:500;font-size:1.5rem;letter-spacing:-.02em}
+.c p{color:var(--mut);font-size:.94rem}
+.c ul{list-style:none;padding:0;display:grid;gap:7px;margin-top:4px}
+.c li{font-size:.84rem;color:var(--mut);display:grid;grid-template-columns:auto 1fr;gap:10px}
+.c li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--dot);margin-top:.5em}
+.c__ir{margin-top:auto;padding-top:18px;display:inline-flex;align-items:center;gap:9px;font-size:.9rem;color:var(--fg);
+  border-top:1px solid var(--fio);align-self:end;width:100%}
+.c__ir svg{transition:transform .5s var(--ease)}
+.c:hover .c__ir svg{transform:translateX(5px)}
+.c__faixa{position:absolute;inset:0 0 auto;height:2px;background:var(--dot);transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease)}
+.c:hover .c__faixa{transform:scaleX(1)}
+.nota{margin-top:clamp(30px,5vh,52px);padding-top:20px;border-top:1px solid var(--fio);color:var(--mut);font-size:.88rem;max-width:70ch}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="mono">OMID · rebuild</p>
+  <h1>Três direções. Nenhuma parecida com o que já existe no mercado.</h1>
+  <p class="intro">Cada uma é uma página real, rolável, com o conteúdo da OMID — não é mockup. Abra as três, escolha uma, e eu construo o site inteiro nessa linguagem. Se nenhuma servir, elas servem pelo menos para eu entender o que você não quer.</p>
+
+  <div class="grid">
+    <a class="c" href="concreto/" style="--dot:#E73587">
+      <span class="c__faixa"></span>
+      <span class="c__n">Direção 01</span>
+      <h2>Concreto</h2>
+      <p>Concretismo brasileiro. A palavra vira objeto e ocupa a tela inteira. Papel de jornal, tipo pesadíssimo, zero card.</p>
+      <ul>
+        <li>Tipografia gigante como imagem</li>
+        <li>Augusto de Campos, Lygia Clark</li>
+        <li>Sem sombra, sem canto redondo</li>
+        <li>Radical e memorável</li>
+      </ul>
+      <span class="c__ir">Abrir<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 12h13M12 5l7 7-7 7"/></svg></span>
+    </a>
+
+    <a class="c" href="operacao/" style="--dot:#40ADB7">
+      <span class="c__faixa"></span>
+      <span class="c__n">Direção 02</span>
+      <h2>Operação</h2>
+      <p>O site como prancha técnica. Cotas, chamadas, carimbo, elevação de rack. Tudo monoespaçado, tudo medido.</p>
+      <ul>
+        <li>Desenho de engenharia, não marketing</li>
+        <li>Densidade de dado, valores ao vivo</li>
+        <li>Credibilidade por precisão</li>
+        <li>Fala direto com quem decide técnico</li>
+      </ul>
+      <span class="c__ir">Abrir<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 12h13M12 5l7 7-7 7"/></svg></span>
+    </a>
+
+    <a class="c" href="territorio/" style="--dot:#F8B241">
+      <span class="c__faixa"></span>
+      <span class="c__n">Direção 03</span>
+      <h2>Território</h2>
+      <p>Editorial e cinematográfico. Serifa de revista, foto do data center sangrando na página, mapa como estrutura.</p>
+      <ul>
+        <li>“A nuvem é um lugar”</li>
+        <li>Imagem real, peso, materialidade</li>
+        <li>Quente e escuro, não “dark tech”</li>
+        <li>Emociona antes de convencer</li>
+      </ul>
+      <span class="c__ir">Abrir<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 12h13M12 5l7 7-7 7"/></svg></span>
+    </a>
+  </div>
+
+  <p class="nota">O site anterior continua intacto em <a href="/" style="border-bottom:1px solid var(--fio)">omid.com.br local</a> — nada foi apagado. Se quiser, dá para cruzar direções: a tipografia da 01 com a densidade da 02, por exemplo.</p>
+</div>
+</body>
+</html>

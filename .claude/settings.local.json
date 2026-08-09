@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm -v)",
+      "WebFetch(domain:www.omid.com.br)",
+      "WebSearch",
+      "WebFetch(domain:www.omidsolutions.com)",
+      "WebFetch(domain:omid.com.br)",
+      "WebFetch(domain:merion.com.br)",
+      "WebFetch(domain:legitimuz.com)"
+    ]
+  }
+}

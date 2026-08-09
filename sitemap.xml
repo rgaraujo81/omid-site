@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://omid.com.br/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/"/>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/produtos-e-solucoes/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/produtos-e-solucoes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/solutions/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/productos-y-soluciones/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/produtos-e-solucoes/omid-smart-cloud/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/produtos-e-solucoes/omid-smart-cloud/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/solutions/omid-smart-cloud/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/productos-y-soluciones/omid-smart-cloud/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/produtos-e-solucoes/omid-smart-colocation/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/produtos-e-solucoes/omid-smart-colocation/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/solutions/omid-smart-colocation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/productos-y-soluciones/omid-smart-colocation/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/produtos-e-solucoes/omid-smart-it-services/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/produtos-e-solucoes/omid-smart-it-services/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/solutions/omid-smart-it-services/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/productos-y-soluciones/omid-smart-it-services/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/produtos-e-solucoes/omid-smart-cybersecurity/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/produtos-e-solucoes/omid-smart-cybersecurity/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/solutions/omid-smart-cybersecurity/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/productos-y-soluciones/omid-smart-cybersecurity/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/produtos-e-solucoes/omid-cloud-cognitiva/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/produtos-e-solucoes/omid-cloud-cognitiva/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/solutions/omid-cloud-cognitiva/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/productos-y-soluciones/omid-cloud-cognitiva/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/cloud-inteligente/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/cloud-inteligente/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/intelligent-cloud/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/cloud-inteligente/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/para-quem-e/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/para-quem-e/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/who-its-for/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/para-quien-es/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/tabela-de-precos/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/tabela-de-precos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/pricing/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/tabla-de-precios/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/sobre-a-omid/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/sobre-a-omid/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/about/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/sobre-omid/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/integridade-e-compliance/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/integridade-e-compliance/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/integrity-and-compliance/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/integridad-y-cumplimiento/"/>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/partner-program/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/partner-program/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/partner-program/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/partner-program/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/partner-program-agradecimento/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/partner-program-agradecimento/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/partner-program-thank-you/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/partner-program-gracias/"/>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/documentacao/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/documentacao/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/documentation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/documentacion/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/faq/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/faq/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/contato/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/contato/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/contact/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/contacto/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/politica-de-privacidade/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/politica-de-privacidade/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/privacy-policy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/politica-de-privacidad/"/>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/en/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/"/>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/en/solutions/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/produtos-e-solucoes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/solutions/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/productos-y-soluciones/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/en/solutions/omid-smart-cloud/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/produtos-e-solucoes/omid-smart-cloud/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/solutions/omid-smart-cloud/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/productos-y-soluciones/omid-smart-cloud/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/en/solutions/omid-smart-colocation/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/produtos-e-solucoes/omid-smart-colocation/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/solutions/omid-smart-colocation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/productos-y-soluciones/omid-smart-colocation/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/en/solutions/omid-smart-it-services/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/produtos-e-solucoes/omid-smart-it-services/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/solutions/omid-smart-it-services/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/productos-y-soluciones/omid-smart-it-services/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/en/solutions/omid-smart-cybersecurity/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/produtos-e-solucoes/omid-smart-cybersecurity/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/solutions/omid-smart-cybersecurity/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/productos-y-soluciones/omid-smart-cybersecurity/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/en/solutions/omid-cloud-cognitiva/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/produtos-e-solucoes/omid-cloud-cognitiva/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/solutions/omid-cloud-cognitiva/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/productos-y-soluciones/omid-cloud-cognitiva/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/en/intelligent-cloud/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/cloud-inteligente/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/intelligent-cloud/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/cloud-inteligente/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/en/who-its-for/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/para-quem-e/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/who-its-for/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/para-quien-es/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/en/pricing/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/tabela-de-precos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/pricing/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/tabla-de-precios/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/en/about/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/sobre-a-omid/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/about/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/sobre-omid/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/en/integrity-and-compliance/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/integridade-e-compliance/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/integrity-and-compliance/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/integridad-y-cumplimiento/"/>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/en/partner-program/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/partner-program/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/partner-program/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/partner-program/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/en/partner-program-thank-you/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/partner-program-agradecimento/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/partner-program-thank-you/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/partner-program-gracias/"/>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/en/documentation/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/documentacao/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/documentation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/documentacion/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/en/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/faq/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/faq/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/en/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/contato/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/contact/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/contacto/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/en/privacy-policy/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/politica-de-privacidade/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/privacy-policy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/politica-de-privacidad/"/>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/es/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/"/>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/es/productos-y-soluciones/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/produtos-e-solucoes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/solutions/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/productos-y-soluciones/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/es/productos-y-soluciones/omid-smart-cloud/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/produtos-e-solucoes/omid-smart-cloud/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/solutions/omid-smart-cloud/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/productos-y-soluciones/omid-smart-cloud/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/es/productos-y-soluciones/omid-smart-colocation/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/produtos-e-solucoes/omid-smart-colocation/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/solutions/omid-smart-colocation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/productos-y-soluciones/omid-smart-colocation/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/es/productos-y-soluciones/omid-smart-it-services/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/produtos-e-solucoes/omid-smart-it-services/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/solutions/omid-smart-it-services/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/productos-y-soluciones/omid-smart-it-services/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/es/productos-y-soluciones/omid-smart-cybersecurity/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/produtos-e-solucoes/omid-smart-cybersecurity/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/solutions/omid-smart-cybersecurity/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/productos-y-soluciones/omid-smart-cybersecurity/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/es/productos-y-soluciones/omid-cloud-cognitiva/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/produtos-e-solucoes/omid-cloud-cognitiva/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/solutions/omid-cloud-cognitiva/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/productos-y-soluciones/omid-cloud-cognitiva/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/es/cloud-inteligente/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/cloud-inteligente/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/intelligent-cloud/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/cloud-inteligente/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/es/para-quien-es/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/para-quem-e/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/who-its-for/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/para-quien-es/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/es/tabla-de-precios/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/tabela-de-precos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/pricing/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/tabla-de-precios/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/es/sobre-omid/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/sobre-a-omid/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/about/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/sobre-omid/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/es/integridad-y-cumplimiento/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/integridade-e-compliance/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/integrity-and-compliance/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/integridad-y-cumplimiento/"/>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/es/partner-program/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/partner-program/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/partner-program/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/partner-program/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/es/partner-program-gracias/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/partner-program-agradecimento/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/partner-program-thank-you/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/partner-program-gracias/"/>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/es/documentacion/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/documentacao/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/documentation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/documentacion/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/es/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/faq/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/faq/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/es/contacto/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/contato/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/contact/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/contacto/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://omid.com.br/es/politica-de-privacidad/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://omid.com.br/politica-de-privacidade/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omid.com.br/en/privacy-policy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://omid.com.br/es/politica-de-privacidad/"/>
+    <priority>0.3</priority>
+  </url>
+</urlset>
