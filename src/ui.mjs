@@ -203,6 +203,42 @@ export const regua = (ctx) => {
     </div>
     <p class="miudo apaga">${R.btnNota}</p>
   </div>
+</div>
+${duelo(ctx)}`;
+};
+
+/* --- o duelo: a mesma máquina cotada nos hyperscalers ---
+   Só a marcação vive aqui. Os preços vêm de assets/dados/precos-nuvem.json
+   (snapshot diário) e o JS refina ao vivo o que tem CORS: câmbio e Oracle.
+   Começa escondido e só aparece quando o JSON chega — sem dado, sem duelo. */
+export const duelo = (ctx) => {
+  const C = ctx.L.comparar, R = ctx.L.regua;
+  const ordem = ['omid', 'aws', 'azure', 'gcp', 'oci'];
+  return `
+<div class="duelo" data-duelo hidden
+     data-vezes="${C.vezes}" data-mais-caro="${C.maisCaro}" data-mais-barato="${C.maisBarato}"
+     data-referencia="${C.referencia}" data-ao-vivo="${C.aoVivo}" data-consultado="${C.consultado}"
+     data-cambio="${C.cambio}" data-inclui="${C.omidInclui}">
+  <div class="duelo__cab">
+    <p class="mono apaga">${C.rot}<span class="duelo__vivo" data-duelo-vivo hidden></span></p>
+    <h3 class="berro duelo__h t-16">${C.h}</h3>
+    <p class="lead apaga t-16">${C.p}</p>
+  </div>
+  <ol class="duelo__lista">
+    ${ordem.map((k) => `
+    <li class="duelo__li duelo__li--${k}" data-prov="${k}">
+      <div class="duelo__nome"><b>${C.provedores[k]}</b><span class="mono apaga" data-duelo-inst></span></div>
+      <div class="duelo__barra"><i data-duelo-barra></i></div>
+      <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span class="mono apaga">${R.mes}</span></div>
+      <div class="duelo__delta"><span data-duelo-delta></span></div>
+    </li>`).join('')}
+  </ol>
+  <p class="mono apaga duelo__linha" data-duelo-base></p>
+  <details class="duelo__fontes">
+    <summary class="mono">${C.fontes}</summary>
+    <p class="miudo apaga">${C.base}</p>
+    <ul data-duelo-fontes></ul>
+  </details>
 </div>`;
 };
 

@@ -142,11 +142,18 @@
 <!-- A PROVA: o número e a régua que o demonstra -->
 <section id="simular" class="bloco dobra dobra--colapso">
   <div class="faixa-p max">
-    <p class="mono apaga">Comparativo</p>
-    <div class="cifra cifra--arco t-16">40<sup>%</sup></div>
-    <div class="grade-2 t-32 regra" style="padding-top:26px">
-      <p class="lead" data-ver style="--d:0">A diferença não está no hardware. Está em quem controla a stack, em que moeda o contrato é fechado e em quem atende quando algo para.</p>
-      <p class="mono apaga" data-ver style="--d:1">Comparação baseada nas características estruturais de cada modelo de contratação, não em medição de provedores específicos. Valores e condições OMID conforme contrato vigente.</p>
+    <div class="cmp">
+      <div class="cmp__n">
+        <p class="mono apaga">Comparativo</p>
+        <div class="cifra cifra--arco t-8">40<sup>%</sup></div>
+      </div>
+      <div class="cmp__t" data-ver style="--d:0">
+        <h2 class="berro respira"><span class="lume"><w style="--w:0">O</w> <w style="--w:1">mesmo</w> <w style="--w:2">workload,</w><br><w style="--w:3">outra</w> <w style="--w:4">conta</w> <w style="--w:5">no</w> <w style="--w:6">fim</w> <w style="--w:7">do</w> <w style="--w:8">mês.</w></span></h2>
+        <p class="lead apaga t-16">A diferença não está no hardware. Está em quem controla a stack, em que moeda o contrato é fechado e em quem atende quando algo para.</p>
+      </div>
+    </div>
+    <div class="regra t-32 cmp__pe" data-ver style="--d:1">
+      <p class="mono apaga">Comparação baseada nas características estruturais de cada modelo de contratação, não em medição de provedores específicos. Valores e condições OMID conforme contrato vigente.</p>
     </div>
     <div class="t-56">
 <div class="prova" data-regua data-vcpu="32.42" data-ram="11.6" data-ssd="0.72"
@@ -203,6 +210,56 @@
     </div>
     <p class="miudo apaga">A contratação abre o portal OMID para provisionar um perfil como este.</p>
   </div>
+</div>
+
+<div class="duelo" data-duelo hidden
+     data-vezes="× a OMID" data-mais-caro="mais caro que a OMID" data-mais-barato="mais barato que a OMID"
+     data-referencia="referência" data-ao-vivo="câmbio e Oracle ao vivo" data-consultado="preços consultados em"
+     data-cambio="PTAX venda" data-inclui="contrato em reais · NOC 24×7 · data center próprio">
+  <div class="duelo__cab">
+    <p class="mono apaga">Comparativo ao vivo<span class="duelo__vivo" data-duelo-vivo hidden></span></p>
+    <h3 class="berro duelo__h t-16">A mesma máquina, nos outros.</h3>
+    <p class="lead apaga t-16">O que você montou acima, cotado nos preços públicos on-demand de AWS, Azure, Google Cloud e Oracle para a região de São Paulo, convertidos pelo câmbio do dia.</p>
+  </div>
+  <ol class="duelo__lista">
+    
+    <li class="duelo__li duelo__li--omid" data-prov="omid">
+      <div class="duelo__nome"><b>OMID</b><span class="mono apaga" data-duelo-inst></span></div>
+      <div class="duelo__barra"><i data-duelo-barra></i></div>
+      <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span class="mono apaga">/mês</span></div>
+      <div class="duelo__delta"><span data-duelo-delta></span></div>
+    </li>
+    <li class="duelo__li duelo__li--aws" data-prov="aws">
+      <div class="duelo__nome"><b>AWS</b><span class="mono apaga" data-duelo-inst></span></div>
+      <div class="duelo__barra"><i data-duelo-barra></i></div>
+      <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span class="mono apaga">/mês</span></div>
+      <div class="duelo__delta"><span data-duelo-delta></span></div>
+    </li>
+    <li class="duelo__li duelo__li--azure" data-prov="azure">
+      <div class="duelo__nome"><b>Microsoft Azure</b><span class="mono apaga" data-duelo-inst></span></div>
+      <div class="duelo__barra"><i data-duelo-barra></i></div>
+      <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span class="mono apaga">/mês</span></div>
+      <div class="duelo__delta"><span data-duelo-delta></span></div>
+    </li>
+    <li class="duelo__li duelo__li--gcp" data-prov="gcp">
+      <div class="duelo__nome"><b>Google Cloud</b><span class="mono apaga" data-duelo-inst></span></div>
+      <div class="duelo__barra"><i data-duelo-barra></i></div>
+      <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span class="mono apaga">/mês</span></div>
+      <div class="duelo__delta"><span data-duelo-delta></span></div>
+    </li>
+    <li class="duelo__li duelo__li--oci" data-prov="oci">
+      <div class="duelo__nome"><b>Oracle Cloud</b><span class="mono apaga" data-duelo-inst></span></div>
+      <div class="duelo__barra"><i data-duelo-barra></i></div>
+      <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span class="mono apaga">/mês</span></div>
+      <div class="duelo__delta"><span data-duelo-delta></span></div>
+    </li>
+  </ol>
+  <p class="mono apaga duelo__linha" data-duelo-base></p>
+  <details class="duelo__fontes">
+    <summary class="mono">Fontes e método</summary>
+    <p class="miudo apaga">Preços de tabela on-demand, sem compromisso, região São Paulo. Computação por instância equivalente (AWS, Azure) ou por vCPU e GiB (Google, Oracle); disco SSD de uso geral; backup como snapshot ou objeto; saída para internet nas faixas públicas. Não inclui suporte, IPs, impostos nem descontos por compromisso. Marcas citadas pertencem aos seus donos.</p>
+    <ul data-duelo-fontes></ul>
+  </details>
 </div></div>
   </div>
 </section>

@@ -374,7 +374,104 @@
       var lic = so ? Math.ceil(g.vcpu / 2) * unit.win : 0;
       parte('compute', compute); parte('disco', disco); parte('backup', bk);
       parte('trafego', tr); parte('licenca', lic);
-      if (out) out.textContent = fmt0.format(Math.round(compute + disco + bk + tr + lic));
+      var totalOmid = compute + disco + bk + tr + lic;
+      if (out) out.textContent = fmt0.format(Math.round(totalOmid));
+      duelo(totalOmid, g, so);
+    }
+
+    /* ---------- o duelo ----------
+       Mesma configuração, cotada nos preços públicos on-demand dos quatro
+       hyperscalers (São Paulo) e convertida pelo câmbio do dia. Os preços
+       vêm do snapshot diário em /assets/dados/precos-nuvem.json; câmbio
+       (BCB) e Oracle liberam CORS, então esses dois são refinados ao vivo.
+       Nada disto é inventado: cada número tem fonte listada no próprio bloco. */
+    var D = null, duel = $('[data-duelo]'), ult = null, vivo = { cambio: false, oci: false };
+    var ORDEM = ['omid', 'aws', 'azure', 'gcp', 'oci'];
+
+    /* faixas cumulativas: [teto, preço], depois da franquia grátis */
+    function faixas(gb, e) {
+      var base = e.gratisGb || 0, custo = 0, i, teto, fatia;
+      if (gb <= base) return 0;
+      for (i = 0; i < e.faixas.length; i++) {
+        teto = e.faixas[i][0] == null ? Infinity : e.faixas[i][0];
+        fatia = Math.max(0, Math.min(gb, teto) - base);
+        custo += fatia * e.faixas[i][1];
+        base = teto;
+        if (gb <= teto) break;
+      }
+      return custo;
+    }
+    function calcProv(p, g, so) {
+      var H = D.horasMes, compute, lic = 0, n;
+      if (p.modo === 'porInstancia') {
+        /* instância de referência com proporção fixa vCPU:GiB — cobra-se
+           o que for maior, como quem precisa de máquinas suficientes */
+        n = Math.max(g.vcpu / p.unidade.vcpu, g.ram / p.unidade.ram);
+        compute = n * p.usdHora.linux * H;
+        if (so) lic = n * (p.usdHora.windows - p.usdHora.linux) * H;
+      } else {
+        compute = (g.vcpu * p.usdHora.vcpu + g.ram * p.usdHora.gb) * H;
+        if (so) lic = g.vcpu * p.windowsVcpuHora * H;
+      }
+      var disco = g.ssd * p.disco.usdGbMes;
+      var bk = Math.max(0, g.backup - (p.backup.gratisGb || 0)) * p.backup.usdGbMes + (g.backup > 0 ? (p.backup.usdFixoMes || 0) : 0);
+      var tr = faixas(g.egress, p.egress);
+      return (compute + lic + disco + bk + tr) * D.cambio.usdBrl;
+    }
+    function duelo(totalOmid, g, so) {
+      ult = { t: totalOmid, g: g, so: so };
+      if (!D || !duel) return;
+      var ds = duel.dataset, tot = { omid: totalOmid }, k, i;
+      for (i = 1; i < ORDEM.length; i++) tot[ORDEM[i]] = calcProv(D.provedores[ORDEM[i]], g, so);
+      var max = 0; for (k in tot) if (tot[k] > max) max = tot[k];
+      ORDEM.forEach(function (k) {
+        var li = $('[data-prov="' + k + '"]', duel); if (!li) return;
+        $('[data-duelo-valor]', li).textContent = fmt0.format(Math.round(tot[k]));
+        $('[data-duelo-barra]', li).style.width = (tot[k] / max * 100).toFixed(1) + '%';
+        var inst = $('[data-duelo-inst]', li);
+        if (inst) inst.textContent = k === 'omid' ? ds.inclui : (D.provedores[k].instancia + ' · ' + D.provedores[k].regiao);
+        var d = $('[data-duelo-delta]', li), r = tot[k] / totalOmid;
+        if (k === 'omid') { d.textContent = ds.referencia; d.className = 'ref'; }
+        else if (r >= 1.5) { d.textContent = r.toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + ds.vezes; d.className = ''; }
+        else if (r >= 1) { d.textContent = '+' + Math.round((r - 1) * 100) + '% ' + ds.maisCaro; d.className = ''; }
+        else { d.textContent = '−' + Math.round((1 - r) * 100) + '% ' + ds.maisBarato; d.className = 'menor'; }
+      });
+    }
+    function pinta() {
+      if (!D || !duel) return;
+      var ds = duel.dataset, base = $('[data-duelo-base]', duel), pill = $('[data-duelo-vivo]', duel), ul = $('[data-duelo-fontes]', duel);
+      if (base) base.textContent = ds.consultado + ' ' + D.consultadoEm + ' · ' + ds.cambio + ' R$ ' +
+        D.cambio.usdBrl.toLocaleString('pt-BR', { minimumFractionDigits: 4, maximumFractionDigits: 4 }) + ' (' + D.cambio.data + ')';
+      if (pill) { pill.hidden = !(vivo.cambio || vivo.oci); pill.textContent = ' · ' + ds.aoVivo; }
+      if (ul && !ul.childNodes.length) {
+        var urls = [D.cambio.fonte], k, j;
+        for (k in D.provedores) for (j = 0; j < D.provedores[k].fontes.length; j++) if (urls.indexOf(D.provedores[k].fontes[j]) < 0) urls.push(D.provedores[k].fontes[j]);
+        urls.forEach(function (u) { var li = document.createElement('li'), a = document.createElement('a'); a.href = u; a.rel = 'noopener'; a.target = '_blank'; a.textContent = u.replace(/^https?:\/\//, '').slice(0, 96); li.appendChild(a); ul.appendChild(li); });
+      }
+    }
+    function aoVivo() {
+      var f = function (d) { return ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2) + '-' + d.getFullYear(); };
+      var fim = new Date(), ini = new Date(Date.now() - 10 * 864e5);
+      var u = "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarPeriodo(dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@dataInicial='" + f(ini) + "'&@dataFinalCotacao='" + f(fim) + "'&$top=1&$orderby=dataHoraCotacao%20desc&$format=json";
+      fetch(u).then(function (r) { return r.json(); }).then(function (j) {
+        var v = j.value && j.value[0];
+        if (v && v.cotacaoVenda > 0) { D.cambio.usdBrl = v.cotacaoVenda; D.cambio.data = v.dataHoraCotacao.slice(0, 10); vivo.cambio = true; pinta(); if (ult) duelo(ult.t, ult.g, ult.so); }
+      }).catch(function () {});
+      fetch('https://apexapps.oracle.com/pls/apex/cetools/api/v1/products/?currencyCode=USD').then(function (r) { return r.json(); }).then(function (j) {
+        var oc = D.provedores.oci, P = oc.partes, it = j.items || [];
+        var precos = function (pn) { var x = it.filter(function (i) { return i.partNumber === pn; })[0]; if (!x) throw 0; var l = x.currencyCodeLocalizations.filter(function (c) { return c.currencyCode === 'USD'; })[0]; return (l && l.prices) || []; };
+        var ocpu = precos(P.ocpu)[0].value, mem = precos(P.memoria)[0].value, win = precos(P.windows)[0].value;
+        var blo = precos(P.bloco[0])[0].value + precos(P.bloco[1])[0].value * 10, obj = precos(P.objeto), sai = precos(P.saida);
+        oc.usdHora = { vcpu: ocpu / 2, gb: mem }; oc.windowsVcpuHora = win / 2; oc.disco.usdGbMes = blo;
+        oc.backup.usdGbMes = obj[obj.length - 1].value; oc.backup.gratisGb = obj[0].value === 0 ? obj[0].rangeMax : 0;
+        oc.egress.faixas = [[null, sai[sai.length - 1].value]]; oc.egress.gratisGb = sai[0].value === 0 ? sai[0].rangeMax : 0;
+        vivo.oci = true; pinta(); if (ult) duelo(ult.t, ult.g, ult.so);
+      }).catch(function () {});
+    }
+    if (duel && window.fetch) {
+      fetch('/assets/dados/precos-nuvem.json', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (j) {
+        D = j; duel.hidden = false; pinta(); if (ult) duelo(ult.t, ult.g, ult.so); aoVivo();
+      }).catch(function () {});
     }
     $$('input[data-rg]', cx).forEach(function (i) { i.addEventListener('input', calc, { passive: true }); });
     $$('.troca__b', cx).forEach(function (b) {

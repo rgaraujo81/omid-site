@@ -1,0 +1,202 @@
+{
+  "versao": 1,
+  "consultadoEm": "2026-09-04",
+  "horasMes": 730,
+  "base": "on-demand · sem compromisso · região São Paulo",
+  "cambio": {
+    "usdBrl": 5.0962,
+    "tipo": "PTAX venda",
+    "data": "2026-09-03",
+    "fonte": "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarPeriodo(dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@dataInicial='08-25-2026'&@dataFinalCotacao='09-04-2026'&$top=1&$orderby=dataHoraCotacao%20desc&$format=json",
+    "aoVivo": true
+  },
+  "provedores": {
+    "aws": {
+      "nome": "AWS",
+      "regiao": "sa-east-1 · São Paulo",
+      "modo": "porInstancia",
+      "instancia": "m6i.2xlarge",
+      "unidade": {
+        "vcpu": 8,
+        "ram": 32
+      },
+      "usdHora": {
+        "linux": 0.612,
+        "windows": 0.98
+      },
+      "disco": {
+        "nome": "EBS gp3",
+        "usdGbMes": 0.152
+      },
+      "backup": {
+        "nome": "EBS snapshot",
+        "usdGbMes": 0.068
+      },
+      "egress": {
+        "nome": "Data transfer out",
+        "gratisGb": 1,
+        "faixas": [
+          [
+            10240,
+            0.25
+          ],
+          [
+            51200,
+            0.23
+          ],
+          [
+            153600,
+            0.21
+          ],
+          [
+            null,
+            0.19
+          ]
+        ]
+      },
+      "fontes": [
+        "https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonEC2/current/sa-east-1/index.json"
+      ]
+    },
+    "azure": {
+      "nome": "Microsoft Azure",
+      "regiao": "Brazil South · São Paulo",
+      "modo": "porInstancia",
+      "instancia": "D8s v5",
+      "unidade": {
+        "vcpu": 8,
+        "ram": 32
+      },
+      "usdHora": {
+        "linux": 0.612,
+        "windows": 0.98
+      },
+      "disco": {
+        "nome": "Premium SSD v2",
+        "usdGbMes": 0.15184
+      },
+      "backup": {
+        "nome": "Azure Backup LRS",
+        "usdGbMes": 0.0304,
+        "usdFixoMes": 10
+      },
+      "egress": {
+        "nome": "Internet egress",
+        "gratisGb": 100,
+        "faixas": [
+          [
+            10100,
+            0.12
+          ],
+          [
+            50100,
+            0.085
+          ],
+          [
+            150100,
+            0.08
+          ],
+          [
+            null,
+            0.075
+          ]
+        ]
+      },
+      "fontes": [
+        "https://prices.azure.com/api/retail/prices?$filter=armRegionName eq 'brazilsouth' and armSkuName eq 'Standard_D8s_v5'",
+        "https://prices.azure.com/api/retail/prices?$filter=armRegionName eq 'brazilsouth' and serviceName eq 'Storage' and contains(productName,'Premium SSD v2')",
+        "https://prices.azure.com/api/retail/prices?$filter=armRegionName eq 'brazilsouth' and serviceName eq 'Bandwidth'",
+        "https://prices.azure.com/api/retail/prices?$filter=armRegionName eq 'brazilsouth' and serviceName eq 'Backup'"
+      ]
+    },
+    "gcp": {
+      "nome": "Google Cloud",
+      "regiao": "southamerica-east1 · São Paulo",
+      "modo": "porRecurso",
+      "instancia": "N2 (predefinido)",
+      "usdHora": {
+        "vcpu": 0.05018,
+        "gb": 0.006725
+      },
+      "windowsVcpuHora": 0.046,
+      "disco": {
+        "nome": "Balanced PD",
+        "usdGbMes": 0.15
+      },
+      "backup": {
+        "nome": "Standard snapshot",
+        "usdGbMes": 0.08
+      },
+      "egress": {
+        "nome": "Internet egress · América do Sul",
+        "gratisGb": 0,
+        "faixas": [
+          [
+            1024,
+            0.19
+          ],
+          [
+            10240,
+            0.18
+          ],
+          [
+            null,
+            0.15
+          ]
+        ]
+      },
+      "derivacao": "vCPU e GiB do N2 personalizado em São Paulo divididos por 1,05 (prêmio documentado do tipo personalizado). Confere com n2-standard-8 = US$ 0,6166/h.",
+      "fontes": [
+        "https://cloud.google.com/products/compute/pricing/general-purpose",
+        "https://cloud.google.com/compute/disks-image-pricing",
+        "https://cloud.google.com/vpc/network-pricing"
+      ]
+    },
+    "oci": {
+      "nome": "Oracle Cloud",
+      "regiao": "sa-saopaulo-1 · São Paulo (preço global)",
+      "modo": "porRecurso",
+      "instancia": "VM.Standard.E4.Flex",
+      "usdHora": {
+        "vcpu": 0.0125,
+        "gb": 0.0015
+      },
+      "windowsVcpuHora": 0.046,
+      "disco": {
+        "nome": "Block Volume (balanced, 10 VPU)",
+        "usdGbMes": 0.0425
+      },
+      "backup": {
+        "nome": "Object Storage",
+        "usdGbMes": 0.0255,
+        "gratisGb": 10
+      },
+      "egress": {
+        "nome": "Outbound · América do Sul",
+        "gratisGb": 10240,
+        "faixas": [
+          [
+            null,
+            0.025
+          ]
+        ]
+      },
+      "partes": {
+        "ocpu": "B93113",
+        "memoria": "B93114",
+        "windows": "B88318",
+        "bloco": [
+          "B91961",
+          "B91962"
+        ],
+        "objeto": "B91628",
+        "saida": "B93455"
+      },
+      "fontes": [
+        "https://apexapps.oracle.com/pls/apex/cetools/api/v1/products/"
+      ],
+      "aoVivo": true
+    }
+  },
+  "avisos": []
+}

@@ -62,6 +62,17 @@ video: {
   p: 'Redundant power, precision cooling, a certified vault room and the racks your operation will live in. You are welcome to visit in person — but start here.'
 },
 
+comparar: {
+  rot: 'Live comparison',
+  h: 'The same machine, elsewhere.',
+  p: 'What you built above, priced at the public on-demand rates of AWS, Azure, Google Cloud and Oracle for the São Paulo region, converted at today\'s exchange rate.',
+  provedores: { omid: 'OMID', aws: 'AWS', azure: 'Microsoft Azure', gcp: 'Google Cloud', oci: 'Oracle Cloud' },
+  omidInclui: 'contract in BRL · 24×7 NOC · own data center',
+  vezes: '× OMID', maisCaro: 'more than OMID', maisBarato: 'less than OMID', referencia: 'reference',
+  aoVivo: 'exchange rate and Oracle live', consultado: 'prices retrieved on', cambio: 'PTAX sell rate',
+  base: 'Public on-demand list prices, no commitment, São Paulo region. Compute as the equivalent instance (AWS, Azure) or per vCPU and GiB (Google, Oracle); general-purpose SSD; backup as snapshot or object storage; internet egress at the public tiers. Excludes support, IPs, taxes and commitment discounts. Trademarks belong to their owners.',
+  fontes: 'Sources and method'
+},
 regua: {
   rot: 'The proof, in reais',
   h: 'Build it here.<br>This is the price.',

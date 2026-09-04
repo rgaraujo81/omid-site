@@ -1,0 +1,36 @@
+name: Preços de nuvem (diário)
+
+# Atualiza assets/dados/precos-nuvem.json todo dia com os preços públicos
+# on-demand de AWS, Azure, Google e Oracle (São Paulo) e o câmbio PTAX.
+# É isto que faz o comparativo do simulador ser "ao vivo" sem servidor:
+# a página lê o JSON estático; o robô é quem sai buscando.
+
+on:
+  schedule:
+    - cron: '0 9 * * *'   # 09:00 UTC = 06:00 em Brasília
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Buscar preços
+        run: node --max-old-space-size=6144 tools/precos-nuvem.mjs
+      - name: Commitar se mudou
+        run: |
+          git config user.name "omid-precos[bot]"
+          git config user.email "precos@omid.com.br"
+          if git diff --quiet -- assets/dados/precos-nuvem.json; then
+            echo "sem mudança"
+          else
+            git add assets/dados/precos-nuvem.json
+            git commit -m "Preços de nuvem: $(date -u +%Y-%m-%d) [skip ci]"
+            git push
+          fi

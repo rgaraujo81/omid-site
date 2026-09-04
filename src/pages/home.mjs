@@ -37,11 +37,18 @@ ${letreiro(faixa1)}
 <!-- A PROVA: o número e a régua que o demonstra -->
 <section id="simular" class="bloco dobra dobra--colapso">
   <div class="faixa-p max">
-    ${rotulo(H.cmp.eb)}
-    <div class="cifra cifra--arco t-16">40<sup>%</sup></div>
-    <div class="grade-2 t-32 regra" style="padding-top:26px">
-      <p class="lead"${ver()}>${H.cmp.p}</p>
-      <p class="mono apaga"${ver(1)}>${H.cmp.nota}</p>
+    <div class="cmp">
+      <div class="cmp__n">
+        ${rotulo(H.cmp.eb)}
+        <div class="cifra cifra--arco t-8">40<sup>%</sup></div>
+      </div>
+      <div class="cmp__t"${ver()}>
+        <h2 class="berro respira">${lume(H.cmp.h)}</h2>
+        <p class="lead apaga t-16">${H.cmp.p}</p>
+      </div>
+    </div>
+    <div class="regra t-32 cmp__pe"${ver(1)}>
+      <p class="mono apaga">${H.cmp.nota}</p>
     </div>
     <div class="t-56">${regua(ctx)}</div>
   </div>

@@ -62,6 +62,17 @@ video: {
   p: 'Energía redundante, climatización de precisión, sala cofre certificada y los racks donde vivirá tu operación. Puedes visitarlo en persona — pero empieza por aquí.'
 },
 
+comparar: {
+  rot: 'Comparativo en vivo',
+  h: 'La misma máquina, en los otros.',
+  p: 'Lo que armaste arriba, cotizado con los precios públicos on-demand de AWS, Azure, Google Cloud y Oracle para la región de São Paulo, convertidos al cambio del día.',
+  provedores: { omid: 'OMID', aws: 'AWS', azure: 'Microsoft Azure', gcp: 'Google Cloud', oci: 'Oracle Cloud' },
+  omidInclui: 'contrato en reales · NOC 24×7 · data center propio',
+  vezes: '× OMID', maisCaro: 'más caro que OMID', maisBarato: 'más barato que OMID', referencia: 'referencia',
+  aoVivo: 'cambio y Oracle en vivo', consultado: 'precios consultados el', cambio: 'PTAX venta',
+  base: 'Precios de lista on-demand, sin compromiso, región São Paulo. Cómputo por instancia equivalente (AWS, Azure) o por vCPU y GiB (Google, Oracle); disco SSD de uso general; backup como snapshot u objeto; salida a internet en los tramos públicos. No incluye soporte, IPs, impuestos ni descuentos por compromiso. Las marcas pertenecen a sus dueños.',
+  fontes: 'Fuentes y método'
+},
 regua: {
   rot: 'La prueba, en reales',
   h: 'Ármalo aquí.<br>Este es el precio.',

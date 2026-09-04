@@ -96,10 +96,14 @@ b, strong { font-weight: 640; }
 .cifra {
   display: flex; align-items: flex-start;
   font-weight: 700; font-stretch: 104%;
-  font-size: clamp(4.6rem, 21vw, 17rem);
-  line-height: .78; letter-spacing: -.05em;
+  /* era clamp(4.6rem, 21vw, 17rem) — 272px, um muro. Mas 7.4rem tinha ido
+     longe demais: o número virava nota de rodapé ao lado da manchete.
+     11rem é a massa óptica que equilibra as duas colunas. */
+  font-size: clamp(4.4rem, 14vw, 12.5rem);
+  line-height: .82; letter-spacing: -.052em;
 }
-.cifra sup { font-size: .22em; font-weight: 640; translate: 0 .75em; }
+/* o % pousa na altura de x do número, não no topo dele */
+.cifra sup { font-size: .26em; font-weight: 640; translate: .04em .62em; }
 .cifra--arco { background: var(--espectro); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 .cifra--arco sup { -webkit-text-fill-color: var(--tinta); }
 .arco { background: var(--espectro); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
@@ -110,6 +114,31 @@ b, strong { font-weight: 640; }
 .bloco { padding-block: clamp(72px, 15vh, 200px); position: relative; }
 .bloco--curto { padding-block: clamp(44px, 8vh, 100px); }
 .regra { border-top: 1px solid var(--fio); }
+
+/* O COMPARATIVO: número e argumento lado a lado, no mesmo eixo óptico.
+   Empilhados, o 40% virava um muro e o texto caía longe demais dele.
+   NÃO usar .prova aqui: essa classe já é do simulador (ui.mjs → regua),
+   definida mais abaixo neste arquivo, e vencia a disputa. */
+/* composição centrada: rótulo, número, manchete e apoio no mesmo eixo.
+   O número vai para cima da frase em vez de ao lado — empilhado ele fica
+   mais alto, então a manchete precisa de medida larga para não virar
+   quatro linhas curtas e devolver o bloco à altura de antes. */
+.cmp { display: grid; justify-items: center; text-align: center; }
+.cmp__n { display: grid; justify-items: center; }
+.cmp .cifra { justify-content: center; }
+.cmp__t { margin-top: clamp(10px, 1.6vh, 18px); }
+.cmp__t h2 { max-width: 30ch; margin-inline: auto; }
+.cmp__t .lead { max-width: 68ch; margin: 14px auto 0; }
+/* a ressalva atravessa as duas colunas: o fio curto sob a coluna da esquerda
+   fazia o rodapé parecer solto do bloco */
+.cmp__pe { padding-top: 18px; }
+/* sem trava de medida: em 80ch a ressalva virava quatro linhas curtas
+   no terço esquerdo, deixando o resto da faixa vazio */
+.cmp__pe { text-align: center; }
+.cmp__pe p { max-width: none; }
+@media (max-width: 860px) {
+  .cmp__t h2, .cmp__t .lead { max-width: none; }
+}
 .regua, .regua--inv { display: none; }   /* a régua de projeto saiu: o ar é a estrutura */
 
 .grade-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(22px, 4vw, 64px); }
@@ -547,6 +576,9 @@ html:not(.sdt) .inv.dobra--inverte { background: var(--papel); }
 .quieto b { color: var(--tinta); font-weight: 560; }
 
 /* ---------- 23. Cifra e prova ---------- */
+/* a faixa de certificações fica colada em cima desta dobra e já faz a
+   separação: 200px de respiro no topo abriam um buraco */
+#simular { padding-top: clamp(48px, 8vh, 110px); }
 #simular .cifra { margin-top: 10px; }
 .sdt .dobra--colapso .cifra { opacity: 0; transform: translateY(26px) scale(.98); }
 .sdt .dobra--colapso.viu .cifra { opacity: 1; transform: none; transition: opacity 1s var(--ease) .1s, transform 1.2s var(--ease) .1s; }
@@ -582,7 +614,9 @@ canvas.aurora { position: absolute; inset: 0; width: 100%; height: 100%; z-index
 }
 
 /* a cifra respira: o gradiente viaja devagar */
-.cifra--arco { background-size: 220% 100%; animation: cifraViva 14s var(--ease-io) infinite alternate; }
+/* 220% mostrava só uma fatia estreita da rampa — o número aparecia roxo,
+   sem o teal nem o âmbar. 126% deixa o espectro inteiro caber nele. */
+.cifra--arco { background-size: 126% 100%; animation: cifraViva 18s var(--ease-io) infinite alternate; }
 @keyframes cifraViva { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
 @media (prefers-reduced-motion: reduce) { .cifra--arco { animation: none; } }
 
@@ -673,3 +707,45 @@ html.com-halo .halo, html.com-halo .halo-p { opacity: 1; }
 html.portal-vivo .portal { background: #07070B; }
 html.portal-vivo .portal svg { color: #fff; }
 html.portal-vivo .portal__fio { background: #23232A; }
+
+
+/* ═══ O DUELO — a mesma máquina, nos hyperscalers ═══
+   Cinco barras, uma por provedor. A da OMID leva o espectro da marca — é o
+   botão do simulador estendido, mesma regra, mesmo dono. As outras são tinta
+   a 26%. A largura é proporcional ao preço e anima ao arrastar as réguas. */
+.duelo { margin-top: clamp(40px, 6vw, 72px); padding-top: clamp(28px, 4vw, 44px); border-top: 1px solid var(--fio); }
+.duelo__cab { max-width: 62ch; }
+.duelo__h { font-size: clamp(1.5rem, 2.7vw, 2.3rem); }
+.duelo__vivo { color: #1E7F8C; }
+.duelo__vivo::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #40ADB7; margin: 0 6px 1px 0;
+  animation: duelo-pisca 2.6s ease-out infinite; }
+@keyframes duelo-pisca { 0% { box-shadow: 0 0 0 0 rgba(64,173,183,.45); } 70%, 100% { box-shadow: 0 0 0 9px rgba(64,173,183,0); } }
+.duelo__lista { list-style: none; padding: 0; margin: clamp(24px, 3vw, 36px) 0 0; display: grid; gap: 4px; }
+.duelo__li { display: grid; grid-template-columns: minmax(150px, .95fr) minmax(0, 3fr) auto minmax(120px, auto);
+  gap: clamp(12px, 2vw, 28px); align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(18,18,20,.07); }
+.duelo__nome b { display: block; font-weight: 600; letter-spacing: -.01em; }
+.duelo__nome span { display: block; font-size: .58rem; letter-spacing: .14em; margin-top: 3px; text-transform: none; }
+.duelo__barra { height: 14px; border-radius: 999px; background: rgba(18,18,20,.06); overflow: hidden; }
+.duelo__barra i { display: block; height: 100%; width: 0; border-radius: inherit; background: rgba(18,18,20,.26);
+  transition: width .9s var(--ease); }
+.duelo__li--omid .duelo__barra i { background: var(--espectro); }
+.duelo__li--omid .duelo__nome b { font-weight: 700; }
+.duelo__preco { text-align: right; }
+.duelo__preco b { font-weight: 640; font-size: clamp(1.05rem, 1.5vw, 1.4rem); letter-spacing: -.025em; white-space: nowrap; }
+.duelo__preco span { margin-left: 4px; }
+.duelo__delta { text-align: right; }
+.duelo__delta span { display: inline-block; padding: 5px 11px; border-radius: 999px; font-size: .74rem; font-weight: 600;
+  letter-spacing: .01em; white-space: nowrap; background: rgba(231,53,135,.11); color: #9B1F5A; }
+.duelo__delta span.menor { background: rgba(64,173,183,.14); color: #1E6F78; }
+.duelo__delta span.ref { background: rgba(18,18,20,.06); color: var(--tinta); }
+.duelo__linha { margin-top: 18px; font-size: .6rem; }
+.duelo__fontes { margin-top: 10px; }
+.duelo__fontes summary { cursor: pointer; }
+.duelo__fontes p { margin-top: 10px; max-width: 90ch; }
+.duelo__fontes ul { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 4px; }
+.duelo__fontes a { font-size: .7rem; color: var(--cinza); word-break: break-all; border-bottom: 1px solid var(--fio); }
+@media (max-width: 760px) {
+  .duelo__li { grid-template-columns: 1fr auto; grid-template-areas: "nome preco" "barra barra" "delta delta"; gap: 8px 14px; }
+  .duelo__nome { grid-area: nome; } .duelo__preco { grid-area: preco; }
+  .duelo__barra { grid-area: barra; } .duelo__delta { grid-area: delta; text-align: left; }
+}
