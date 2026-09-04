@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OMID — modelos de abertura</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,300..700&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box}*{margin:0}
+:root{--papel:#F4F2ED;--tinta:#111114;--cinza:#6F6C65;--fio:#DEDACF;--ease:cubic-bezier(.22,1,.36,1)}
+body{background:var(--papel);color:var(--tinta);font-family:Archivo,system-ui,sans-serif;
+  font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.mono{font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--cinza)}
+.wrap{max-width:1240px;margin-inline:auto;padding:clamp(44px,9vh,92px) clamp(20px,5vw,60px)}
+h1{font-weight:400;font-size:clamp(1.9rem,4.2vw,3rem);line-height:1.08;letter-spacing:-.03em;
+  margin:18px 0 14px;max-width:24ch}
+h1 b{font-weight:600}
+.intro{color:var(--cinza);max-width:64ch}
+.grupo{margin-top:clamp(34px,6vh,56px)}
+.grupo>.mono{display:flex;align-items:center;gap:14px}
+.grupo>.mono::after{content:"";flex:1;height:1px;background:var(--fio)}
+.grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+  gap:clamp(14px,1.8vw,22px);margin-top:20px}
+.c{border:1px solid var(--fio);border-radius:22px;padding:clamp(20px,2.6vw,30px);
+  display:grid;gap:11px;align-content:start;min-height:280px;background:#fff;
+  transition:transform .55s var(--ease),box-shadow .55s var(--ease)}
+.c:hover{transform:translateY(-4px);box-shadow:0 38px 76px -42px rgba(17,17,20,.24)}
+.c__n{font-family:"IBM Plex Mono",monospace;font-size:.58rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--dot)}
+.c h2{font-weight:600;font-size:1.36rem;letter-spacing:-.022em}
+.c p{color:var(--cinza);font-size:.9rem}
+.c ul{list-style:none;padding:0;display:grid;gap:5px}
+.c li{font-size:.81rem;color:var(--cinza);display:grid;grid-template-columns:auto 1fr;gap:9px}
+.c li::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--dot);margin-top:.55em}
+.c__ir{margin-top:auto;padding-top:14px;border-top:1px solid var(--fio);font-weight:500;font-size:.86rem}
+.c--esc{background:#0A1A28;border-color:#16293A;color:#EAF2F6}
+.c--esc p,.c--esc li{color:#9FB6C4}
+.c--esc .c__ir{border-color:#1B3245}
+.velhas{margin-top:clamp(34px,6vh,56px);padding-top:20px;border-top:1px solid var(--fio)}
+.velhas ul{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:12px}
+.velhas a{font-size:.84rem;color:var(--cinza);border-bottom:1px solid var(--fio);padding-bottom:2px}
+.velhas a:hover{color:var(--tinta);border-color:var(--tinta)}
+.nota{margin-top:26px;color:var(--cinza);font-size:.88rem;max-width:70ch}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="mono">OMID · primeira dobra</p>
+  <h1>Oito modelos de <b>primeira dobra</b>.</h1>
+  <p class="intro">Quatro escuros e quatro claros, do mais silencioso ao mais charmoso. Os quatro primeiros saíram das suas referências — o orbe e a coluna de ícones do Hanergy, a cena com anel e reflexo do EOSAI, a malha de rede do Synexxus. Nenhum usa foto ou render: tudo é desenhado em canvas e CSS, então qualquer um deles se ajusta em minutos.</p>
+
+  <div class="grupo">
+    <p class="mono">Escuros</p>
+    <div class="grade">
+      <a class="c c--esc" href="noite-orbe/" style="--dot:#40ADB7">
+        <span class="c__n">Modelo A</span>
+        <h2>Orbe</h2>
+        <p>Globo aramado girando no centro, com meridianos projetados em 3D de verdade. O Brasil acende e Barueri pulsa em âmbar. Coluna de ícones circulares à direita.</p>
+        <ul><li>O gesto do Hanergy</li><li>A soberania fica literal</li><li>Canvas, sem imagem</li></ul>
+        <span class="c__ir">Abrir →</span>
+      </a>
+
+      <a class="c c--esc" href="noite-monolito/" style="--dot:#F8B241">
+        <span class="c__n">Modelo B</span>
+        <h2>Monólito</h2>
+        <p>Cena de crepúsculo: um arco monumental com luz vazando pelo vão, lua atrás, anel orbital girando, reflexo na água e uma figura minúscula que dá a escala.</p>
+        <ul><li>O registro do EOSAI</li><li>Palavra em âmbar na manchete</li><li>CSS puro, sem render</li></ul>
+        <span class="c__ir">Abrir →</span>
+      </a>
+
+      <a class="c c--esc" href="noite-aurora/" style="--dot:#545EA0">
+        <span class="c__n">Modelo E</span>
+        <h2>Aurora</h2>
+        <p>O mais silencioso do lote. Noite profunda, uma aurora enorme e lenta na paleta da marca, tipografia leve no centro e nada mais. A palavra "hoje" é recortada no espectro.</p>
+        <ul><li>Minimalismo de verdade</li><li>A aurora segue o cursor</li><li>Um elemento visual só</li></ul>
+        <span class="c__ir">Abrir →</span>
+      </a>
+
+      <a class="c c--esc" href="noite-onda/" style="--dot:#E73587">
+        <span class="c__n">Modelo F</span>
+        <h2>Onda</h2>
+        <p>Relevo topográfico feito de 90 curvas empilhadas, todas lendo o mesmo campo. Onde se apertam nasce um vulto; onde se abrem, o fundo respira. Desenho aditivo: o brilho vem do cruzamento.</p>
+        <ul><li>Estiloso e quieto</li><li>Reage ao cursor</li><li>Cor da marca como luz</li></ul>
+        <span class="c__ir">Abrir →</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="grupo">
+    <p class="mono">Claros</p>
+    <div class="grade">
+      <a class="c" href="dia-orbe/" style="--dot:#1E7F8C">
+        <span class="c__n">Modelo C</span>
+        <h2>Orbe claro</h2>
+        <p>Exatamente a composição do Modelo A no papel da marca: aramado em tinta, halo virando luz difusa, âmbar rebaixado para dourado para aguentar fundo claro.</p>
+        <ul><li>Mesma ideia, outro registro</li><li>Serve de comparação direta</li><li>Canvas, sem imagem</li></ul>
+        <span class="c__ir">Abrir →</span>
+      </a>
+
+      <a class="c" href="soberania/" style="--dot:#545EA0">
+        <span class="c__n">Modelo D</span>
+        <h2>Malha</h2>
+        <p>Tecido de infraestrutura: rotas caminhando sobre a mesma grade do fundo, em passos ortogonais e a 45°, com nó em cada curva e um pacote aceso na cabeça.</p>
+        <ul><li>O registro do Synexxus</li><li>Tipografia toda em IBM Plex Mono</li><li>Composição centralizada</li></ul>
+        <span class="c__ir">Abrir →</span>
+      </a>
+
+      <a class="c" href="dia-arco/" style="--dot:#7F2483">
+        <span class="c__n">Modelo G</span>
+        <h2>Arco</h2>
+        <p>O mais minimalista de todos: papel, um arco finíssimo com o espectro da marca subindo por trás da palavra, um segundo arco fantasma para dar profundidade, e nada mais.</p>
+        <ul><li>Charme por proporção</li><li>Tipografia em peso 200</li><li>Zero canvas, zero imagem</li></ul>
+        <span class="c__ir">Abrir →</span>
+      </a>
+
+      <a class="c" href="dia-vidro/" style="--dot:#40ADB7">
+        <span class="c__n">Modelo H</span>
+        <h2>Vidro</h2>
+        <p>O mais charmoso: o produto flutuando como peça de vidro, com a fatura já montada e número de verdade — R$ 1.052/mês para 8 vCPU, 32 GiB e 500 GB.</p>
+        <ul><li>Vende no primeiro segundo</li><li>Valores da tabela pública</li><li>Vidro real, com backdrop-filter</li></ul>
+        <span class="c__ir">Abrir →</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="velhas">
+    <p class="mono">Tentativas anteriores, guardadas para referência</p>
+    <ul>
+      <li><a href="lente/">Lente</a></li>
+      <li><a href="lente-campo/">Lente (campo)</a></li>
+      <li><a href="nucleo/">Núcleo</a></li>
+      <li><a href="planta/">Planta</a></li>
+      <li><a href="clara/">Clara</a></li>
+      <li><a href="cinema/">Cinema</a></li>
+      <li><a href="monumento/">Monumento</a></li>
+      <li><a href="camara/">Câmara</a></li>
+    </ul>
+  </div>
+
+  <p class="nota">Todos usam o conteúdo original da home: <i>Cloud soberana · operada no Brasil</i> / <i>Sua cloud do futuro, hoje.</i> Só a primeira dobra muda; o resto da página segue como está.</p>
+</div>
+</body>
+</html>

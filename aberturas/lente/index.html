@@ -1,0 +1,824 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>OMID · Abertura — LENTE</title>
+<meta name="description" content="Nossa nuvem tem endereço. Barueri, São Paulo. — primeira dobra da OMID Solutions.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+/* =========================================================================
+   OMID — ABERTURA "LENTE"
+   Uma barra de vidro maciço pousada sobre o papel, atravessando a manchete.
+   Onde ela cruza, as letras aumentam e as bordas se abrem em cor (dispersão);
+   a luz que ela junta cai focada sobre as coordenadas do data center.
+   A lente foca no endereço.
+
+   DECISÃO ESTRUTURAL Nº1 — não existe cópia do h1 dentro da barra.
+   A linha 2 é ampliada de verdade, no lugar onde está. Não há duplicata para
+   desalinhar: texto fantasma é impossível, não improvável. E como a barra tem
+   1,2× a caixa da linha, suas arestas caem em papel vazio — nunca dentro de
+   um glifo. Não há recorte, logo não há salto horizontal na aresta.
+   ========================================================================= */
+
+*,*::before,*::after{ box-sizing:border-box }
+*{ margin:0 }
+
+:root{
+  /* matéria */
+  --papel:#F4F2ED;
+  --vidro:#F3F0E7;            /* o papel visto por dentro do vidro */
+  --tinta:#121214;
+  --cinza:#6E6B64;
+  --fio:#DDD9CE;
+
+  /* espectro oficial, extraído do LogoOMID.svg */
+  --t:#40ADB7; --a:#2D93BB; --i:#545EA0; --r:#7F2483;
+  --m:#E73587; --o:#EE744E; --am:#F8B241;
+  --espectro:linear-gradient(96deg,var(--t),var(--a) 20%,var(--i) 38%,var(--r) 56%,var(--m) 76%,var(--o) 92%,var(--am));
+
+  --sans:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+  --gut:clamp(20px,4.6vw,72px);
+  --topo:64px;
+  --e:cubic-bezier(.22,1,.36,1);
+  --e-vidro:cubic-bezier(.16,1,.3,1);
+
+  /* --- geometria da manchete e da lente, tudo derivado de --fs ---
+     Em unidades de --fs, a partir do topo do h1:
+       linha 1  .00→.96 · linha 2 1.02→1.98 · linha 3 2.13→3.09
+       barra    .97→2.12  →  as duas arestas caem em papel limpo.        */
+  --fs:clamp(2.4rem,6.2vw,5.9rem);
+  --lh:.96;
+  --bar-t:.97em;
+  --bar-h:1.15em;
+  --orig:54.7%;               /* centro óptico da barra dentro da linha 2 */
+
+  /* --- estado do vidro (o JS só reescreve estas sete) --- */
+  --dy:0; --tilt:0; --lift:0;
+  --zx:1.052; --zy:1.072; --dz:-3px; --fr:1;
+}
+
+html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth }
+body{
+  background:var(--papel); color:var(--tinta);
+  font-family:var(--sans); font-size:17px; font-weight:410; line-height:1.6;
+  letter-spacing:-.008em;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  /* hidden primeiro como piso: Safari < 16 não conhece `clip` e deixaria os
+     300vw da barra abrirem barra de rolagem horizontal. Nada aqui é sticky. */
+  overflow-x:hidden; overflow-x:clip;
+}
+a{ color:inherit; text-decoration:none }
+img,svg,canvas{ display:block; max-width:100% }
+:focus-visible{ outline:2px solid var(--tinta); outline-offset:4px; border-radius:4px }
+::selection{ background:var(--tinta); color:var(--papel) }
+
+.mono{ font-family:var(--mono); font-weight:400; letter-spacing:.2em; text-transform:uppercase }
+.pula{ position:fixed; top:10px; left:10px; z-index:300; transform:translateY(-260%);
+  background:var(--tinta); color:var(--papel); padding:12px 22px; border-radius:999px;
+  font-size:.82rem; transition:transform .3s var(--e) }
+.pula:focus{ transform:none }
+
+/* ---------- cabeçalho -------------------------------------------------
+   Papel, não vidro. Barra de vidro passando por baixo de cabeçalho de vidro
+   lê como "tema glass": nesta página só pode existir UM objeto de vidro.   */
+.topo{
+  position:fixed; inset:0 0 auto; z-index:40; height:var(--topo);
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
+  padding-inline:var(--gut);
+  background:linear-gradient(var(--papel) 58%,rgba(244,242,237,0));
+}
+/* colunas explícitas: com o nav escondido no móvel, a colocação automática
+   jogaria o "PT" para o meio da tela */
+.topo__volta{ grid-column:1; justify-self:start; font-size:.6rem; color:var(--cinza); transition:color .3s }
+.topo__volta:hover{ color:var(--tinta) }
+.topo__nav{ grid-column:2; justify-self:center; display:flex; gap:clamp(18px,2.4vw,34px) }
+.topo__nav a{ font-size:.86rem; font-weight:450; color:#3C3B40; transition:color .3s }
+.topo__nav a:hover{ color:var(--tinta) }
+.topo__pt{ grid-column:3; justify-self:end; font-size:.6rem; color:var(--cinza) }
+
+/* ---------- a dobra ---------- */
+.dobra{
+  position:relative; min-height:100vh; min-height:100svh; display:flex;
+  background:var(--papel);      /* fundo do grupo de mistura da cáustica */
+  overflow:hidden; overflow:clip;   /* segura a sangria de 300vw da barra
+                                       (hidden é o piso para Safari < 16) */
+}
+.palco{
+  position:relative; z-index:1; flex:1; width:100%; max-width:1560px; margin-inline:auto;
+  display:grid;
+  grid-template-columns:34% minmax(0,1fr);
+  grid-template-rows:minmax(0,1fr) auto;
+  align-items:center;
+  padding:calc(var(--topo) + clamp(18px,4vh,40px)) var(--gut) clamp(26px,4.4vh,48px);
+}
+/* o terço esquerdo e o quadrante superior esquerdo ficam vazios de propósito */
+.col{ grid-column:2; grid-row:1; align-self:center; position:relative;
+  padding-right:clamp(0px,5vw,86px) }
+
+/* ---------- a manchete -----------------------------------------------
+   Um bloco só, um corpo só, sem degrau. Archivo no peso leve e no corpo
+   máximo: é o salto de 95px para 10,5px que faz a página respirar.       */
+.h{
+  position:relative; z-index:1;
+  font-size:var(--fs); line-height:var(--lh);
+  font-weight:400; font-variation-settings:"wght" 400,"wdth" 100;
+  letter-spacing:-.032em;
+  margin-left:-.035em;          /* margem óptica: alinha a haste, não a caixa */
+}
+.l{ display:block; white-space:nowrap }
+.l--1{ animation:sobe 1s var(--e) .05s both }
+.l--vidro{
+  margin-top:.06em;
+  transform:translateY(var(--dz)) scale(var(--zx),var(--zy));
+  transform-origin:0 var(--orig);
+  will-change:transform;
+}
+/* .15em de folga extra antes da linha 3: é o que garante que o til de "São"
+   nunca encoste na aresta inferior do vidro, em qualquer métrica de fonte. */
+.l--3{ margin-top:.15em; color:var(--cinza); animation:sobe 1s var(--e) .3s both }
+@keyframes sobe{ from{ opacity:0; transform:translateY(10px) } to{ opacity:1; transform:none } }
+
+/* a linha refratada: o PAI carrega a ampliação viva (JS), o FILHO carrega a
+   chegada (CSS). Separados, a animação de entrada nunca trava a variável. */
+.l__p{ display:block; position:relative; transform-origin:0 var(--orig);
+  animation:refrata 1.05s var(--e-vidro) .18s both }
+@keyframes refrata{
+  from{ opacity:0; transform:translateY(8px) scale(.9506,.9328) }  /* composto = 1.000 */
+  to  { opacity:1; transform:none }                                /* composto = 1.052/1.072 */
+}
+.l__t{ position:relative; z-index:1; display:block }
+
+/* DISPERSÃO — três cópias ATRÁS do texto, deslocadas na vertical, que é como
+   um bastão de vidro horizontal separa comprimento de onda. Só a franja
+   escapa por fora do glifo: 0,9px de cor da marca isolada. Nunca o espectro
+   cheio, nunca um segundo bloco colorido. */
+.l__f{
+  position:absolute; left:0; top:0; z-index:0;
+  white-space:nowrap; font-style:normal;
+  transform-origin:0 var(--orig);
+  mix-blend-mode:multiply;
+  -webkit-user-select:none; user-select:none;
+  animation:dispersa 1.05s var(--e-vidro) .3s both;
+}
+.l__f--t{ color:var(--t);  --oy:-.9px; --os:1.004;  opacity:calc(.38*var(--fr)) }
+.l__f--i{ color:var(--i);  --oy:.05px; --os:1.0028; opacity:calc(.26*var(--fr)) }
+.l__f--a{ color:var(--am); --oy:.95px; --os:.9976;  opacity:calc(.42*var(--fr)) }
+@keyframes dispersa{
+  from{ transform:none }                                  /* coincidente = invisível */
+  to  { transform:translateY(var(--oy)) scale(var(--os)) }
+}
+
+/* ---------- A LENTE ---------------------------------------------------
+   Sangria total por força bruta: 300vw dentro de um pai com overflow:clip.
+   Nada de centralizar em 100vw — a coluna não é centrada na janela, e
+   centralizar erraria as duas bordas.                                     */
+.lente{
+  position:absolute; z-index:0; pointer-events:none;
+  left:-100vw; width:300vw;
+  font-size:var(--fs);        /* para que os em de --bar-t/--bar-h resolvam */
+  top:var(--bar-t); height:var(--bar-h);
+  transform:translateY(calc(var(--dy) * 1px)) rotate(calc(var(--tilt) * 1deg));
+  transform-origin:100vw 50%; /* pivô na borda esquerda da coluna */
+  will-change:transform;
+}
+.lente__pouso{ position:absolute; inset:0; animation:pousa .9s var(--e-vidro) .12s both }
+@keyframes pousa{ from{ transform:translateY(-26px) } to{ transform:none } }
+
+/* O CORPO: sem blur, sem borda branca, sem raio. Só papel um grau mais
+   quente, dois meniscos de 3px, e os dois fios especulares — claro em cima
+   (a luz vem de cima), escuro embaixo (reflexão interna).                 */
+.lente__vidro{
+  position:absolute; inset:0;
+  background-color:var(--vidro);
+  background-image:linear-gradient(to bottom,
+    rgba(18,18,20,.070) 0px,
+    rgba(18,18,20,.030) 3px,
+    rgba(255,255,255,.44) 10px,
+    rgba(255,255,255,.26) 40%,
+    rgba(255,255,255,.02) 72%,
+    rgba(18,18,20,.030) calc(100% - 10px),
+    rgba(18,18,20,.070) calc(100% - 3px),
+    rgba(18,18,20,.105) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.94),
+    inset 0 -1px 0 rgba(18,18,20,.11),
+    0 1px 1px rgba(18,18,20,.04),
+    0 4px 8px rgba(18,18,20,.045),
+    0 12px 24px rgba(18,18,20,.04),
+    0 32px 64px rgba(18,18,20,.035);
+  animation:endurece .9s var(--e-vidro) .12s both;
+}
+/* a sombra ENDURECE ao encostar. É a sombra que faz o objeto pesar. */
+@keyframes endurece{
+  from{ box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0),
+    inset 0 -1px 0 rgba(18,18,20,0),
+    0 2px 3px rgba(18,18,20,.010),
+    0 10px 22px rgba(18,18,20,.028),
+    0 26px 54px rgba(18,18,20,.030),
+    0 60px 100px rgba(18,18,20,.045) }
+  to{ box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.94),
+    inset 0 -1px 0 rgba(18,18,20,.11),
+    0 1px 1px rgba(18,18,20,.04),
+    0 4px 8px rgba(18,18,20,.045),
+    0 12px 24px rgba(18,18,20,.04),
+    0 32px 64px rgba(18,18,20,.035) }
+}
+/* camada que só existe quando a barra levanta: a sombra abre e desfoca */
+.lente__s{ position:absolute; inset:0; pointer-events:none;
+  opacity:calc(var(--lift) * .9);
+  box-shadow:
+    0 12px 22px rgba(18,18,20,.030),
+    0 30px 50px rgba(18,18,20,.045),
+    0 60px 96px rgba(18,18,20,.050);
+}
+/* a linha de contato: 2px apertados onde vidro encosta em papel */
+.lente__contato{ position:absolute; left:0; right:0; bottom:-1px; height:4px;
+  opacity:calc(1 - var(--lift) * .62) }
+.lente__contato i{ display:block; height:100%;
+  background:linear-gradient(to bottom,rgba(18,18,20,.24),rgba(18,18,20,0));
+  animation:contato .8s var(--e) .34s both }
+@keyframes contato{ from{ opacity:0 } to{ opacity:1 } }
+
+/* alvo de arrasto no dedo: exatamente a caixa da barra, nem um pixel a mais,
+   e só na largura da coluna — as goteiras continuam rolando a página. */
+.lente__pega{ position:absolute; left:0; right:0; z-index:3;
+  font-size:var(--fs); top:var(--bar-t); height:var(--bar-h);
+  pointer-events:none; touch-action:none }
+@media (hover:none){ .lente__pega{ pointer-events:auto } }
+
+/* ---------- as coordenadas: onde a luz cai ----------
+   position/z-index não são enfeite: .lente é posicionada com z-index 0 e
+   .coord/.apoio são blocos em fluxo — sem isto o corpo OPACO do vidro pinta
+   por cima do texto assim que a barra desce (rolagem + arrasto somados).
+   Decoração nunca pode cobrir conteúdo.                                     */
+.coord,.apoio{ position:relative; z-index:1 }
+.coord{ margin-top:clamp(22px,3.4vh,42px); animation:sobe .5s var(--e) 1.3s both }
+.coord__c{ position:relative; display:inline-block; padding:10px 18px;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--cinza); white-space:nowrap }
+.coord__c::before,.coord__c::after{ content:""; position:absolute; top:0; bottom:0; width:11px;
+  border:1px solid var(--fio) }
+.coord__c::before{ left:0; border-right:0 }
+.coord__c::after{ right:0; border-left:0 }
+
+.apoio{ margin-top:clamp(18px,2.6vh,28px); max-width:46ch; color:#4B4841;
+  font-size:clamp(1rem,1.2vw,1.12rem); line-height:1.55; text-wrap:pretty;
+  animation:sobe 1s var(--e) .62s both }
+
+/* ---------- o único evento colorido da página ---------- */
+.acao{ grid-column:1; grid-row:2; align-self:end; display:grid; justify-items:start; gap:18px;
+  animation:sobe 1s var(--e) .86s both }
+.botao{ position:relative; z-index:0; overflow:hidden; display:inline-flex; align-items:center; gap:11px;
+  padding:17px 30px; border-radius:999px; color:#fff; font-weight:560; font-size:.95rem;
+  letter-spacing:-.01em; white-space:nowrap;
+  box-shadow:0 20px 44px -24px rgba(84,94,160,.7);
+  transition:transform .5s var(--e),box-shadow .5s var(--e) }
+.botao::before{ content:""; position:absolute; inset:0; z-index:-1; background:var(--espectro);
+  background-size:170% 100%; background-position:0 50%; transition:background-position .8s var(--e) }
+.botao:hover{ transform:translateY(-2px); box-shadow:0 26px 50px -22px rgba(127,36,131,.5) }
+.botao:hover::before{ background-position:100% 50% }
+.botao:active{ transform:none }
+.botao i{ font-style:normal; transition:transform .45s var(--e) }
+.botao:hover i{ transform:translateX(4px) }
+.link{ display:inline-flex; align-items:center; gap:9px; font-size:.92rem; font-weight:520;
+  padding-bottom:4px; border-bottom:1px solid var(--fio); transition:border-color .35s }
+.link:hover{ border-color:var(--tinta) }
+.link i{ font-style:normal; transition:transform .45s var(--e) }
+.link:hover i{ transform:translateX(4px) }
+
+/* ---------- as provas ---------- */
+.provas{ grid-column:2; grid-row:2; align-self:end; list-style:none; padding:0;
+  display:flex; flex-wrap:wrap; gap:14px clamp(24px,3.4vw,54px);
+  animation:sobe 1s var(--e) 1.02s both }
+.provas li{ display:grid; gap:3px }
+.provas b{ font-weight:620; font-size:1.02rem; letter-spacing:-.022em; font-variant-numeric:tabular-nums }
+.provas span{ font-family:var(--mono); font-size:.585rem; letter-spacing:.17em;
+  text-transform:uppercase; color:var(--cinza) }
+
+/* ---------- a cáustica ---------- */
+/* A máscara era 58%×74% da faixa — um borrão de ~440px de raio que caía em
+   cima do parágrafo e lia como mancha, não como luz. Cáustica de barra
+   horizontal é larga e RASA: mantém a largura, corta a altura. */
+.caustica{ position:absolute; left:0; top:34%; width:100%; height:66%; z-index:0;
+  pointer-events:none; mix-blend-mode:multiply; opacity:.62;
+  -webkit-mask-image:radial-gradient(46% 12% at var(--ax,50%) var(--ay,42%),#000 2%,transparent 72%);
+  mask-image:radial-gradient(46% 12% at var(--ax,50%) var(--ay,42%),#000 2%,transparent 72%) }
+
+/* ---------- grão: o papel tem matéria ---------- */
+.grao{ position:fixed; inset:0; z-index:50; pointer-events:none; opacity:.05; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") }
+
+/* ---------- depois da dobra ---------- */
+.resto{ position:relative; z-index:1; background:var(--papel); border-top:1px solid var(--fio);
+  padding:clamp(56px,12vh,140px) var(--gut) }
+.resto__in{ max-width:64ch; margin-inline:auto; display:grid; gap:16px; justify-items:start }
+.resto p{ color:var(--cinza); text-wrap:pretty }
+.resto .mono{ font-size:.6rem; color:var(--cinza) }
+.resto b{ color:var(--tinta); font-weight:600 }
+
+/* ---------- 900px: a coluna solta o terço esquerdo ---------- */
+@media (max-width:900px){
+  .palco{ grid-template-columns:minmax(0,1fr); grid-template-rows:auto;
+    align-content:center; row-gap:clamp(30px,6vh,58px) }
+  .col,.acao,.provas{ grid-column:1; grid-row:auto; align-self:auto }
+  .col{ padding-right:0 }
+  .topo__nav{ display:none }
+}
+
+/* ---------- 620px: o eixo de LARGURA em vez de encolher ---------- */
+@media (max-width:620px){
+  :root{
+    --fs:clamp(2.4rem,12.2vw,3.7rem);
+    --zx:1.062; --zy:1.086; --dz:-2px;   /* a barra é curta: amplia mais */
+  }
+  .h{ font-variation-settings:"wght" 400,"wdth" 84; letter-spacing:-.028em }
+  .l__p{ animation-name:refrataP }
+  @keyframes refrataP{
+    from{ opacity:0; transform:translateY(6px) scale(.9416,.9208) }
+    to  { opacity:1; transform:none }
+  }
+  .l__f--t{ --oy:-.6px; --os:1.003 }
+  .l__f--i{ --oy:.04px; --os:1.002 }
+  .l__f--a{ --oy:.65px; --os:.998 }
+  .coord__c{ font-size:9.5px; letter-spacing:.15em; padding:9px 13px; white-space:normal }
+  .apoio{ font-size:1rem }
+  .provas{ display:grid; grid-template-columns:1fr 1fr; gap:14px 20px }
+  .botao{ padding:16px 26px; font-size:.92rem }
+  .caustica{ top:40%; height:60% }
+}
+/* só telas realmente estreitas: 375px continua no corpo cheio */
+@media (max-width:340px){
+  :root{ --fs:clamp(2.05rem,11vw,3.7rem) }
+}
+
+/* ---------- movimento reduzido -----------------------------------------
+   Não zeramos tudo: a barra nasce no repouso, a cáustica desenha um quadro
+   e para, e a resposta ao ponteiro segue viva com um terço da amplitude.
+   Nada — nada — pode ficar invisível aqui.                                */
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto }
+  *,*::before,*::after{
+    animation-duration:.001ms !important; animation-delay:0ms !important;
+    animation-iteration-count:1 !important; transition-duration:.001ms !important;
+  }
+  .l--1,.l--3,.l__p,.coord,.apoio,.acao,.provas{ opacity:1 !important; transform:none !important }
+  .lente__pouso{ transform:none !important }
+  .lente__contato i{ opacity:1 !important }
+  /* .l__f e .l--vidro ficam de fora de propósito:
+     a franja e a ampliação SÃO o estado final, não um efeito de entrada. */
+}
+</style>
+</head>
+<body>
+
+<a class="pula" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="topo">
+  <a class="topo__volta mono" href="../">← aberturas</a>
+  <nav class="topo__nav" aria-label="Principal">
+    <a href="/produtos-e-solucoes/">Soluções</a>
+    <a href="/tabela-de-precos/">Preços</a>
+    <a href="/sobre-a-omid/">A OMID</a>
+  </nav>
+  <span class="topo__pt mono" aria-label="Idioma: português">PT</span>
+</header>
+
+<main id="conteudo" tabindex="-1">
+
+  <section class="dobra">
+    <canvas class="caustica" aria-hidden="true"></canvas>
+
+    <div class="palco">
+
+      <div class="col">
+        <!-- A LENTE. aria-hidden: é objeto, não conteúdo. -->
+        <div class="lente" aria-hidden="true">
+          <div class="lente__pouso">
+            <span class="lente__s"></span>
+            <div class="lente__vidro"></div>
+            <span class="lente__contato"><i></i></span>
+          </div>
+        </div>
+
+        <h1 class="h">
+          <span class="l l--1">Nossa nuvem</span><span class="l l--vidro"><span class="l__p"><span class="l__t">tem endereço.</span><i class="l__f l__f--t" aria-hidden="true">tem endereço.</i><i class="l__f l__f--i" aria-hidden="true">tem endereço.</i><i class="l__f l__f--a" aria-hidden="true">tem endereço.</i></span></span><span class="l l--3">Barueri, São Paulo.</span>
+        </h1>
+
+        <p class="coord"><span class="coord__c">23°30′S 46°51′W · Barueri/SP · Tier III · dois DC próprios</span></p>
+
+        <p class="apoio">Nuvem pública soberana com dois data centers Tier&nbsp;III que nós mesmos construímos e operamos. Contrato em reais, custo fixo e um NOC 24×7 que atende em português.</p>
+
+        <div class="lente__pega" aria-hidden="true"></div>
+      </div>
+
+      <div class="acao">
+        <a class="botao" href="/#simular">Simular preço do ambiente <i>→</i></a>
+        <a class="link" href="/sobre-a-omid/">Conhecer a infraestrutura <i>→</i></a>
+      </div>
+
+      <ul class="provas">
+        <li><b>500+</b><span>empresas atendidas</span></li>
+        <li><b>100%</b><span>uptime desde 2020</span></li>
+        <li><b>2</b><span>data centers Tier III</span></li>
+        <li><b>40%</b><span>de economia</span></li>
+      </ul>
+
+    </div>
+  </section>
+
+  <section class="resto">
+    <div class="resto__in">
+      <p class="mono">Fim da abertura</p>
+      <p>Daqui para baixo a página continua <b>no desenho atual do site</b> — produtos, tabela de preços, o simulador e o rodapé seguem exatamente como estão hoje. O que está em teste aqui é só a primeira dobra.</p>
+      <p><a class="link" href="/">Ver o site atual <i>→</i></a></p>
+    </div>
+  </section>
+
+</main>
+
+<div class="grao" aria-hidden="true"></div>
+
+<script>
+/* =========================================================================
+   O JS não pinta nada: escreve sete variáveis CSS e desenha a cáustica.
+   Se ele não rodar, a dobra continua inteira — papel, manchete gigante, a
+   barra de vidro parada e a linha já ampliada. Nada some.
+   ========================================================================= */
+(function(){
+  "use strict";
+  var doc   = document;
+  var lente = doc.querySelector('.lente');
+  var col   = doc.querySelector('.col');
+  var linha = doc.querySelector('.l--vidro');
+  var dobra = doc.querySelector('.dobra');
+  var pega  = doc.querySelector('.lente__pega');
+  var coord = doc.querySelector('.coord__c');
+  var cv    = doc.querySelector('.caustica');
+  if(!lente || !col || !dobra) return;
+
+  var mReduz = matchMedia('(prefers-reduced-motion: reduce)');
+  var mFino  = matchMedia('(hover: hover) and (pointer: fine)');
+  var reduz  = mReduz.matches;
+
+  var LIM = 52;                     /* ±52px de casa */
+  var amp = reduz ? 0.34 : 1;       /* movimento reduzido: um terço, não zero */
+  var ZX = 0.052, ZY = 0.072;
+
+  var alvo = 0, y = 0, tAlvo = 0, tilt = 0;
+  var arrasto = false, base = 0, toque0 = 0, idPtr = null, fugiu = false;
+  var repouso = 0;                  /* centro da barra, em coordenadas do documento */
+  var ocioso = null, rodando = false, t0 = 0;
+  /* duas causas independentes de sumiço: sair de cena e a aba ir para o fundo.
+     Uma variável só fazia a volta da aba ressuscitar o laço com a dobra
+     fora da tela. */
+  var naTela = true, naAba = true, aVista = true;
+  var mx = 0.5, my = 0.5;
+
+  /* ampliação de repouso: lida do CSS para não duplicar o número aqui
+     (ela muda no móvel — por isso relemos no resize também) */
+  function leZoom(){
+    var cs = getComputedStyle(doc.documentElement);
+    var a = parseFloat(cs.getPropertyValue('--zx')), b = parseFloat(cs.getPropertyValue('--zy'));
+    if(a > 1 && a < 1.2) ZX = a - 1;
+    if(b > 1 && b < 1.2) ZY = b - 1;
+  }
+  leZoom();
+
+  /* NÃO existe paralaxe de rolagem aqui, e é de propósito.
+     Havia: a barra atrasava 18% da rolagem, até ≈65px numa tela de 900 — mais
+     do que o curso inteiro do ponteiro. Rolando meia tela o vidro descia para
+     cima da LINHA 3 enquanto a linha 2 continuava ampliada, sem vidro nenhum
+     em cima dela: exatamente o texto-fantasma que este desenho jurou ter
+     matado. E a geometria não tem folga para menos: entre a aresta de cima e
+     o topo dos "d/t/ç" da linha 2 sobram 6px — qualquer deriva rasga as
+     letras. Vidro pousado no papel não atrasa em relação ao papel; anda com
+     ele. Só o ponteiro e o dedo movem a barra, porque isso é um ato. */
+
+  /* ---------- medição: uma só, e imune a transform ---------- */
+  var uAlvo = 0.55;
+  function medir(){
+    var r  = col.getBoundingClientRect();
+    var sy = window.pageYOffset || doc.documentElement.scrollTop || 0;
+    /* offsetTop/offsetHeight não enxergam transform — é exatamente por isso
+       que servem aqui: a barra está animada e a medida precisa ser do repouso */
+    repouso = r.top + sy + lente.offsetTop + lente.offsetHeight / 2;
+
+    if(cv && coord && cv.parentNode){
+      var rc = cv.getBoundingClientRect(), rq = coord.getBoundingClientRect();
+      if(rc.height > 2 && rc.width > 2){
+        var cy = (rq.top + rq.height / 2 - rc.top) / rc.height;
+        var cx = (rq.left + rq.width * 0.42 - rc.left) / rc.width;
+        cy = Math.max(0, Math.min(1, cy));
+        uAlvo = 1 - cy;                        /* GL conta o Y de baixo para cima */
+        cv.style.setProperty('--ax', (cx * 100).toFixed(1) + '%');
+        cv.style.setProperty('--ay', (cy * 100).toFixed(1) + '%');
+      }
+    }
+  }
+
+  /* =======================================================================
+     A CÁUSTICA — WebGL cru, um triângulo, um draw call.
+
+     Os filetes são LINHAS DE NÍVEL de um campo com domain warping
+     (exp(-(|n-nivel|/esp)^2)), e não um pow() sobre threshold: é isso que dá
+     fio de 3px em vez de mancha. Dois níveis do MESMO campo dão dois filetes
+     quase paralelos — uma luz só, separada em duas cores. Isso é dispersão,
+     não decoração.
+
+     Saída SUBTRATIVA: o shader só sabe multiplicar o papel por algo ≤ 1.
+     É matematicamente incapaz de virar mingau leitoso sobre fundo claro.
+     Teto de absorção: 26%.
+     ======================================================================= */
+  var gl = null, U = null, glOk = false;
+
+  var VS = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.0,1.0);}';
+
+  var FS = [
+    '#ifdef GL_FRAGMENT_PRECISION_HIGH',
+    'precision highp float;',
+    '#else',
+    'precision mediump float;',
+    '#endif',
+    'uniform vec2 uRes;uniform vec2 uM;',
+    'uniform float uT,uFoco,uForca,uAlvo;',
+    'float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453123);}',
+    'float ruido(vec2 p){',
+    '  vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.0-2.0*f);',
+    '  return mix(mix(hash(i),hash(i+vec2(1.0,0.0)),u.x),',
+    '             mix(hash(i+vec2(0.0,1.0)),hash(i+vec2(1.0,1.0)),u.x),u.y);}',
+    'float fbm(vec2 p){float s=0.0,a=0.55;',
+    '  for(int k=0;k<3;k++){s+=a*ruido(p);p=p*2.03+vec2(1.7,9.2);a*=0.5;}return s;}',
+    'void main(){',
+    '  vec2 uv=gl_FragCoord.xy/uRes;',
+    '  float ar=uRes.x/max(uRes.y,1.0);',
+    '  vec2 p=vec2(uv.x*ar*1.15,uv.y*2.6)+uM*0.25;',
+    '  float w1=fbm(p*0.62+vec2(uT*0.075,0.0));',
+    '  float w2=fbm(p*0.62+vec2(3.7,1.3)-uT*0.048);',
+    '  vec2 q=p+0.55*vec2(w1,w2);',
+    '  float campo=fbm(q)-0.48;',
+    /* n = rampa vertical + campo. A linha de luz é n=0: existe SEMPRE, em
+       toda coluna de pixels, e serpenteia. Focar = inclinar a rampa (uFoco),
+       o que prende o fio na altura das coordenadas e o afina ao mesmo tempo. */
+    '  float amp=mix(0.90,0.46,uFoco);',
+    '  float k=mix(0.75,3.00,uFoco);',
+    '  float n=(uv.y-uAlvo)*k+campo*amp;',
+    '  float esp=mix(0.155,0.024,uFoco);',
+    '  float sA=n/esp;        float dA=exp(-min(sA*sA,36.0));',
+    '  float sB=(n-0.085)/esp;float dB=exp(-min(sB*sB,36.0));',
+    /* envelope: mais forte na altura do alvo, e vivo ao longo do fio */
+    '  float ev=(uv.y-uAlvo)/0.26;',
+    '  float env=exp(-min(ev*ev,36.0))*(0.55+0.45*w2);',
+    '  dA*=env; dB*=env;',
+    '  vec3 TEAL=vec3(0.251,0.678,0.718);vec3 IND=vec3(0.329,0.369,0.627);',
+    '  vec3 AMB=vec3(0.973,0.698,0.255);vec3 MAG=vec3(0.906,0.208,0.529);',
+    '  float gx=clamp(uv.x*1.15-0.08,0.0,1.0);',
+    '  float TETO=0.26;',
+    /* o fio de cima é frio, o de baixo é quente: a mesma luz, separada */
+    '  vec3 t=mix(vec3(1.0),mix(TEAL,IND,gx),clamp(dB,0.0,1.0)*TETO*uForca);',
+    '  t*=mix(vec3(1.0),mix(AMB,MAG,gx),clamp(dA,0.0,1.0)*TETO*uForca);',
+    '  t+=(hash(gl_FragCoord.xy+uT)-0.5)*0.005;',   /* dither contra banding */
+    '  gl_FragColor=vec4(clamp(t,0.0,1.0),1.0);',
+    '}'
+  ].join('\n');
+
+  function tiraCanvas(){
+    glOk = false; gl = null;
+    if(cv && cv.parentNode) cv.parentNode.removeChild(cv);
+    cv = null;
+  }
+
+  function montaGL(){
+    if(!cv) return false;
+    try{
+      gl = cv.getContext('webgl', {alpha:false, antialias:false, depth:false,
+        stencil:false, preserveDrawingBuffer:false, powerPreference:'low-power'});
+    }catch(e){ gl = null; }
+    if(!gl){ tiraCanvas(); return false; }
+
+    function sh(tipo, src){
+      var o = gl.createShader(tipo);
+      gl.shaderSource(o, src); gl.compileShader(o);
+      return gl.getShaderParameter(o, gl.COMPILE_STATUS) ? o : null;
+    }
+    var vs = sh(gl.VERTEX_SHADER, VS), fs = sh(gl.FRAGMENT_SHADER, FS);
+    if(!vs || !fs){ tiraCanvas(); return false; }
+    var pr = gl.createProgram();
+    gl.attachShader(pr, vs); gl.attachShader(pr, fs); gl.linkProgram(pr);
+    if(!gl.getProgramParameter(pr, gl.LINK_STATUS)){ tiraCanvas(); return false; }
+    gl.useProgram(pr);
+
+    var buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(pr, 'p');
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+    U = {};
+    ['uRes','uT','uFoco','uForca','uAlvo','uM'].forEach(function(n){
+      U[n] = gl.getUniformLocation(pr, n);
+    });
+    gl.clearColor(1,1,1,1);
+    glOk = true;
+    return true;
+  }
+
+  var largura = 0, altura = 0;
+  function tamanho(){
+    if(!glOk) return;
+    var r = cv.getBoundingClientRect();
+    if(r.width < 2 || r.height < 2) return;
+    var teto = r.width < 720 ? 1.0 : 1.35;     /* Tier 1 no móvel, Tier 2 no resto */
+    var dpr  = Math.min(window.devicePixelRatio || 1, teto);
+    var w = Math.round(r.width * dpr), h = Math.round(r.height * dpr);
+    if(w === largura && h === altura) return;
+    largura = w; altura = h;
+    cv.width = w; cv.height = h;
+    gl.viewport(0, 0, w, h);
+  }
+
+  function desenha(t, foco, forca){
+    if(!glOk) return;
+    /* uRes zerado viraria divisão por zero no shader → NaN → quadro preto
+       num canvas alpha:false. Limpa em branco (multiply por branco = nada). */
+    if(largura < 2 || altura < 2){ gl.clear(gl.COLOR_BUFFER_BIT); return; }
+    gl.uniform2f(U.uRes, largura, altura);
+    gl.uniform2f(U.uM, (mx - 0.5) * 0.6, (0.5 - my) * 0.6);
+    gl.uniform1f(U.uT, t);
+    gl.uniform1f(U.uFoco, foco);
+    gl.uniform1f(U.uForca, forca);
+    gl.uniform1f(U.uAlvo, uAlvo);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  }
+
+  /* ---------- laço ---------- */
+  function parado(){
+    return !arrasto && Math.abs(alvo - y) < 0.06 && Math.abs(tAlvo - tilt) < 0.003;
+  }
+  function garante(){
+    if(rodando || !aVista) return;
+    rodando = true;
+    requestAnimationFrame(passo);
+  }
+  function passo(ts){
+    if(!t0) t0 = ts;
+    var dt = ts - t0;
+
+    /* voltar para casa é mais lento do que sair: sair de casa custa */
+    var k = arrasto ? 0.5 : (alvo === 0 ? 0.045 : 0.085);
+    y    += (alvo - y) * k;
+    tilt += (tAlvo - tilt) * 0.06;
+
+    var sy  = window.pageYOffset || doc.documentElement.scrollTop || 0;
+    var vh  = window.innerHeight || 800;
+    /* fora = o quanto a barra saiu de casa. É a única grandeza: ela levanta a
+       sombra, derruba a ampliação e apaga a franja pelo mesmo número, porque
+       são a mesma coisa acontecendo — o vidro está deixando a linha. */
+    var fora  = Math.min(Math.abs(y) / LIM, 1);
+    var forca = Math.max(0, 1 - sy / (vh * 0.85));
+
+    lente.style.setProperty('--dy',   y.toFixed(2));
+    lente.style.setProperty('--tilt', tilt.toFixed(3));
+    lente.style.setProperty('--lift', fora.toFixed(3));
+
+    if(linha){
+      var qz = 1 - fora * 0.62;                /* saiu de cima da linha: amplia menos */
+      linha.style.setProperty('--zx', (1 + ZX * qz).toFixed(4));
+      linha.style.setProperty('--zy', (1 + ZY * qz).toFixed(4));
+      linha.style.setProperty('--dz', (-3 * (1 - fora * 0.5)).toFixed(2) + 'px');
+      linha.style.setProperty('--fr', (1 - fora * 0.55).toFixed(3));
+    }
+
+    if(glOk && !reduz){
+      /* foco: de 600 a 1500ms; e desfoca quando a lente sai de casa */
+      var f = Math.max(0, Math.min(1, (dt - 600) / 900));
+      f = 1 - Math.pow(1 - f, 3);
+      desenha(dt * 0.001, f * (1 - fora * 0.65), forca);
+    }
+
+    /* dorme quando não há nada para ver: fora de cena, ou já rolou o
+       suficiente para a cáustica valer zero e a barra estar parada.
+       Antes o shader desenhava 60 vezes por segundo até a bateria acabar. */
+    if(!aVista || ((reduz || forca <= 0) && parado())){ rodando = false; return; }
+    requestAnimationFrame(passo);
+  }
+
+  /* ---------- ponteiro fino: a barra segue o Y ---------- */
+  function dorme(){ alvo = 0; tAlvo = 0; garante(); }
+
+  if(mFino.matches){
+    dobra.addEventListener('pointermove', function(e){
+      mx = e.clientX / (window.innerWidth  || 1);
+      my = e.clientY / (window.innerHeight || 1);
+      if(arrasto) return;
+      var sy = window.pageYOffset || doc.documentElement.scrollTop || 0;
+      var d  = e.clientY - (repouso - sy);
+      alvo   = Math.max(-LIM, Math.min(LIM, d)) * amp;
+      tAlvo  = (mx - 0.5) * 0.7 * amp;
+      if(ocioso) clearTimeout(ocioso);
+      ocioso = setTimeout(dorme, 900);          /* parou 900ms: volta para casa */
+      garante();
+    }, {passive:true});
+    dobra.addEventListener('pointerleave', function(){
+      if(ocioso) clearTimeout(ocioso);
+      dorme();
+    });
+  }
+
+  /* ---------- dedo: você puxa o vidro sobre a sua própria frase ---------- */
+  function solta(e){
+    if(!arrasto) return;
+    arrasto = false;
+    try{ if(idPtr !== null) pega.releasePointerCapture(idPtr); }catch(_){}
+    idPtr = null;
+    /* válvula de escape: se o dedo passou do curso da barra, a pessoa queria
+       rolar a página. A pega some para o gesto seguinte passar. */
+    if(fugiu){
+      fugiu = false;
+      pega.style.pointerEvents = 'none';
+      setTimeout(function(){ pega.style.pointerEvents = ''; }, 320);
+    }
+    if(ocioso) clearTimeout(ocioso);
+    ocioso = setTimeout(dorme, 160);
+  }
+  if(pega){
+    pega.addEventListener('pointerdown', function(e){
+      arrasto = true; toque0 = e.clientY; base = y; idPtr = e.pointerId;
+      if(ocioso) clearTimeout(ocioso);
+      try{ pega.setPointerCapture(e.pointerId); }catch(_){}
+      garante();
+    });
+    pega.addEventListener('pointermove', function(e){
+      if(!arrasto) return;
+      var d = e.clientY - toque0;
+      /* ESCAPE = LIM + 12px. Passado o fim do curso, o vidro não anda mais:
+         qualquer coisa além disso é intenção de rolar. Estava em 118px —
+         o dedo arrastava mais de 2× o curso da barra sem nada acontecer e
+         a dobra comia a primeira rolagem de quem chegava no celular. */
+      if(Math.abs(d) > LIM + 12){ fugiu = true; solta(e); return; }
+      alvo  = Math.max(-LIM, Math.min(LIM, base + d)) * amp;
+      tAlvo = ((e.clientX / (window.innerWidth || 1)) - 0.5) * 0.7 * amp;
+      garante();
+    });
+    ['pointerup','pointercancel'].forEach(function(n){
+      pega.addEventListener(n, solta);
+    });
+  }
+
+  /* ---------- pausa fora de cena e em aba oculta ---------- */
+  function revisa(){
+    aVista = naTela && naAba;
+    if(aVista) garante();
+  }
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(ent){
+      naTela = ent[0].isIntersecting;
+      revisa();
+    }, {threshold:0}).observe(dobra);
+  }
+  doc.addEventListener('visibilitychange', function(){
+    naAba = !doc.hidden;
+    revisa();
+  });
+
+  var espera = null;
+  window.addEventListener('resize', function(){
+    if(espera) clearTimeout(espera);
+    espera = setTimeout(function(){
+      leZoom(); medir(); tamanho();
+      if(reduz && glOk) desenha(0, 1, 1);
+      garante();
+    }, 140);
+  }, {passive:true});
+  window.addEventListener('scroll', function(){ garante(); }, {passive:true});
+
+  /* ---------- partida: o primeiro quadro é SÍNCRONO ---------- */
+  medir();
+  if(montaGL()){
+    tamanho();
+    desenha(0, reduz ? 1 : 0, 1);      /* nunca um canvas em branco piscando */
+  }
+  if(!reduz) garante();
+
+  /* a fonte trocou: a caixa da linha mudou, remede tudo */
+  if(doc.fonts && doc.fonts.ready){
+    doc.fonts.ready.then(function(){
+      medir(); tamanho();
+      if(reduz && glOk) desenha(0, 1, 1);
+      garante();
+    })['catch'](function(){});
+  }
+})();
+</script>
+</body>
+</html>

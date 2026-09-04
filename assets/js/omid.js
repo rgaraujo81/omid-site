@@ -314,6 +314,22 @@
   }
 
   /* ---------- profundidade: o hero recua enquanto a página avança ---------- */
+  /* o cabeçalho veste a noite enquanto a primeira dobra está em cena */
+  var noiteLigada = false;
+  function topoNoite() {
+    var hero = $('.abertura--noite');
+    if (!hero) { raiz.classList.remove('topo-noite'); noiteLigada = false; return; }
+    function avalia() {
+      var r = hero.getBoundingClientRect();
+      raiz.classList.toggle('topo-noite', r.bottom > 64);
+    }
+    avalia();
+    if (noiteLigada) return;
+    noiteLigada = true;
+    addEventListener('scroll', avalia, { passive: true });
+    addEventListener('resize', avalia, { passive: true });
+  }
+
   var paralaxeOk = false;
   function paralaxe() {
     if (reduz || paralaxeOk) return;
@@ -411,11 +427,12 @@
     dobras(); reguaPreco(); trilho(); gaveta(); idioma(); mega();
     contar(); sanfona(); telas(); formularios(); relogio(); ano();
     /* a revelação e os gestos esperam a cortina subir */
+    topoNoite();
     portal(function () { revelar(); halo(); ima(); paralaxe(); });
 
     /* ganchos de re-inicialização: o miolo trocou (roteador da prévia) */
     window.__omidPagina = function () {
-      estilhar(); dobras(); reguaPreco(); contar(); sanfona();
+      estilhar(); topoNoite(); dobras(); reguaPreco(); contar(); sanfona();
       telas(); formularios(); relogio(); revelar(); ima(); paralaxe();
     };
     window.__omidChrome = function () { gaveta(); idioma(); mega(); trilho(); ano(); halo(); };

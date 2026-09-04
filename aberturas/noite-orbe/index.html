@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OMID · Modelo A — ORBE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,300..700&display=swap">
+<style>
+/* MODELO A — ORBE
+   Mistura: o globo luminoso ao centro e a coluna de ícones circulares
+   (Hanergy) + a palavra de destaque em âmbar (EOSAI). O globo é um
+   aramado desenhado em canvas, com o Brasil aceso e Barueri marcada. */
+*,*::before,*::after{box-sizing:border-box}*{margin:0}
+:root{
+  --noite:#061726; --fundo2:#0B2438; --creme:#EAF2F6; --meia:#9FB6C4; --tenue:#6E8798;
+  --t:#40ADB7; --a:#2D93BB; --i:#545EA0; --am:#F8B241;
+  --gut:clamp(20px,4.4vw,72px); --ease:cubic-bezier(.22,1,.36,1);
+}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--noite);color:var(--creme);font-family:Archivo,system-ui,sans-serif;
+  font-weight:350;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+.mono{font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--tenue);font-weight:400}
+
+.topo{position:fixed;inset:0 0 auto;z-index:40;display:flex;align-items:center;
+  justify-content:space-between;gap:20px;padding:26px var(--gut)}
+.topo nav{display:flex;gap:clamp(15px,2.1vw,30px)}
+.topo nav a{font-size:.84rem;color:var(--meia);transition:color .35s}
+.topo nav a:hover{color:var(--creme)}
+@media(max-width:860px){.topo nav a:nth-child(n+3){display:none}}
+
+.cena{position:relative;min-height:100svh;display:grid;place-items:center;overflow:clip;isolation:isolate}
+/* céu: profundidade em camadas, como no Hanergy */
+.ceu{position:absolute;inset:0;z-index:0;background:
+  radial-gradient(58% 46% at 50% 44%,rgba(64,173,183,.22),transparent 68%),
+  radial-gradient(90% 70% at 50% 100%,rgba(45,147,187,.16),transparent 72%),
+  radial-gradient(120% 100% at 50% 40%,#0D2C44 0%,#081D2E 46%,#04101B 100%)}
+.estrelas{position:absolute;inset:0;z-index:0;opacity:.5;
+  background-image:radial-gradient(1px 1px at 20% 30%,rgba(255,255,255,.7),transparent),
+    radial-gradient(1px 1px at 70% 18%,rgba(255,255,255,.5),transparent),
+    radial-gradient(1px 1px at 84% 62%,rgba(255,255,255,.6),transparent),
+    radial-gradient(1px 1px at 32% 76%,rgba(255,255,255,.45),transparent),
+    radial-gradient(1px 1px at 56% 88%,rgba(255,255,255,.4),transparent),
+    radial-gradient(1px 1px at 12% 58%,rgba(255,255,255,.5),transparent);
+  animation:cintila 7s ease-in-out infinite alternate}
+@keyframes cintila{from{opacity:.35}to{opacity:.65}}
+
+.orbe{position:absolute;left:50%;top:47%;translate:-50% -50%;z-index:1;
+  width:min(680px,86vw);aspect-ratio:1;pointer-events:none;
+  animation:entra 2s var(--ease) both}
+@keyframes entra{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+.orbe canvas{width:100%;height:100%;display:block}
+/* atmosfera: o halo que faz o globo parecer ter ar em volta */
+.orbe::before{content:"";position:absolute;inset:8%;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(64,173,183,.20),rgba(45,147,187,.10) 62%,transparent 78%);
+  filter:blur(28px);animation:respira 11s ease-in-out infinite alternate}
+@keyframes respira{from{opacity:.7;transform:scale(.97)}to{opacity:1;transform:scale(1.05)}}
+
+.veu{position:absolute;inset:0;z-index:2;pointer-events:none;background:
+  linear-gradient(90deg,rgba(4,16,27,.88) 0%,rgba(4,16,27,.5) 32%,transparent 56%),
+  linear-gradient(180deg,rgba(4,16,27,.6) 0%,transparent 22%,transparent 74%,rgba(4,16,27,.85) 100%)}
+@media(max-width:900px){.veu{background:
+  linear-gradient(180deg,rgba(4,16,27,.5) 0%,rgba(4,16,27,.2) 26%,rgba(4,16,27,.86) 62%,rgba(4,16,27,.95) 100%)}}
+
+.marca{position:relative;z-index:3;text-align:center;padding-top:14px;
+  animation:sobe 1.2s var(--ease) .2s both}
+.marca .mono{display:block}
+.marca i{display:block;width:34px;height:2px;background:var(--creme);margin:14px auto 0;opacity:.85}
+
+.in{position:relative;z-index:3;width:100%;max-width:1440px;margin-inline:auto;
+  padding:0 var(--gut);display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;
+  gap:32px;min-height:100svh}
+.txt{max-width:30rem}
+h1{font-weight:300;font-size:clamp(2.4rem,4.6vw,4.1rem);line-height:1.1;letter-spacing:-.02em;
+  animation:sobe 1.2s var(--ease) .45s both}
+h1 b{font-weight:500;color:var(--am)}
+.lead{margin-top:22px;max-width:36ch;color:var(--meia);font-size:.92rem;line-height:1.8;
+  animation:sobe 1.2s var(--ease) .6s both}
+.acao{margin-top:34px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;
+  animation:sobe 1.2s var(--ease) .74s both}
+.btn{display:inline-flex;align-items:center;gap:12px;padding:14px 28px;border-radius:999px;
+  border:1px solid rgba(234,242,246,.35);color:var(--creme);font-size:.86rem;letter-spacing:.02em;
+  transition:border-color .4s,background .4s,transform .5s var(--ease)}
+.btn:hover{border-color:var(--am);background:rgba(248,178,65,.1);transform:translateY(-2px)}
+.btn--cheio{border-color:transparent;background:linear-gradient(96deg,var(--t),var(--a) 30%,var(--i) 62%,var(--am));
+  color:#04101B;font-weight:500}
+.btn--cheio:hover{background:linear-gradient(96deg,var(--t),var(--a) 30%,var(--i) 62%,var(--am))}
+
+/* coluna de ícones circulares, à direita — o gesto do Hanergy */
+.pilares{display:grid;gap:clamp(14px,2.4vh,26px);justify-items:center;
+  animation:sobe 1.2s var(--ease) .9s both}
+.pilares a{display:grid;place-items:center;width:clamp(50px,4.4vw,62px);aspect-ratio:1;border-radius:50%;
+  border:1px solid rgba(234,242,246,.3);color:var(--meia);position:relative;
+  transition:border-color .4s,color .4s,transform .5s var(--ease)}
+.pilares a:hover{border-color:var(--am);color:var(--am);transform:translateY(-2px)}
+.pilares svg{width:44%;height:44%;fill:none;stroke:currentColor;stroke-width:1.4}
+.pilares b{position:absolute;right:calc(100% + 14px);white-space:nowrap;font-size:.68rem;
+  letter-spacing:.14em;text-transform:uppercase;font-weight:400;color:var(--tenue);
+  opacity:0;transform:translateX(6px);transition:opacity .4s,transform .4s}
+.pilares a:hover b{opacity:1;transform:none}
+@media(max-width:900px){
+  .in{grid-template-columns:1fr;align-content:center;padding-top:120px;padding-bottom:120px}
+  .pilares{grid-auto-flow:column;justify-content:start;gap:14px}
+  .pilares b{display:none}
+  .txt{max-width:none}
+}
+
+.rodape{position:absolute;left:var(--gut);right:var(--gut);bottom:clamp(20px,3.4vh,32px);z-index:3;
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 22px;align-items:center;
+  animation:sobe 1.2s var(--ease) 1.05s both}
+.rodape span{display:inline-flex;align-items:baseline;gap:8px;font-size:.7rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--tenue)}
+.rodape b{font-weight:500;font-size:.92rem;letter-spacing:0;color:var(--creme)}
+.rolar{display:grid;justify-items:center;gap:8px}
+.rolar i{display:block;width:1px;height:32px;background:rgba(234,242,246,.2);position:relative;overflow:hidden}
+.rolar i::after{content:"";position:absolute;left:0;top:-12px;width:1px;height:12px;background:var(--am);
+  animation:desce 2.8s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes desce{0%{top:-12px}70%,100%{top:32px}}
+@media(max-width:700px){.rolar{display:none}}
+
+@keyframes sobe{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.resto{position:relative;z-index:3;background:#04101B;border-top:1px solid rgba(234,242,246,.1);
+  padding:clamp(56px,12vh,140px) var(--gut);display:grid;gap:12px;justify-items:center;text-align:center}
+.resto p{max-width:36ch;color:var(--tenue)}
+</style>
+</head>
+<body>
+<header class="topo">
+  <a href="../" class="mono">← aberturas</a>
+  <nav><a href="#">Soluções</a><a href="#">Para quem é</a><a href="#">Preços</a><a href="#">A OMID</a></nav>
+  <span class="mono">PT</span>
+</header>
+
+<section class="cena">
+  <div class="ceu" aria-hidden="true"></div>
+  <div class="estrelas" aria-hidden="true"></div>
+  <div class="orbe" aria-hidden="true"><canvas></canvas></div>
+  <div class="veu" aria-hidden="true"></div>
+
+  <div class="in">
+    <div class="txt">
+      <p class="mono" style="margin-bottom:18px">Cloud soberana · operada no Brasil</p>
+      <h1>Sua cloud do<br>futuro, <b>hoje</b>.</h1>
+      <p class="lead">Cloud pública soberana, verticalmente integrada e operada 100% no Brasil. Contrato em reais, custo previsível e até 40% de economia na sua fatura mensal.</p>
+      <div class="acao">
+        <a class="btn btn--cheio" href="#">Simular preço do ambiente</a>
+        <a class="btn" href="#">Falar com um especialista</a>
+      </div>
+    </div>
+
+    <nav class="pilares" aria-label="Pilares">
+      <a href="#"><b>100% brasileira</b><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg></a>
+      <a href="#"><b>Data center Tier III próprio</b><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="6" rx="1"/><rect x="3" y="14" width="18" height="6" rx="1"/><path d="M7 7h.01M7 17h.01"/></svg></a>
+      <a href="#"><b>Energia 100% renovável</b><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg></a>
+      <a href="#"><b>NOC 24×7×365</b><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></a>
+    </nav>
+  </div>
+
+  <div class="rodape">
+    <span><b>500+</b>empresas</span>
+    <span><b>100%</b>uptime desde 2020</span>
+    <div class="rolar"><span class="mono">rolar</span><i></i></div>
+    <span><b>2</b>data centers Tier III</span>
+    <span><b>40%</b>de economia</span>
+  </div>
+</section>
+
+<section class="resto">
+  <p class="mono">A seguir</p>
+  <p>O restante da página continua no desenho atual — aqui só a abertura muda.</p>
+</section>
+
+<script>
+/* O ORBE — globo aramado desenhado em canvas.
+   Meridianos e paralelos projetados de verdade em 3D, com o hemisfério de
+   trás mais fraco que o da frente (é isso que dá volume). O Brasil acende e
+   Barueri fica marcada. Nada aqui é telemetria: é desenho.
+   O texto não depende disto — se o canvas falhar, a dobra fica inteira. */
+(function () {
+  var cv = document.querySelector('.orbe canvas');
+  if (!cv || !cv.getContext) return;
+  var ctx = cv.getContext('2d');
+  if (!ctx) return;
+
+  var reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var R = 0, w = 0, h = 0, dpr = 1, rot = 0, raf = 0, rodando = false, t0 = 0;
+  var inclina = -0.38;                       /* eixo inclinado: nunca de frente */
+
+  function dim() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var b = cv.getBoundingClientRect();
+    w = Math.max(1, Math.round(b.width)); h = Math.max(1, Math.round(b.height));
+    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    R = Math.min(w, h) * 0.38;
+  }
+
+  /* lat/lon em graus -> ponto na tela + profundidade */
+  function proj(lat, lon) {
+    var la = lat * Math.PI / 180, lo = (lon + rot) * Math.PI / 180;
+    var x = Math.cos(la) * Math.sin(lo);
+    var y = Math.sin(la);
+    var z = Math.cos(la) * Math.cos(lo);
+    var y2 = y * Math.cos(inclina) - z * Math.sin(inclina);
+    var z2 = y * Math.sin(inclina) + z * Math.cos(inclina);
+    return { x: w / 2 + x * R, y: h / 2 - y2 * R, z: z2 };
+  }
+
+  function linha(pts, cor, largura) {
+    var i, p, a, comecou = false;
+    ctx.lineWidth = largura;
+    for (i = 0; i < pts.length; i++) {
+      p = pts[i];
+      a = p.z > 0 ? 0.20 + p.z * 0.62 : 0.07 + (p.z + 1) * 0.09;   /* frente forte, fundo fraco */
+      if (!comecou) { ctx.beginPath(); ctx.moveTo(p.x, p.y); comecou = true; }
+      else {
+        ctx.lineTo(p.x, p.y);
+        ctx.strokeStyle = cor.replace('ALFA', a.toFixed(3));
+        ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(p.x, p.y);
+      }
+    }
+  }
+
+  function desenha() {
+    ctx.clearRect(0, 0, w, h);
+
+    /* limbo: o anel de atmosfera na borda do globo */
+    var g = ctx.createRadialGradient(w / 2, h / 2, R * 0.86, w / 2, h / 2, R * 1.16);
+    g.addColorStop(0, 'rgba(64,173,183,0)');
+    g.addColorStop(.55, 'rgba(64,173,183,.20)');
+    g.addColorStop(1, 'rgba(64,173,183,0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(w / 2, h / 2, R * 1.16, 0, 6.284); ctx.fill();
+
+    /* corpo: leve, só para o aramado ter sobre o que assentar */
+    var gb = ctx.createRadialGradient(w / 2 - R * .3, h / 2 - R * .35, R * .1, w / 2, h / 2, R);
+    gb.addColorStop(0, 'rgba(20,68,96,.55)');
+    gb.addColorStop(1, 'rgba(6,26,42,.75)');
+    ctx.fillStyle = gb; ctx.beginPath(); ctx.arc(w / 2, h / 2, R, 0, 6.284); ctx.fill();
+
+    var lat, lon, pts;
+    for (lat = -60; lat <= 60; lat += 20) {                 /* paralelos */
+      pts = [];
+      for (lon = -180; lon <= 180; lon += 4) pts.push(proj(lat, lon));
+      linha(pts, 'rgba(120,200,214,ALFA)', 0.8);
+    }
+    for (lon = 0; lon < 180; lon += 15) {                    /* meridianos */
+      pts = [];
+      for (lat = -90; lat <= 90; lat += 4) pts.push(proj(lat, lon));
+      linha(pts, 'rgba(96,176,200,ALFA)', 0.7);
+    }
+
+    /* Brasil aceso: uma faixa de pontos no lugar aproximado do território */
+    var br = [[-5,-60],[-10,-55],[-15,-50],[-20,-45],[-23.5,-46.8],[-28,-52],[-3,-52],[-8,-38],[-13,-42],[-18,-45],[-2,-45],[-16,-56],[-22,-43]];
+    for (var i = 0; i < br.length; i++) {
+      var p = proj(br[i][0], br[i][1]);
+      if (p.z <= 0.02) continue;
+      ctx.globalAlpha = 0.25 + p.z * 0.6;
+      ctx.fillStyle = '#7FD3DC';
+      ctx.beginPath(); ctx.arc(p.x, p.y, 1.6, 0, 6.284); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    /* Barueri */
+    var b = proj(-23.5, -46.85);
+    if (b.z > 0.02) {
+      var pulso = 0.5 + 0.5 * Math.sin(rot * 0.06);
+      ctx.globalAlpha = 0.35 + b.z * 0.5;
+      ctx.strokeStyle = '#F8B241'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(b.x, b.y, 5 + pulso * 7, 0, 6.284); ctx.stroke();
+      ctx.globalAlpha = 0.6 + b.z * 0.4;
+      ctx.fillStyle = '#F8B241';
+      ctx.beginPath(); ctx.arc(b.x, b.y, 2.6, 0, 6.284); ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  function quadro(ts) {
+    if (!rodando) return;
+    if (!t0) t0 = ts;
+    var dt = Math.min(2.5, (ts - t0) / 16.67 || 1); t0 = ts;
+    rot += 0.075 * dt;
+    desenha();
+    raf = requestAnimationFrame(quadro);
+  }
+  function acorda() { if (rodando || reduz) return; rodando = true; t0 = 0; raf = requestAnimationFrame(quadro); }
+  function dorme() { rodando = false; if (raf) cancelAnimationFrame(raf); raf = 0; }
+
+  dim(); desenha();                                   /* 1º quadro síncrono */
+  if (!reduz) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { e.isIntersecting ? acorda() : dorme(); });
+    }, { threshold: .01 });
+    io.observe(cv);
+    document.addEventListener('visibilitychange', function () { document.hidden ? dorme() : acorda(); });
+  }
+  var deb;
+  addEventListener('resize', function () {
+    clearTimeout(deb); deb = setTimeout(function () { dim(); desenha(); }, 160);
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>

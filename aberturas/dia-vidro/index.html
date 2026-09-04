@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OMID · Modelo H — VIDRO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,200..700&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+/* MODELO H — VIDRO
+   O mais charmoso: papel com lavagem de cor, e o produto flutuando como uma
+   peça de vidro — a fatura já montada, com número de verdade. Vende no
+   primeiro segundo sem parecer anúncio. */
+*,*::before,*::after{box-sizing:border-box}*{margin:0}
+:root{--papel:#F6F4EF;--tinta:#101014;--meia:#4C4A52;--cinza:#6E6B74;--tenue:#9A96A0;
+  --fio:rgba(16,16,20,.12);
+  --t:#40ADB7;--a:#2D93BB;--i:#545EA0;--r:#7F2483;--m:#E73587;--am:#F8B241;
+  --gut:clamp(20px,4.4vw,72px);--ease:cubic-bezier(.22,1,.36,1)}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--papel);color:var(--tinta);font-family:Archivo,system-ui,sans-serif;
+  font-weight:350;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+.mono{font-family:"IBM Plex Mono",monospace;font-size:.6rem;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--tenue);font-weight:400}
+
+.topo{position:fixed;inset:0 0 auto;z-index:30;display:flex;align-items:center;
+  justify-content:space-between;gap:20px;padding:26px var(--gut)}
+.topo nav{display:flex;gap:clamp(15px,2.1vw,30px)}
+.topo nav a{font-size:.84rem;color:var(--meia);transition:color .35s}
+.topo nav a:hover{color:var(--tinta)}
+@media(max-width:860px){.topo nav a:nth-child(n+3){display:none}}
+
+.cena{position:relative;min-height:100svh;display:grid;align-content:center;
+  padding:126px var(--gut) 92px;overflow:clip;isolation:isolate}
+/* lavagem de cor: baixa saturação, senão o papel some */
+.lav{position:absolute;inset:-14%;z-index:0;pointer-events:none;filter:blur(80px);opacity:.4}
+.lav i{position:absolute;border-radius:50%;mix-blend-mode:multiply;
+  animation:vaga var(--d) cubic-bezier(.55,0,.45,1) infinite alternate}
+.lav i:nth-child(1){left:44%;top:-4%;width:44%;height:64%;background:var(--t);--d:26s}
+.lav i:nth-child(2){left:60%;top:26%;width:40%;height:60%;background:var(--i);--d:31s;animation-direction:alternate-reverse}
+.lav i:nth-child(3){left:52%;top:48%;width:34%;height:46%;background:var(--am);--d:34s}
+@keyframes vaga{from{transform:translate3d(-5%,-4%,0) scale(1)}to{transform:translate3d(6%,5%,0) scale(1.18)}}
+
+.grade{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:repeating-linear-gradient(to right,rgba(16,16,20,.035) 0 1px,transparent 1px 92px),
+    repeating-linear-gradient(to bottom,rgba(16,16,20,.035) 0 1px,transparent 1px 92px);
+  -webkit-mask-image:radial-gradient(110% 90% at 60% 46%,#000 24%,transparent 84%);
+  mask-image:radial-gradient(110% 90% at 60% 46%,#000 24%,transparent 84%)}
+
+.in{position:relative;z-index:2;width:100%;max-width:1320px;margin-inline:auto;
+  display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:clamp(28px,5vw,72px);
+  align-items:center}
+.txt{max-width:34rem}
+h1{font-weight:200;font-size:clamp(2.4rem,5.2vw,4.7rem);line-height:1.02;letter-spacing:-.042em;margin-top:22px}
+h1 b{font-weight:500}
+h1 span{display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
+h1 i{display:block;font-style:normal;transform:translateY(110%);animation:linha 1.2s var(--ease) both}
+h1 span:nth-child(1) i{animation-delay:.28s}
+h1 span:nth-child(2) i{animation-delay:.4s}
+@keyframes linha{to{transform:none}}
+.mono{animation:sobe 1.1s var(--ease) .12s both}
+.lead{margin-top:22px;max-width:40ch;color:var(--meia);font-size:clamp(.94rem,1.05vw,1.02rem);
+  animation:sobe 1.2s var(--ease) .74s both}
+.acao{margin-top:32px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;
+  animation:sobe 1.2s var(--ease) .86s both}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 30px;border-radius:999px;
+  background:var(--tinta);color:var(--papel);font-weight:500;font-size:.92rem;
+  box-shadow:0 16px 36px -20px rgba(16,16,20,.9);transition:transform .55s var(--ease),box-shadow .55s var(--ease)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 26px 52px -20px rgba(16,16,20,.7)}
+.btn2{display:inline-flex;align-items:center;gap:9px;font-size:.92rem;color:var(--meia);
+  padding-bottom:5px;border-bottom:1px solid var(--fio);transition:color .35s,border-color .35s}
+.btn2:hover{color:var(--tinta);border-color:var(--tinta)}
+@keyframes sobe{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* a peça de vidro */
+.vidro{position:relative;border-radius:26px;padding:clamp(22px,2.6vw,32px);
+  background:linear-gradient(150deg,rgba(255,255,255,.78),rgba(255,255,255,.42));
+  border:1px solid rgba(255,255,255,.75);
+  box-shadow:0 40px 90px -46px rgba(16,16,20,.5),0 2px 0 rgba(255,255,255,.9) inset;
+  -webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);
+  animation:entraVidro 1.5s var(--ease) .5s both}
+@keyframes entraVidro{from{opacity:0;transform:translateY(26px) scale(.985)}to{opacity:1;transform:none}}
+.vidro__t{display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding-bottom:14px;border-bottom:1px solid rgba(16,16,20,.09)}
+.vidro__l{display:grid;gap:0;margin-top:4px}
+.vidro__l div{display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+  padding:11px 0;border-bottom:1px solid rgba(16,16,20,.07)}
+.vidro__l span{font-size:.86rem;color:var(--cinza)}
+.vidro__l b{font-weight:500;font-size:.9rem;font-family:"IBM Plex Mono",monospace}
+.tot{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-top:18px}
+.tot em{font-style:normal;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--tenue);
+  font-family:"IBM Plex Mono",monospace}
+.tot strong{font-weight:300;font-size:clamp(2rem,3.4vw,2.9rem);letter-spacing:-.04em;line-height:1}
+.tot strong i{font-style:normal;font-size:.42em;font-weight:400;color:var(--cinza);margin-left:4px}
+.faixa{height:3px;border-radius:999px;margin-top:18px;
+  background:linear-gradient(96deg,var(--t),var(--a) 26%,var(--i) 54%,var(--m) 84%,var(--am));
+  background-size:130% 100%;animation:desliza 15s ease-in-out infinite alternate}
+@keyframes desliza{to{background-position:100% 50%}}
+.nota{margin-top:12px;font-size:.72rem;color:var(--tenue);line-height:1.5}
+
+@media(max-width:940px){
+  .in{grid-template-columns:1fr;gap:34px}
+  .txt{max-width:none}
+}
+
+.provas{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:8px clamp(18px,3vw,44px);
+  max-width:1320px;margin:clamp(30px,5vh,52px) auto 0;animation:sobe 1.2s var(--ease) 1s both}
+.provas span{display:inline-flex;align-items:baseline;gap:8px;font-size:.66rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--tenue);font-family:"IBM Plex Mono",monospace}
+.provas b{font-weight:500;font-size:.9rem;letter-spacing:0;color:var(--tinta);font-family:Archivo,sans-serif}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}h1 i{transform:none}}
+.resto{position:relative;z-index:2;background:#F1EEE8;border-top:1px solid var(--fio);
+  padding:clamp(56px,12vh,140px) var(--gut);display:grid;gap:12px;justify-items:center;text-align:center}
+.resto p{max-width:36ch;color:var(--cinza)}
+</style>
+</head>
+<body>
+<header class="topo">
+  <a href="../" class="mono">← aberturas</a>
+  <nav><a href="#">Soluções</a><a href="#">Para quem é</a><a href="#">Preços</a><a href="#">A OMID</a></nav>
+  <span class="mono">PT</span>
+</header>
+
+<section class="cena">
+  <div class="lav" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="grade" aria-hidden="true"></div>
+
+  <div class="in">
+    <div class="txt">
+      <p class="mono">Cloud soberana · operada no Brasil</p>
+      <h1><span><i>Sua cloud do</i></span><span><i>futuro, <b>hoje</b>.</i></span></h1>
+      <p class="lead">Cloud pública soberana, verticalmente integrada e operada 100% no Brasil. Contrato em reais, custo previsível e até 40% de economia na sua fatura mensal.</p>
+      <div class="acao">
+        <a class="btn" href="#">Simular preço do ambiente →</a>
+        <a class="btn2" href="#">Falar com um especialista</a>
+      </div>
+    </div>
+
+    <div class="vidro">
+      <div class="vidro__t">
+        <span class="mono">Simulação · exemplo</span>
+        <span class="mono">Barueri/SP</span>
+      </div>
+      <div class="vidro__l">
+        <div><span>8 vCPU</span><b>R$ 259,36</b></div>
+        <div><span>32 GiB de memória</span><b>R$ 371,20</b></div>
+        <div><span>500 GB SSD</span><b>R$ 360,00</b></div>
+        <div><span>Backup e egress</span><b>R$ 61,44</b></div>
+      </div>
+      <div class="tot">
+        <em>Total mensal</em>
+        <strong>R$ 1.052<i>/mês</i></strong>
+      </div>
+      <div class="faixa" aria-hidden="true"></div>
+      <p class="nota">Valores da tabela pública, em reais e fixos em contrato. O simulador na página calcula o seu ambiente item a item.</p>
+    </div>
+  </div>
+
+  <div class="provas">
+    <span><b>500+</b>empresas</span>
+    <span><b>100%</b>uptime desde 2020</span>
+    <span><b>2</b>data centers Tier III</span>
+    <span><b>40%</b>de economia</span>
+  </div>
+</section>
+
+<section class="resto">
+  <p class="mono">A seguir</p>
+  <p>O restante da página continua no desenho atual — aqui só a abertura muda.</p>
+</section>
+</body>
+</html>

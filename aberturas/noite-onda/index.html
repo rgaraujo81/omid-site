@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OMID · Modelo F — ONDA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,200..700&display=swap">
+<style>
+/* MODELO F — ONDA
+   Um relevo topográfico feito de linhas: 90 curvas horizontais deformadas
+   pelo mesmo campo, empilhadas. Onde elas se apertam, nasce um vulto; onde
+   se abrem, o fundo respira. A marca aparece como cor da luz, não como
+   objeto. Estiloso e quieto. */
+*,*::before,*::after{box-sizing:border-box}*{margin:0}
+:root{--noite:#05070D;--creme:#EAEEF5;--meia:#98A0B2;--tenue:#646B7D;
+  --t:#40ADB7;--a:#2D93BB;--i:#545EA0;--m:#E73587;--am:#F8B241;
+  --gut:clamp(20px,4.4vw,72px);--ease:cubic-bezier(.22,1,.36,1)}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--noite);color:var(--creme);font-family:Archivo,system-ui,sans-serif;
+  font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+.mono{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--tenue);font-weight:400}
+
+.topo{position:fixed;inset:0 0 auto;z-index:30;display:flex;align-items:center;
+  justify-content:space-between;gap:20px;padding:26px var(--gut)}
+.topo nav{display:flex;gap:clamp(15px,2.1vw,30px)}
+.topo nav a{font-size:.84rem;color:var(--meia);transition:color .35s}
+.topo nav a:hover{color:var(--creme)}
+@media(max-width:860px){.topo nav a:nth-child(n+3){display:none}}
+
+.cena{position:relative;min-height:100svh;display:grid;align-content:center;
+  padding:120px var(--gut) 100px;overflow:clip;isolation:isolate}
+.onda{position:absolute;inset:0;z-index:0;width:100%;height:100%;display:block}
+.brilho{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(62% 48% at 56% 52%,rgba(64,173,183,.26),transparent 72%)}
+/* véu só nas pontas: no miolo a onda precisa aparecer */
+.veu{position:absolute;inset:0;z-index:2;pointer-events:none;background:
+  linear-gradient(90deg,rgba(5,7,13,.86) 0%,rgba(5,7,13,.42) 34%,transparent 62%),
+  linear-gradient(180deg,rgba(5,7,13,.8) 0%,transparent 22%,transparent 74%,rgba(5,7,13,.9) 100%)}
+@media(max-width:900px){.veu{background:linear-gradient(180deg,rgba(5,7,13,.6) 0%,rgba(5,7,13,.25) 24%,rgba(5,7,13,.88) 68%,rgba(5,7,13,.95) 100%)}}
+
+.in{position:relative;z-index:3;max-width:52rem}
+h1{font-weight:200;font-size:clamp(2.5rem,6.6vw,5.8rem);line-height:1.0;letter-spacing:-.042em;margin-top:24px}
+h1 b{font-weight:500;color:var(--am)}
+h1 span{display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
+h1 i{display:block;font-style:normal;transform:translateY(110%);animation:linha 1.2s var(--ease) both}
+h1 span:nth-child(1) i{animation-delay:.3s}
+h1 span:nth-child(2) i{animation-delay:.42s}
+@keyframes linha{to{transform:none}}
+.mono{animation:sobe 1.1s var(--ease) .15s both}
+.lead{margin-top:24px;max-width:42ch;color:var(--meia);font-size:clamp(.94rem,1.08vw,1.04rem);
+  animation:sobe 1.2s var(--ease) .78s both}
+.acao{margin-top:34px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;
+  animation:sobe 1.2s var(--ease) .9s both}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 30px;border-radius:999px;color:#05070D;
+  font-weight:500;font-size:.92rem;
+  background:linear-gradient(96deg,var(--t),var(--a) 28%,var(--i) 58%,var(--m) 86%,var(--am));
+  background-size:130% 100%;animation:desliza 15s ease-in-out infinite alternate;
+  box-shadow:0 16px 40px -18px rgba(64,173,183,.8);transition:transform .55s var(--ease)}
+.btn:hover{transform:translateY(-2px)}
+@keyframes desliza{to{background-position:100% 50%}}
+.btn2{display:inline-flex;align-items:center;gap:9px;font-size:.92rem;color:var(--meia);
+  padding-bottom:5px;border-bottom:1px solid rgba(234,238,245,.22);transition:color .35s,border-color .35s}
+.btn2:hover{color:var(--creme);border-color:var(--creme)}
+@keyframes sobe{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+.provas{position:absolute;left:var(--gut);right:var(--gut);bottom:clamp(22px,3.6vh,36px);z-index:3;
+  display:flex;flex-wrap:wrap;gap:8px clamp(18px,3vw,44px);animation:sobe 1.2s var(--ease) 1.05s both}
+.provas span{display:inline-flex;align-items:baseline;gap:8px;font-size:.66rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--tenue)}
+.provas b{font-weight:500;font-size:.9rem;letter-spacing:0;color:var(--creme)}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}h1 i{transform:none}}
+.resto{position:relative;z-index:3;background:#05070D;border-top:1px solid rgba(234,238,245,.09);
+  padding:clamp(56px,12vh,140px) var(--gut);display:grid;gap:12px;justify-items:center;text-align:center}
+.resto p{max-width:36ch;color:var(--tenue)}
+</style>
+</head>
+<body>
+<header class="topo">
+  <a href="../" class="mono">← aberturas</a>
+  <nav><a href="#">Soluções</a><a href="#">Para quem é</a><a href="#">Preços</a><a href="#">A OMID</a></nav>
+  <span class="mono">PT</span>
+</header>
+
+<section class="cena">
+  <canvas class="onda" aria-hidden="true"></canvas>
+  <div class="brilho" aria-hidden="true"></div>
+  <div class="veu" aria-hidden="true"></div>
+
+  <div class="in">
+    <p class="mono">Cloud soberana · operada no Brasil</p>
+    <h1><span><i>Sua cloud do</i></span><span><i>futuro, <b>hoje</b>.</i></span></h1>
+    <p class="lead">Cloud pública soberana, verticalmente integrada e operada 100% no Brasil. Contrato em reais, custo previsível e até 40% de economia.</p>
+    <div class="acao">
+      <a class="btn" href="#">Simular preço do ambiente →</a>
+      <a class="btn2" href="#">Falar com um especialista</a>
+    </div>
+  </div>
+
+  <div class="provas">
+    <span><b>500+</b>empresas</span>
+    <span><b>100%</b>uptime desde 2020</span>
+    <span><b>2</b>data centers Tier III</span>
+    <span><b>40%</b>de economia</span>
+  </div>
+</section>
+
+<section class="resto">
+  <p class="mono">A seguir</p>
+  <p>O restante da página continua no desenho atual — aqui só a abertura muda.</p>
+</section>
+
+<script>
+/* ONDA — 90 curvas horizontais deformadas pelo mesmo campo.
+   Como todas leem o mesmo ruído, elas se apertam e se abrem juntas: é isso
+   que faz nascer relevo em vez de listra. Desenhado com lighter (aditivo),
+   então onde as linhas se cruzam a luz soma — o brilho é consequência da
+   geometria, não um filtro por cima.
+   O texto não depende disto; se o canvas falhar, a dobra fica inteira. */
+(function () {
+  var cv = document.querySelector('.onda');
+  if (!cv || !cv.getContext) return;
+  var ctx = cv.getContext('2d');
+  if (!ctx) return;
+
+  var reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var w = 0, h = 0, dpr = 1, t = 0, t0 = 0, raf = 0, rodando = false;
+  var mx = .5, my = .5, amx = .5, amy = .5;
+  var N = 90, PASSO = 14;
+
+  function dim() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var b = cv.getBoundingClientRect();
+    w = Math.max(1, Math.round(b.width)); h = Math.max(1, Math.round(b.height));
+    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    N = w < 700 ? 56 : 90;
+    PASSO = w < 700 ? 18 : 14;
+  }
+
+  /* campo: soma de senos em duas escalas. Barato e sem biblioteca. */
+  /* o coeficiente de y é o que importa: com ele baixo, linhas vizinhas ficam
+     em fase e o campo lê como listra. Alto, cada linha ganha fase própria e
+     o conjunto vira relevo. */
+  function alt(x, y, tt) {
+    return Math.sin(x * 0.0042 + tt * 0.00035 + y * 0.030) * 30
+         + Math.sin(x * 0.0017 - tt * 0.00022 + y * 0.018) * 46
+         + Math.sin((x + y * 2.2) * 0.0026 + tt * 0.00028) * 22;
+  }
+
+  function cor(k) {
+    /* de teal (topo) a índigo/magenta (base), com âmbar no miolo */
+    var p = k / N;
+    if (p < .34) return 'rgba(64,173,183,';
+    if (p < .52) return 'rgba(45,147,187,';
+    if (p < .70) return 'rgba(248,178,65,';
+    if (p < .86) return 'rgba(84,94,160,';
+    return 'rgba(231,53,135,';
+  }
+
+  function desenha() {
+    ctx.clearRect(0, 0, w, h);
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.lineWidth = 1;
+
+    var margem = h * 0.14, alturaUtil = h - margem * 2;
+    var puxaX = (amx - .5) * 90, puxaY = (amy - .5) * 60;
+
+    for (var k = 0; k < N; k++) {
+      var base = margem + (alturaUtil * k) / (N - 1);
+      /* as linhas do meio recebem mais amplitude: o vulto nasce no centro */
+      var peso = 1 - Math.abs(k / (N - 1) - .5) * 1.5;
+      if (peso < 0) peso = 0;
+      ctx.beginPath();
+      for (var x = -PASSO; x <= w + PASSO; x += PASSO) {
+        var y = base + alt(x + puxaX, base + puxaY, t) * (0.35 + peso * 0.95);
+        x === -PASSO ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = cor(k) + (0.10 + peso * 0.34).toFixed(3) + ')';
+      ctx.stroke();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+  }
+
+  function quadro(ts) {
+    if (!rodando) return;
+    if (!t0) t0 = ts;
+    var dt = Math.min(2.5, (ts - t0) / 16.67 || 1); t0 = ts;
+    t += 16.67 * dt;
+    amx += (mx - amx) * 0.045; amy += (my - amy) * 0.045;
+    desenha();
+    raf = requestAnimationFrame(quadro);
+  }
+  function acorda() { if (rodando || reduz) return; rodando = true; t0 = 0; raf = requestAnimationFrame(quadro); }
+  function dorme() { rodando = false; if (raf) cancelAnimationFrame(raf); raf = 0; }
+
+  dim(); desenha();                                    /* 1º quadro síncrono */
+  if (!reduz) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { e.isIntersecting ? acorda() : dorme(); });
+    }, { threshold: .01 });
+    io.observe(cv);
+    document.addEventListener('visibilitychange', function () { document.hidden ? dorme() : acorda(); });
+    if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      addEventListener('pointermove', function (e) {
+        mx = e.clientX / innerWidth; my = e.clientY / innerHeight;
+      }, { passive: true });
+    }
+  }
+  var deb;
+  addEventListener('resize', function () {
+    clearTimeout(deb); deb = setTimeout(function () { dim(); desenha(); }, 160);
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>

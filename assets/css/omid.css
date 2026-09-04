@@ -632,3 +632,44 @@ html.com-halo .halo, html.com-halo .halo-p { opacity: 1; }
   .sdt .sereno__h c { opacity: 1; transform: none; filter: none; }
   .halo, .halo-p { display: none; }
 }
+
+/* =========================================================================
+   29. A PRIMEIRA DOBRA — noite. Horizonte de dados: escala, profundidade
+   e luz de máquina. A manchete flutua sobre o plano infinito.
+   ========================================================================= */
+.abertura--noite {
+  --papel: #07070B; --papel-2: #0E0E14; --papel-3: #15151C;
+  --tinta: #FFFFFF; --tinta-2: #E4E2DC;
+  --cinza: #A9A69F; --cinza-2: #6E6B66;
+  --fio: #23232A;
+  background: #07070B; color: var(--tinta);
+  min-height: 100svh; margin-top: calc(var(--topo-h) * -1); padding-top: var(--topo-h);
+}
+.abertura--noite canvas.aurora { mask-image: none; -webkit-mask-image: none; }
+.abertura--noite .sereno__h { color: #fff; text-shadow: 0 2px 40px rgba(4, 6, 14, .55); }
+.abertura--noite .sereno__h b { color: var(--am); }
+.abertura--noite .sereno__p { color: #C9C6BF; text-shadow: 0 1px 24px rgba(4, 6, 14, .6); }
+.abertura--noite .varre { color: #fff; }
+.abertura--noite .procedencia p { color: #8B8880; }
+.abertura--noite .procedencia i { background: #2A2A32; }
+.abertura--noite .procedencia i::after { background: var(--am); }
+
+/* o topo acompanha a noite enquanto o hero está na tela */
+.topo-noite .topo {
+  background: color-mix(in srgb, #07070B 62%, transparent);
+  border-bottom-color: #1B1B22;
+}
+.topo-noite .topo .marca svg { color: #fff; }
+.topo-noite .topo .menu__a { color: #C9C6BF; }
+.topo-noite .topo .menu__a:hover { background: rgba(255,255,255,.08); color: #fff; }
+.topo-noite .topo .menu__a[aria-current] { color: #fff; }
+.topo-noite .topo .idioma__b { color: #C9C6BF; border-color: #2A2A32; }
+.topo-noite .topo .hamb { border-color: #2A2A32; }
+.topo-noite .topo .hamb span, .topo-noite .topo .hamb span::before, .topo-noite .topo .hamb span::after { background: #fff; }
+.topo { transition: background .5s var(--ease), border-color .5s var(--ease); }
+.topo .marca svg, .topo .menu__a, .topo .idioma__b { transition: color .5s var(--ease); }
+
+/* o portal também abre à noite: a chegada casa com a cena */
+html.portal-vivo .portal { background: #07070B; }
+html.portal-vivo .portal svg { color: #fff; }
+html.portal-vivo .portal__fio { background: #23232A; }

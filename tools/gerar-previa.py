@@ -15,6 +15,8 @@ os.chdir(RAIZ)
 # ---------- páginas ----------
 paginas = {}
 for dp, dn, fn in os.walk('.'):
+    # nunca entrar em repositórios aninhados (clones de teste) nem no próprio .git
+    dn[:] = [d for d in dn if d != '.git' and not os.path.isdir(os.path.join(dp, d, '.git'))]
     if any(x in dp for x in ('/src', '/.claude', '/tools', '/assets', '/conceitos')):
         continue
     if 'index.html' not in fn:

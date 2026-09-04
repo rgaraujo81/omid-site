@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OMID · Abertura A — CINEMA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+/* ABERTURA A — CINEMA
+   Grandiosidade pela matéria real: o prédio existe, e ele abre o site.
+   Fotografia sangrando, gradação de cinema, tipo contido por cima. */
+*,*::before,*::after{box-sizing:border-box}*{margin:0}
+:root{--noite:#08090C;--creme:#F2F1EC;--cinza:#9A968E;--am:#F8B241;--t:#40ADB7;
+ --gut:clamp(20px,5vw,72px);--ease:cubic-bezier(.22,1,.36,1)}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--noite);color:var(--creme);font-family:Archivo,system-ui,sans-serif;font-weight:410;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
+.mono{font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--cinza)}
+
+.topo{position:fixed;inset:0 0 auto;z-index:20;display:flex;align-items:center;justify-content:space-between;
+ padding:22px var(--gut);color:var(--creme)}
+.topo nav{display:flex;gap:clamp(16px,2.4vw,32px)}
+.topo a{font-size:.85rem;opacity:.82;transition:opacity .3s}.topo a:hover{opacity:1}
+@media(max-width:800px){.topo nav a:nth-child(n+3){display:none}}
+
+.cena{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:clamp(26px,4vh,44px);overflow:clip}
+.cena__foto{position:absolute;inset:0;z-index:0}
+.cena__foto img{width:100%;height:100%;object-fit:cover;
+ filter:brightness(.52) contrast(1.12) saturate(.72);
+ transform:scale(1.1);animation:respira 26s ease-in-out infinite alternate}
+@keyframes respira{to{transform:scale(1.19) translate3d(-1%,-1.5%,0)}}
+.cena__luz{position:absolute;inset:0;z-index:1;
+ background:linear-gradient(180deg,rgba(8,9,12,.86) 0%,rgba(8,9,12,.18) 32%,rgba(8,9,12,.72) 74%,var(--noite) 100%)}
+.cena__vinh{position:absolute;inset:0;z-index:1;
+ background:radial-gradient(120% 90% at 50% 45%,transparent 34%,rgba(8,9,12,.72) 100%)}
+.cena__in{position:relative;z-index:2;padding:0 var(--gut);width:100%}
+
+h1{font-weight:430;font-size:clamp(2.4rem,6.4vw,6rem);line-height:1.02;letter-spacing:-.034em;max-width:16ch;
+ text-shadow:0 2px 60px rgba(0,0,0,.6)}
+h1 b{font-weight:660}
+.sub{margin-top:22px;max-width:44ch;color:#C6C2BA;font-size:clamp(1rem,1.35vw,1.14rem)}
+.acao{margin-top:clamp(26px,4vh,42px);display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:15px 28px;border-radius:999px;background:var(--creme);color:#08090C;font-weight:560;font-size:.92rem;transition:transform .5s var(--ease)}
+.btn:hover{transform:translateY(-2px)}
+.btn2{display:inline-flex;align-items:center;gap:8px;font-weight:520;font-size:.92rem;padding-bottom:3px;border-bottom:1px solid rgba(242,241,236,.4)}
+
+/* os números como friso de rodapé: a prova entra junto com a imagem */
+.friso{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);
+ border-top:1px solid rgba(242,241,236,.14);margin:clamp(28px,4.6vh,50px) var(--gut) 0}
+.friso div{padding:22px 18px 0 0}
+.friso b{display:block;font-weight:640;font-size:clamp(1.5rem,3vw,2.4rem);letter-spacing:-.035em;line-height:1}
+.friso span{display:block;margin-top:8px;font-family:"IBM Plex Mono",monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cinza);max-width:18ch}
+@media(max-width:760px){.friso{grid-template-columns:repeat(2,1fr)}
+ /* mantém o letreiro OMID no enquadramento vertical */
+ .cena__foto img{object-position:68% 20%}}
+
+.pe{padding:clamp(60px,12vh,140px) var(--gut);display:grid;gap:14px;justify-items:center;text-align:center}
+.pe p{max-width:34ch;color:var(--cinza)}
+[data-r]{opacity:0;animation:sobe 1.1s var(--ease) both;animation-delay:calc(140ms + var(--d,0)*140ms)}
+@keyframes sobe{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}[data-r]{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header class="topo">
+  <a href="../" class="mono">← aberturas</a>
+  <nav><a href="#">Soluções</a><a href="#">Preços</a><a href="#">A OMID</a></nav>
+  <span class="mono">PT</span>
+</header>
+
+<section class="cena">
+  <div class="cena__foto"><img src="/assets/img/dc-video-poster.jpg" alt="Data center próprio da OMID em Barueri, São Paulo." width="1280" height="720"></div>
+  <div class="cena__luz"></div><div class="cena__vinh"></div>
+  <div class="cena__in">
+    <p class="mono" data-r style="--d:0">Barueri, SP · 23°30′S · 46°51′W</p>
+    <h1 data-r style="--d:1">A nuvem soberana<br>tem <b>um endereço</b>.</h1>
+    <p class="sub" data-r style="--d:2">Dois data centers Tier III construídos, ligados e operados por nós. Contrato em reais, custo fixo, suporte que atende em português.</p>
+    <div class="acao" data-r style="--d:3">
+      <a class="btn" href="#">Simular preço do ambiente →</a>
+      <a class="btn2" href="#">Conhecer a infraestrutura →</a>
+    </div>
+  </div>
+  <div class="friso" data-r style="--d:4">
+    <div><b>500+</b><span>empresas atendidas</span></div>
+    <div><b>100%</b><span>uptime desde 2020</span></div>
+    <div><b>2</b><span>data centers Tier III próprios</span></div>
+    <div><b>40%</b><span>de economia na fatura</span></div>
+  </div>
+</section>
+
+<section class="pe">
+  <p class="mono">A seguir</p>
+  <p>O restante da página continua no desenho atual — aqui só a abertura muda.</p>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>OMID · Abertura — LENTE (campo)</title>
+<meta name="description" content="Sua nuvem tem endereço. Abertura LENTE: a primeira dobra desenhada só pelo campo que um corpo invisível deforma.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+/* =========================================================================
+   OMID — ABERTURA "LENTE"
+   O objeto nunca é desenhado. A dobra inteira é um campo de fios gravados no
+   papel, a 26,3° — o ângulo do chevron do losango oficial. A OMID existe como
+   a DEFORMAÇÃO que esse campo sofre ao redor de uma coisa enorme, transparente
+   e invisível, pousada em cima dele: nem contorno, nem preenchimento, nem
+   brilho. Só o campo cedendo, a cor nascendo da dispersão nas bordas de maior
+   gradiente, e uma sombra de contato que dá peso ao vazio.
+
+   É a gramática das linhas de campo, da fotografia Schlieren, da lente
+   gravitacional: o vocabulário com que a engenharia mostra o que não tem
+   imagem. Desenhar o objeto é o que qualquer concorrente refaz numa tarde.
+   ========================================================================= */
+
+*,*::before,*::after{box-sizing:border-box}
+*{margin:0}
+
+:root{
+  --papel:#F4F2ED; --tinta:#121214; --cinza:#6E6B64; --fio:#DDD9CE; --fio-2:#C8C3B5;
+  /* espectro oficial, extraído do LogoOMID.svg */
+  --t:#40ADB7; --a:#2D93BB; --i:#545EA0; --r:#7F2483; --m:#E73587; --o:#EE744E; --am:#F8B241;
+  --espectro:linear-gradient(96deg,var(--t),var(--a) 20%,var(--i) 38%,var(--r) 56%,var(--m) 76%,var(--o) 92%,var(--am));
+  --ease:cubic-bezier(.22,1,.36,1);
+  --gut:clamp(20px,4.4vw,58px);
+  --topo:clamp(58px,7.4vh,78px);
+}
+
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--papel); color:var(--tinta);
+  font-family:Archivo,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-variation-settings:'wght' 400,'wdth' 100;
+  font-size:16px; line-height:1.55;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  overflow-x:clip;
+}
+a{color:inherit;text-decoration:none}
+canvas{display:block}
+:focus-visible{outline:2px solid var(--tinta);outline-offset:4px;border-radius:4px}
+::selection{background:var(--tinta);color:var(--papel)}
+.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cinza);font-weight:400}
+.pula{position:fixed;top:10px;left:10px;z-index:300;transform:translateY(-260%);
+  background:var(--tinta);color:var(--papel);padding:12px 22px;border-radius:999px;
+  font-size:.82rem;transition:transform .3s var(--ease)}
+.pula:focus{transform:none}
+
+/* ---------- entradas (CSS puro: o texto nunca depende do JS) ---------- */
+@keyframes sobe{from{opacity:0;transform:translateY(16px);filter:blur(7px)}
+                to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes surge{from{opacity:0}to{opacity:1}}
+
+/* ---------- cabeçalho ---------- */
+.topo{position:fixed;inset:0 0 auto;z-index:20;height:var(--topo);
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  padding-inline:var(--gut);animation:surge 1s var(--ease) .06s both}
+.topo__volta{justify-self:start;display:inline-flex;align-items:center;gap:8px;
+  transition:color .4s var(--ease)}
+.topo__volta:hover{color:var(--tinta)}
+.nav{justify-self:center;display:flex;gap:clamp(18px,2.4vw,34px)}
+.nav a{position:relative;padding-block:7px;color:#2A2A2E;
+  font-size:clamp(.95rem,1.32vw,1.19rem);font-variation-settings:'wght' 400,'wdth' 100;
+  letter-spacing:-.012em}
+.nav a::after{content:"";position:absolute;left:0;right:0;bottom:3px;height:1px;background:currentColor;
+  opacity:0;transform:scaleX(.28);transform-origin:0 50%;
+  transition:opacity .45s var(--ease),transform .6s var(--ease)}
+.nav a:hover::after{opacity:.42;transform:none}
+.topo__pt{justify-self:end;letter-spacing:.24em}
+
+/* ---------- a dobra ---------- */
+.dobra{position:relative;background:var(--papel);
+  min-height:100vh;min-height:100svh;
+  display:flex;align-items:flex-end;overflow:clip;isolation:isolate;
+  padding:var(--topo) var(--gut) clamp(38px,7.4vh,86px)}
+
+/* O campo gravado. Este bloco é o PISO: existe sem JS, sem WebGL, no primeiro
+   pixel pintado. O canvas desenha exatamente o mesmo campo — mesmo eixo, mesmo
+   passo, mesma FASE — e só então toma o lugar dele: a troca é uma substituição
+   num quadro, não uma transição com duas camadas visíveis ao mesmo tempo. */
+.campo,.tela{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 3.5%,#000 88%,transparent 100%);
+          mask-image:linear-gradient(to bottom,transparent 0,#000 3.5%,#000 88%,transparent 100%)}
+.campo{
+  background:
+    radial-gradient(78% 62% at 5% 80%,rgba(255,255,255,.62) 0 44%,rgba(255,255,255,0) 100%),
+    linear-gradient(to bottom,rgba(255,255,255,.60) 0 2%,rgba(255,255,255,0) 46%),
+    repeating-linear-gradient(153.7deg,
+      rgba(18,18,20,0) 0 5.75px,
+      rgba(18,18,20,.115) 6.15px,
+      rgba(18,18,20,.115) 6.85px,
+      rgba(18,18,20,0) 7.25px,
+      rgba(18,18,20,0) 13px);
+  mix-blend-mode:multiply}
+.tela{opacity:0}
+
+/* o gêmeo distante: o mesmo objeto, longe — entre dois cantos de 1px */
+.marca{position:absolute;z-index:2;left:clamp(20px,10.5%,230px);top:clamp(118px,29.5%,430px);
+  padding:11px 15px;animation:surge 1.3s var(--ease) 1.05s both}
+.marca::before,.marca::after{content:"";position:absolute;width:10px;height:10px;
+  border:1px solid var(--fio-2)}
+.marca::before{left:0;top:0;border-right-color:transparent;border-bottom-color:transparent}
+.marca::after{right:0;bottom:0;border-left-color:transparent;border-top-color:transparent}
+.marca span{font-size:.575rem;letter-spacing:.2em;white-space:nowrap}
+
+/* ---------- a sentença ---------- */
+.dizer{position:relative;z-index:2;width:100%;max-width:min(50%,690px)}
+.titulo{
+  font-size:clamp(2.6rem,6.4vw,6.1rem);line-height:.95;letter-spacing:-.033em;
+  font-variation-settings:'wght' 430,'wdth' 100;
+  margin-left:-.04em;    /* margem óptica: a haste do S alinha, não a caixa */
+  text-wrap:balance}
+.titulo span{display:inline-block;animation:sobe 1.15s var(--ease) both;
+  animation-delay:calc(.18s + var(--w) * .088s)}
+.apoio{margin-top:clamp(18px,2.4vh,28px);max-width:44ch;color:var(--cinza);
+  font-size:clamp(1.02rem,1.46vw,1.38rem);line-height:1.5;letter-spacing:-.012em;
+  animation:sobe 1.1s var(--ease) .62s both}
+.acoes{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(14px,1.7vw,28px);
+  margin-top:clamp(24px,3.6vh,42px);animation:sobe 1.1s var(--ease) .78s both}
+
+/* o único lugar da página com o espectro cheio */
+.botao{position:relative;z-index:0;overflow:hidden;display:inline-flex;align-items:center;gap:11px;
+  border-radius:999px;padding:16px 28px;color:#fff;font-size:1rem;letter-spacing:-.008em;
+  font-variation-settings:'wght' 560,'wdth' 100;
+  box-shadow:0 20px 44px -24px rgba(84,94,160,.72);
+  transition:transform .55s var(--ease),box-shadow .55s var(--ease)}
+.botao::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--espectro);
+  background-size:128% 100%;background-position:0 50%;transition:background-position .9s var(--ease)}
+.botao:hover{transform:translateY(-2px);box-shadow:0 26px 52px -24px rgba(127,36,131,.5)}
+.botao:hover::before{background-position:100% 50%}
+.botao i{font-style:normal;transition:transform .5s var(--ease)}
+.botao:hover i{transform:translateX(4px)}
+.elo{position:relative;display:inline-flex;align-items:center;gap:8px;padding-block:4px;
+  font-size:.98rem;font-variation-settings:'wght' 500,'wdth' 100}
+.elo::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;
+  opacity:.26;transition:opacity .4s var(--ease)}
+.elo:hover::after{opacity:.85}
+
+/* ---------- as provas ---------- */
+.provas{list-style:none;padding:16px 0 0;margin-top:clamp(28px,4.6vh,54px);
+  border-top:1px solid var(--fio);display:flex;flex-wrap:wrap;
+  animation:sobe 1.1s var(--ease) .92s both}
+.provas li{padding-right:clamp(12px,1.5vw,23px);margin-right:clamp(12px,1.5vw,23px);
+  border-right:1px solid var(--fio)}
+.provas li:last-child{border-right:0;padding-right:0;margin-right:0}
+.provas b{display:block;font-size:clamp(1.05rem,1.35vw,1.28rem);letter-spacing:-.024em;
+  font-variation-settings:'wght' 620,'wdth' 100;font-feature-settings:"tnum";line-height:1.1}
+.provas span{display:block;margin-top:4px;font-size:.555rem;letter-spacing:.17em;white-space:nowrap}
+
+/* ---------- depois da dobra ---------- */
+.depois{position:relative;z-index:2;background:var(--papel);border-top:1px solid var(--fio);
+  padding:clamp(48px,9vh,112px) var(--gut) clamp(56px,10vh,124px)}
+.depois__c{max-width:1180px;margin-inline:auto;display:grid;gap:18px;justify-items:start}
+.depois h2{max-width:20ch;font-size:clamp(1.5rem,2.9vw,2.5rem);line-height:1.1;
+  letter-spacing:-.028em;font-variation-settings:'wght' 460,'wdth' 100}
+.depois p.t{max-width:56ch;color:var(--cinza);font-size:clamp(.98rem,1.2vw,1.1rem)}
+
+/* ---------- 900px ---------- */
+@media (max-width:900px){
+  .dizer{max-width:min(64%,560px)}
+  .marca{left:clamp(20px,8%,120px)}
+}
+
+/* ---------- celular ---------- */
+@media (max-width:640px){
+  .nav,.marca{display:none}
+  .dobra{padding-bottom:clamp(30px,5.4vh,54px)}
+  .dizer{max-width:none}
+  /* em tela estreita a manchete estreita a LETRA, não o corpo */
+  .titulo{font-size:clamp(2.5rem,11.6vw,3.6rem);letter-spacing:-.028em;
+    font-variation-settings:'wght' 470,'wdth' 88}
+  .apoio{font-size:1.02rem;max-width:38ch}
+  .acoes{gap:16px;width:100%}
+  .botao{width:100%;justify-content:center;padding:17px 24px}
+  .provas{display:grid;grid-template-columns:1fr 1fr;gap:14px 0;margin-top:26px}
+  .provas li{border-right:0;padding-right:14px;margin-right:0}
+}
+@media (max-width:400px){
+  .provas b{font-size:1rem}
+  .provas span{font-size:.52rem;letter-spacing:.13em}
+}
+
+/* ---------- movimento reduzido: nada anima, tudo aparece ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-delay:0ms !important;
+    transition-duration:.001ms !important}
+  .topo,.marca,.titulo span,.apoio,.acoes,.provas{
+    opacity:1 !important;transform:none !important;filter:none !important}
+}
+</style>
+</head>
+<body>
+
+<a class="pula" href="#conteudo">Ir para o conteúdo</a>
+
+<header class="topo">
+  <a class="mono topo__volta" href="../">← aberturas</a>
+  <nav class="nav">
+    <a href="/produtos-e-solucoes/">Soluções</a>
+    <a href="/tabela-de-precos/">Preços</a>
+    <a href="/sobre-a-omid/">A OMID</a>
+  </nav>
+  <span class="mono topo__pt">PT</span>
+</header>
+
+<main id="conteudo">
+  <section class="dobra" id="dobra">
+    <div class="campo" id="campo" aria-hidden="true"></div>
+    <canvas class="tela" id="tela" aria-hidden="true"></canvas>
+
+    <p class="marca" aria-hidden="true"><span class="mono">Barueri · SP · 23°30′S 46°51′W</span></p>
+
+    <div class="dizer">
+      <h1 class="titulo"><span style="--w:0">Sua</span>
+        <span style="--w:1">nuvem</span>
+        <span style="--w:2">tem</span>
+        <span style="--w:3">endereço.</span></h1>
+
+      <p class="apoio">Dois data centers Tier&nbsp;III próprios, construídos e operados por nós em Barueri. Contrato em reais, custo fixo, NOC 24×7 que atende em português.</p>
+
+      <div class="acoes">
+        <a class="botao" href="/#simular">Simular preço do ambiente <i>→</i></a>
+        <a class="elo" href="/sobre-a-omid/">Conhecer a infraestrutura →</a>
+      </div>
+
+      <ul class="provas">
+        <li><b>500+</b><span class="mono">empresas atendidas</span></li>
+        <li><b>100%</b><span class="mono">uptime desde 2020</span></li>
+        <li><b>2</b><span class="mono">data centers Tier III</span></li>
+        <li><b>40%</b><span class="mono">de economia</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="depois">
+    <div class="depois__c">
+      <p class="mono">Abertura · lente</p>
+      <h2>Daqui para baixo, a página segue no desenho atual.</h2>
+      <p class="t">Só a primeira dobra muda. O simulador de preço, a tabela pública, as provas e o rodapé continuam exatamente como estão hoje — esta peça troca a entrada, não o edifício.</p>
+      <a class="elo" href="../">← ver as outras aberturas</a>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ===========================================================================
+   LENTE — o campo gravado e o corpo que não é desenhado.
+   Um triângulo, um draw call, nenhuma textura, nenhum framebuffer, zero byte
+   baixado. O canvas não "entra": nasce idêntico ao campo CSS (mesmo eixo,
+   mesmo passo, MESMA FASE) e o substitui num quadro só. Depois disso o corpo
+   chega em 1380ms — e nada mais fica em laço.
+   =========================================================================== */
+(function(){
+'use strict';
+
+var reduz  = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var cv     = document.getElementById('tela');
+var campo  = document.getElementById('campo');
+var dobra  = document.getElementById('dobra');
+if (!cv || !campo || !dobra) return;
+
+var VERT = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+
+var FRAG = [
+'precision highp float;',
+'uniform vec2  uRes;',    /* pixels de dispositivo */
+'uniform vec2  uCss;',    /* a mesma caixa, em pixels CSS */
+'uniform float uDpr;',
+'uniform float uFase;',   /* fase do campo, em px CSS — casa com o gradiente CSS */
+'uniform vec2  uM;',      /* cursor 0..1, y para baixo, já amortecido */
+'uniform float uChega;',  /* 0..1 — a chegada */
+'uniform float uForca;',  /* 1 na dobra, .3 fora dela */
+'uniform float uVel;',    /* energia de rolagem */
+'uniform vec4  uA;',      /* corpo grande:  centro.xy (uv), meia-altura, rotação */
+'uniform vec4  uB;',      /* corpo pequeno: idem (z=0 desliga) */
+'uniform vec4  uPoco;',   /* área calma sob a sentença: centro.xy, raios.xy */
+'uniform float uAmp;',    /* amplitude de deflexão, em px CSS */
+'uniform float uTinta;',  /* absorção máxima do fio */
+'uniform float uSimples;',/* 1 = uma amostra só (celular / GPU fraca) */
+
+'const float PASSO = 13.0;',
+'const float MEIA  = 0.0423;',                    /* meia-largura do fio, em períodos (1,1px) */
+'const vec2  EIXO  = vec2(0.44359, 0.89623);',    /* 26,3°: o chevron do losango oficial */
+'const float INVTG = 2.02354;',                   /* 1/tan(26,3°) — a proporção isométrica */
+'const float ARRED = 0.235;',
+
+'float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453123);}',
+
+'float ndot(vec2 a, vec2 b){ return a.x*b.x - a.y*b.y; }',
+/* losango exato (SDF): distância assinada com |grad| = 1 — é o que permite
+   tirar a normal e a largura de linha sem depender de derivadas do hardware */
+'float sdLosango(vec2 p, vec2 b){',
+' p = abs(p);',
+' float h = clamp(ndot(b - 2.0*p, b)/dot(b,b), -1.0, 1.0);',
+' float d = length(p - 0.5*b*vec2(1.0-h, 1.0+h));',
+' return d * sign(p.x*b.y + p.y*b.x - b.x*b.y);}',
+
+'float sdCorpo(vec2 uv, vec4 B, float asp){',
+' vec2 q = (uv - B.xy) * vec2(asp, 1.0);',
+' float c = cos(B.w), s = sin(B.w);',
+' q = vec2(c*q.x + s*q.y, c*q.y - s*q.x);',
+' float r = ARRED*B.z, k = B.z - r;',
+' return sdLosango(q, vec2(k*INVTG, k)) - r;}',
+
+/* Perfil de deflexão: um cume ESTREITO no bisel (o menisco, onde o vidro vira)
+   e um domo lento que amplia o interior. Não há descontinuidade — o corpo não
+   tem contorno, tem gradiente — e por isso não existe aresta para serrilhar.
+   A razão amplitude/largura decide tudo: acima de 1 o mapa dobra e vira
+   cáustica serrilhada; muito abaixo vira borrão de vaselina. Fica em ~0,6:
+   comprime 1,6× de um lado da aresta e abre 2,5× do outro. Isso é o menisco. */
+'float perfil(float s, float e){',
+' float t = (s - 0.019*e)/(0.020*e);',
+' float rim = exp(-t*t);',
+' float domo = 1.0 - exp(-max(s,0.0)/(0.35*e));',
+' return 0.44*rim + 0.58*domo;}',
+
+'vec2 deflete(vec2 uv, vec4 B, float asp, float amp, float e){',
+' vec2 rel = (uv - B.xy)*vec2(asp,1.0);',
+' if (dot(rel,rel) > B.z*B.z*6.76) return vec2(0.0);',   /* fora do alcance: sai barato */
+' float ep = 0.0045;',
+' float d0 = sdCorpo(uv, B, asp);',
+' float dx = sdCorpo(uv + vec2(ep/asp, 0.0), B, asp);',
+' float dy = sdCorpo(uv + vec2(0.0, ep), B, asp);',
+' vec2 n = normalize(vec2(dx - d0, dy - d0) + vec2(1e-7));',   /* = grad do SDF, unitário */
+' return -n * (perfil(-d0, e) * amp);}',
+
+/* o gêmeo distante não é uma redução linear: o passo do campo é absoluto, então
+   a matéria escala pela RAIZ do tamanho. Assim a peça pequena vira uma ondulação
+   fina — não um adesivo com contorno, que é no que um losango pequeno daria. */
+'vec2 deflexao(vec2 uv, vec4 A, vec4 B, float asp, float amp){',
+' vec2 d = deflete(uv, A, asp, amp, 1.0);',
+' if (B.z > 0.0){ float e = sqrt(B.z/A.z); d += deflete(uv, B, asp, amp*e, e); }',
+' return d;}',
+
+/* sombra de contato: a silhueta exata, deslocada e desfocada pelo próprio SDF,
+   com uma linha de contato apertada por dentro da penumbra. É ela que dá PESO —
+   sem ela o vazio não pousa em nada e a peça vira textura bonita. */
+'float sombra(vec2 uv, vec4 B, float asp, float e, float sdAqui){',
+' vec2 off = vec2(-0.008/asp, 0.030)*e;',
+' float larga = 1.0 - smoothstep(-0.030*e, 0.075*e, sdCorpo(uv - off, B, asp));',
+' float justa = 1.0 - smoothstep(-0.004*e, 0.011*e, sdCorpo(uv - off*0.26, B, asp));',
+' float dentro = 1.0 - smoothstep(-0.05*e, 0.0, sdAqui);',
+' return (larga*0.100 + justa*0.085) * mix(1.0, 0.38, dentro);}',
+
+/* Antialiasing exato do campo: a integral do padrão periódico dentro do pixel.
+   Não é fwidth, não é supersampling — é a primitiva do padrão avaliada nas duas
+   bordas do pixel. Onde o vidro comprime os fios além do que a tela resolve,
+   isto converge para o tom médio (uma nesga lisa), nunca para moiré. */
+'float acum(float x){ return floor(x)*(2.0*MEIA) + clamp(fract(x) - 0.5 + MEIA, 0.0, 2.0*MEIA); }',
+'float fio(float x, float fw){ fw = max(fw, 1e-4); return (acum(x+fw) - acum(x-fw))/(2.0*fw); }',
+
+'float densidade(vec2 uv){',
+' float d = mix(0.44, 1.0, smoothstep(0.02, 0.44, uv.y));',      /* terço superior mais leve */
+' vec2 c = (uv - uPoco.xy)/uPoco.zw;',
+' d *= 1.0 - 0.58*(1.0 - smoothstep(0.55, 1.25, length(c)));',   /* o campo cede à sentença */
+' return d;}',
+
+'void main(){',
+' float asp = uCss.x / uCss.y;',
+' vec2 Pc = vec2(gl_FragCoord.x, uRes.y - gl_FragCoord.y) / uDpr;',  /* px CSS, y para baixo */
+' vec2 uv = Pc / uCss;',
+' vec2 Cc = uCss * 0.5;',
+
+/* o cursor não arrasta o corpo: dá paralaxe. A sombra anda em contrafase. */
+' vec2 par = (uM - 0.5) * vec2(0.014/asp, 0.010) * uChega;',
+' vec4 A = vec4(uA.xy + par, uA.zw);',
+' vec4 B = vec4(uB.xy + par*0.55, uB.zw);',
+' float amp = uAmp * uChega * (1.0 + 0.06*uVel) * mix(0.30, 1.0, uForca);',
+
+/* três avaliações do mapa: no pixel e a um pixel em x e em y. Delas sai a
+   derivada ANALÍTICA do campo já deformado — a largura de linha correta, que
+   é a diferença entre gravura e tela quebrada. */
+' float hp = 1.0/uDpr;',
+' vec2 W0 = deflexao(uv,                        A, B, asp, amp);',
+' vec2 WX = deflexao(uv + vec2(hp/uCss.x, 0.0), A, B, asp, amp);',
+' vec2 WY = deflexao(uv + vec2(0.0, hp/uCss.y), A, B, asp, amp);',
+' vec2 Px = Pc + vec2(hp, 0.0), Py = Pc + vec2(0.0, hp);',
+
+' float g0 = (dot(Pc + W0 - Cc, EIXO) + uFase)/PASSO;',
+' float gx = (dot(Px + WX - Cc, EIXO) + uFase)/PASSO;',
+' float gy = (dot(Py + WY - Cc, EIXO) + uFase)/PASSO;',
+' float cG = fio(g0, 0.5*length(vec2(gx - g0, gy - g0)));',
+' float cR = cG, cB = cG;',
+
+/* dispersão: a cor não é escolhida, ela nasce da diferença de índice. O
+   vermelho desvia menos, o azul mais; onde o gradiente é forte os três
+   caminhos se separam e o fio se abre em teal, índigo e âmbar — cores da
+   marca isoladas, nunca o espectro cheio. */
+' if (uSimples < 0.5){',
+'  float r0 = (dot(Pc + W0*0.92 - Cc, EIXO) + uFase)/PASSO;',
+'  float rx = (dot(Px + WX*0.92 - Cc, EIXO) + uFase)/PASSO;',
+'  float ry = (dot(Py + WY*0.92 - Cc, EIXO) + uFase)/PASSO;',
+'  cR = fio(r0, 0.5*length(vec2(rx - r0, ry - r0)));',
+'  float b0 = (dot(Pc + W0*1.08 - Cc, EIXO) + uFase)/PASSO;',
+'  float bx = (dot(Px + WX*1.08 - Cc, EIXO) + uFase)/PASSO;',
+'  float by = (dot(Py + WY*1.08 - Cc, EIXO) + uFase)/PASSO;',
+'  cB = fio(b0, 0.5*length(vec2(bx - b0, by - b0)));',
+' }',
+
+/* composição por ABSORÇÃO: o shader só pode escurecer o papel. É
+   matematicamente incapaz de virar mingau leitoso em fundo claro. */
+' vec3 papel = vec3(0.95686, 0.94902, 0.92941);',
+' float sdA = sdCorpo(uv, A, asp);',
+' float dens = uTinta * densidade(uv) * (1.0 + 0.09*(1.0 - smoothstep(-0.05, 0.01, sdA))*uChega);',
+' vec3 absorve = vec3(cR, cG, cB) * dens;',
+' float md = (absorve.r + absorve.g + absorve.b)/3.0;',
+' absorve = mix(vec3(md), absorve, 0.86);',
+' vec3 cor = papel * (1.0 - absorve);',
+
+' float som = sombra(uv, A, asp, 1.0, sdA);',
+' if (uB.z > 0.0){ float e = sqrt(uB.z/uA.z); som += sombra(uv, B, asp, e, sdCorpo(uv, B, asp)); }',
+' cor *= 1.0 - som*uChega;',
+
+' cor += (hash(gl_FragCoord.xy) - 0.5)*0.008;',  /* granulação fixa: tira o plástico e não pisca */
+' gl_FragColor = vec4(cor, 1.0);}'
+].join('\n');
+
+/* --- curva de chegada: a mesma cubic-bezier do CSS, resolvida por Newton --- */
+function bezier(x1,y1,x2,y2){
+  function A(a,b){return 1.0-3.0*b+3.0*a}
+  function B(a,b){return 3.0*b-6.0*a}
+  function C(a){return 3.0*a}
+  function calc(t,a,b){return ((A(a,b)*t + B(a,b))*t + C(a))*t}
+  function deriv(t,a,b){return 3.0*A(a,b)*t*t + 2.0*B(a,b)*t + C(a)}
+  return function(x){
+    if (x <= 0) return 0;
+    if (x >= 1) return 1;
+    var t = x;
+    for (var i=0;i<6;i++){
+      var d = deriv(t,x1,x2);
+      if (Math.abs(d) < 1e-6) break;
+      t -= (calc(t,x1,x2) - x)/d;
+      if (t < 0) t = 0; else if (t > 1) t = 1;
+    }
+    return calc(t,y1,y2);
+  };
+}
+var facil = bezier(.16,1,.3,1);
+
+function falhou(){ try{ cv.remove(); }catch(e){ cv.style.display='none'; } }
+
+function montar(){
+  var gl = null;
+  try{
+    gl = cv.getContext('webgl',{antialias:false,alpha:false,depth:false,stencil:false,
+                                powerPreference:'low-power'}) || cv.getContext('experimental-webgl');
+  }catch(e){ gl = null; }
+  if (!gl){ falhou(); return; }   /* sem WebGL sobra o campo em CSS, que já é a imagem */
+
+  function shader(tipo, src){
+    var s = gl.createShader(tipo);
+    gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw gl.getShaderInfoLog(s);
+    return s;
+  }
+  var prog;
+  try{
+    prog = gl.createProgram();
+    gl.attachShader(prog, shader(gl.VERTEX_SHADER, VERT));
+    gl.attachShader(prog, shader(gl.FRAGMENT_SHADER, FRAG));
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw 0;
+  }catch(e){ falhou(); return; }
+  gl.useProgram(prog);
+
+  var buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+  var loc = gl.getAttribLocation(prog,'p');
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+  var U = {};
+  ['uRes','uCss','uDpr','uFase','uM','uChega','uForca','uVel','uA','uB','uPoco','uAmp','uTinta','uSimples']
+    .forEach(function(n){ U[n] = gl.getUniformLocation(prog, n); });
+
+  /* ---- geometria dos corpos ----------------------------------------------
+     Declaro a PONTA (o vértice que aparece na tela) e a meia-altura; o centro
+     sai daí. O corpo é sempre cortado: nunca centralizado, nunca inteiro,
+     sempre vazando por duas bordas — e girado ~10°, para pousar na folha em
+     vez de ficar alinhado com ela. Losango de bordas muito arredondadas: as
+     duas retas guardam o ângulo da marca, a ponta não vira ícone. */
+  var ROT = 0.169;
+  function porPonta(px, py, h, asp){
+    var d = 1.783*h;                                  /* distância da ponta ao centro */
+    return [px + d*Math.cos(ROT)/asp, py + d*Math.sin(ROT), h, ROT];
+  }
+
+  var estado = {A:[0,0,0.85,ROT], B:[0,0,0,ROT], poco:[0.05,0.80,0.62,0.50],
+                amp:32, tinta:.115, simples:0};
+
+  function compor(Wc, Hc){
+    var asp = Wc/Hc;
+    if (Wc < 700){
+      estado.A = porPonta(0.30, 0.505, 0.74, asp);
+      estado.B = [0,0,0,ROT];                          /* sem gêmeo: a tela não comporta os dois */
+      estado.poco = [0.30, 0.74, 0.95, 0.46];
+      estado.tinta = 0.152;                            /* piso de contraste: celular ao sol */
+      estado.simples = 1;                              /* uma amostra: sem dispersão */
+    } else {
+      estado.A = porPonta(0.525, 0.42, 0.85, asp);
+      estado.B = [0.165, 0.225, 0.062, ROT];           /* o mesmo objeto, à distância */
+      estado.poco = [0.05, 0.80, 0.62, 0.50];
+      estado.tinta = 0.115;
+      estado.simples = 0;
+    }
+    /* a deflexão acompanha a altura da tela, mas o passo do campo é absoluto:
+       limito a amplitude para a dispersão não sair do tom em telas altas */
+    estado.amp = Math.max(25, Math.min(0.036*Hc, 38));
+  }
+
+  var Wc = 0, Hc = 0, dpr = 1;
+  function medir(){
+    var w = cv.clientWidth, h = cv.clientHeight;
+    if (!w || !h) return false;
+    if (w !== Wc || h !== Hc){
+      Wc = w; Hc = h;
+      compor(Wc, Hc);
+      dpr = Math.min(window.devicePixelRatio || 1, Wc < 700 ? 1.25 : 1.5);
+      var pw = Math.round(Wc*dpr), ph = Math.round(Hc*dpr);
+      if (cv.width !== pw || cv.height !== ph){ cv.width = pw; cv.height = ph; }
+      gl.viewport(0, 0, cv.width, cv.height);
+      gl.uniform2f(U.uRes, cv.width, cv.height);
+      gl.uniform2f(U.uCss, Wc, Hc);
+      gl.uniform1f(U.uDpr, dpr);
+      /* fase idêntica à do repeating-linear-gradient(153.7deg) do fallback: o
+         gradiente CSS começa em -L/2 sobre o eixo, a partir do centro da caixa */
+      var th = 153.7*Math.PI/180;
+      gl.uniform1f(U.uFase, (Math.abs(Wc*Math.sin(th)) + Math.abs(Hc*Math.cos(th)))*0.5);
+      gl.uniform4fv(U.uA, estado.A);
+      gl.uniform4fv(U.uB, estado.B);
+      gl.uniform4fv(U.uPoco, estado.poco);
+      gl.uniform1f(U.uAmp, estado.amp);
+      gl.uniform1f(U.uTinta, estado.tinta);
+      gl.uniform1f(U.uSimples, estado.simples);
+    }
+    return true;
+  }
+
+  var mx=.5, my=.5, mxA=.5, myA=.5;
+  var vel=0, velAlvo=0, forca=1, forcaAlvo=1;
+  var chega=0, t0=0, raf=null, dentro=true, vivo=true;
+  var suave = reduz ? .20 : .045;
+
+  function desenhar(){
+    gl.uniform2f(U.uM, mxA, myA);
+    gl.uniform1f(U.uChega, chega);
+    gl.uniform1f(U.uForca, forca);
+    gl.uniform1f(U.uVel, vel);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  }
+
+  function quadro(t){
+    raf = null;
+    if (!vivo || !dentro || document.hidden) return;
+    if (!medir()){ acordar(); return; }
+    if (!t0) t0 = t;
+    if (!reduz) chega = facil(Math.min(Math.max((t - t0 - 120)/1380, 0), 1));
+    mxA += (mx-mxA)*suave; myA += (my-myA)*suave;
+    forca += (forcaAlvo-forca)*.07;
+    vel += (velAlvo-vel)*.08; velAlvo *= .90;
+    desenhar();
+    /* terminada a chegada, NADA fica em laço: o quadro vira pintura parada */
+    var parado = chega >= 1 && Math.abs(mx-mxA) < .0015 && Math.abs(my-myA) < .0015
+                 && vel < .004 && Math.abs(forcaAlvo-forca) < .004;
+    if (!parado && !reduz) raf = requestAnimationFrame(quadro);
+  }
+  function acordar(){ if (!raf && vivo) raf = requestAnimationFrame(quadro); }
+
+  /* resposta ao ponteiro: MANTIDA em reduced-motion, só sem rampa de chegada */
+  dobra.addEventListener('pointermove', function(e){
+    if (e.pointerType === 'touch') return;
+    var r = dobra.getBoundingClientRect();
+    mx = (e.clientX - r.left)/r.width;
+    my = (e.clientY - r.top)/r.height;
+    acordar();
+  }, {passive:true});
+  dobra.addEventListener('pointerleave', function(){ mx=.5; my=.5; acordar(); }, {passive:true});
+
+  var ultimoY = window.scrollY || 0;
+  addEventListener('scroll', function(){
+    var y = window.scrollY || 0, d = Math.abs(y - ultimoY); ultimoY = y;
+    velAlvo = Math.min(velAlvo + d/90, 1.2);
+    forcaAlvo = Math.max(.3, 1 - y/(innerHeight*.85));   /* fora da dobra o campo volta a ficar reto */
+    acordar();
+  }, {passive:true});
+
+  /* redimensionar redesenha na hora: em aba oculta o rAF não roda e o canvas
+     ficaria com a medida velha esticada */
+  addEventListener('resize', function(){ Wc = 0; if (medir()) desenhar(); acordar(); }, {passive:true});
+  document.addEventListener('visibilitychange', function(){ if (!document.hidden) acordar(); });
+  if ('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){
+      for (var i=0;i<es.length;i++){ dentro = es[i].isIntersecting; if (dentro) acordar(); }
+    }, {threshold:.01}).observe(cv);
+  }
+  cv.addEventListener('webglcontextlost', function(e){
+    e.preventDefault(); vivo = false;
+    campo.style.display = ''; cv.style.opacity = '0';   /* volta ao piso de CSS, sem buraco */
+  });
+
+  /* --- primeiro quadro SÍNCRONO --------------------------------------------
+     Com uChega=0 o mapa é a identidade: o canvas desenha o mesmo campo reto, no
+     mesmo eixo, no mesmo passo e na mesma fase do gradiente CSS. Por isso a
+     troca é feita de uma vez, no mesmo quadro — não há emenda para ver. */
+  if (!medir()){ falhou(); return; }
+  chega = reduz ? 1 : 0;
+  desenhar();
+  cv.style.opacity = '1';
+  campo.style.display = 'none';
+  if (!reduz) acordar();
+
+  /* gancho de inspeção, na linha do window.__omidAurora: desenha um quadro com
+     a chegada em `v`. Serve para depurar e para capturar o repouso. */
+  window.__lente = function(v){ if (v !== undefined) chega = v; if (medir()) desenhar(); };
+}
+
+montar();
+})();
+</script>
+</body>
+</html>
