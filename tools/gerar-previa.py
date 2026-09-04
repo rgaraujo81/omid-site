@@ -2,7 +2,8 @@
 """Empacota o site inteiro (54 páginas × 3 idiomas) num único HTML navegável,
 com roteador por hash — para publicar como prévia num host de página única.
 Uso:  python3 tools/gerar-previa.py [saida.html]
-Pré-requisito: fontes-inline.css no scratchpad (gerado uma vez a partir do Google Fonts).
+As fontes vêm de tools/fontes-inline.css (Google Fonts embutido em base64).
+Sem esse arquivo a prévia ainda é gerada, mas puxa as fontes da rede.
 """
 import io, os, re, json, sys
 
@@ -17,7 +18,8 @@ paginas = {}
 for dp, dn, fn in os.walk('.'):
     # nunca entrar em repositórios aninhados (clones de teste) nem no próprio .git
     dn[:] = [d for d in dn if d != '.git' and not os.path.isdir(os.path.join(dp, d, '.git'))]
-    if any(x in dp for x in ('/src', '/.claude', '/tools', '/assets', '/conceitos')):
+    # /aberturas e /conceitos são estudos avulsos: não seguem o gabarito do site
+    if any(x in dp for x in ('/src', '/.claude', '/tools', '/assets', '/conceitos', '/aberturas')):
         continue
     if 'index.html' not in fn:
         continue
@@ -27,7 +29,12 @@ for dp, dn, fn in os.walk('.'):
     lang = re.search(r'<html lang="([^"]+)"', s).group(1)
     loc = 'pt' if lang.startswith('pt') else ('en' if lang == 'en' else 'es')
     titulo = re.search(r'<title>(.*?)</title>', s, re.S).group(1)
-    main = re.search(r'<main id="conteudo">(.*)</main>', s, re.S).group(1)
+    # qualquer página fora do gabarito é pulada com aviso, em vez de derrubar a prévia
+    m_main = re.search(r'<main id="conteudo">(.*)</main>', s, re.S)
+    if not m_main:
+        print(f'  · pulando {path} (sem <main id="conteudo">)')
+        continue
+    main = m_main.group(1)
     alt = {}
     for m in re.finditer(r'<link rel="alternate" hreflang="([^"]+)" href="https://omid\.com\.br([^"]*)"', s):
         hl, ap = m.group(1), m.group(2) or '/'
@@ -58,7 +65,13 @@ for loc, home in (('pt', 'index.html'), ('en', 'en/index.html'), ('es', 'es/inde
 css = io.open('assets/css/omid.css', encoding='utf-8').read()
 js1 = io.open('assets/js/omid.js', encoding='utf-8').read()
 js2 = io.open('assets/js/aurora.js', encoding='utf-8').read()
-fontes = io.open(os.path.join(SCRATCH, 'fontes-inline.css'), encoding='utf-8').read()
+# o arquivo mora no repositório: o scratchpad é por sessão e some entre elas
+_ff = os.path.join(RAIZ, 'tools', 'fontes-inline.css')
+if os.path.exists(_ff):
+    fontes = io.open(_ff, encoding='utf-8').read()
+else:
+    print('  · sem tools/fontes-inline.css — a prévia vai buscar as fontes na rede')
+    fontes = "@import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=IBM+Plex+Mono:wght@400;500&display=swap');"
 dados = json.dumps({'paginas': paginas, 'chrome': chrome}, ensure_ascii=False).replace('</script', r'<\/script')
 
 roteador = r"""
