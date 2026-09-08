@@ -47,9 +47,12 @@ ${letreiro(faixa1)}
         <p class="lead apaga t-16">${H.cmp.p}</p>
       </div>
     </div>
-    <div class="regra t-32 cmp__pe"${ver(1)}>
-      <p class="mono apaga">${H.cmp.nota}</p>
-    </div>
+    <!-- os três argumentos do lead, como estrutura e não como frase -->
+    <ul class="cmp__pilares"${ver(1)}>
+      ${H.cmp.pilares.map((pi, i) => `<li style="--pt:${CORES[i]}"><b>${pi[0]}</b><span>${pi[1]}</span></li>`).join('')}
+    </ul>
+    <!-- o 40% ligado ao número real do duelo: preenchido pelo JS, escondido sem dado -->
+    <p class="mono apaga cmp__vivo" data-cmp-vivo data-molde="${H.cmp.vivo}" hidden></p>
     <div class="t-56">${regua(ctx)}</div>
   </div>
 </section>

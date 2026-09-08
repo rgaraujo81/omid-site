@@ -466,6 +466,14 @@
         } else fr.textContent = '';
       }
       var no = $('[data-duelo-oci]', duel); if (no) no.hidden = !(tot.oci.total < omid.total);
+
+      /* o 40% lá em cima ganha o número real: quanto a OMID fica abaixo da
+         mais barata das três grandes, na configuração atual */
+      var cv = $('[data-cmp-vivo]');
+      if (cv) {
+        if (dif > 0) { cv.textContent = cv.dataset.molde.replace('{pct}', Math.round((1 - omid.total / tot[menor].total) * 100)); cv.hidden = false; }
+        else cv.hidden = true;
+      }
     }
     function pinta() {
       if (!D || !duel) return;

@@ -122,6 +122,8 @@ home: {
     p: 'Cloud, data center, managed services, security and artificial intelligence under the same contract, the same console and the same support team.',
     cardH: 'Not sure where to start?', cardP: 'Run the simulator with your current environment and see, in minutes, how much is left in the budget.' },
   cmp: { eb: 'Comparison', h: 'Same workload,<br>a very different invoice.',
+    pilares: [['Who controls the stack', 'Four layers of our own, from concrete to NOC'], ['Which currency', 'Contract in reais, fixed cost'], ['Who answers', '24×7 NOC in Portuguese, within minutes']],
+    vivo: 'Today, for the configuration built below: {pct}% less than the cheapest of AWS, Azure and Google.',
     p: 'The difference is not the hardware. It is who controls the stack, which currency the contract is signed in, and who picks up when something breaks.',
     nota: 'Comparison based on the structural characteristics of each contracting model, not on measurements of specific providers. OMID figures and conditions as per the current contract.' },
   cog: { eb: 'Omid Cloud Cognitiva®', h: 'The intelligence layer<br>your cloud was missing.',

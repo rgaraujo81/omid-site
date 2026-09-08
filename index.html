@@ -152,9 +152,12 @@
         <p class="lead apaga t-16">A diferença não está no hardware. Está em quem controla a stack, em que moeda o contrato é fechado e em quem atende quando algo para.</p>
       </div>
     </div>
-    <div class="regra t-32 cmp__pe" data-ver style="--d:1">
-      <p class="mono apaga">Comparação baseada nas características estruturais de cada modelo de contratação, não em medição de provedores específicos. Valores e condições OMID conforme contrato vigente.</p>
-    </div>
+    <!-- os três argumentos do lead, como estrutura e não como frase -->
+    <ul class="cmp__pilares" data-ver style="--d:1">
+      <li style="--pt:var(--a)"><b>Quem controla a stack</b><span>Quatro camadas nossas, do concreto ao NOC</span></li><li style="--pt:var(--t)"><b>Em que moeda</b><span>Contrato em reais, custo fixo</span></li><li style="--pt:var(--i)"><b>Quem atende</b><span>NOC 24×7 em português, em minutos</span></li>
+    </ul>
+    <!-- o 40% ligado ao número real do duelo: preenchido pelo JS, escondido sem dado -->
+    <p class="mono apaga cmp__vivo" data-cmp-vivo data-molde="Hoje, na configuração montada abaixo: {pct}% a menos que a mais barata entre AWS, Azure e Google." hidden></p>
     <div class="t-56">
 <div class="prova" data-regua data-vcpu="32.42" data-ram="11.6" data-ssd="0.72"
      data-backup="0.09" data-egress="0.016" data-win="98.26">

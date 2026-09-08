@@ -122,6 +122,8 @@ home: {
     p: 'Nube, data center, servicios gestionados, seguridad e inteligencia artificial bajo el mismo contrato, el mismo panel y el mismo equipo de soporte.',
     cardH: '¿No sabes por dónde empezar?', cardP: 'Ejecuta el simulador con tu entorno actual y descubre, en minutos, cuánto queda en el presupuesto.' },
   cmp: { eb: 'Comparativa', h: 'El mismo workload,<br>otra factura a fin de mes.',
+    pilares: [['Quién controla el stack', 'Cuatro capas nuestras, del concreto al NOC'], ['En qué moneda', 'Contrato en reales, costo fijo'], ['Quién atiende', 'NOC 24×7 en portugués, en minutos']],
+    vivo: 'Hoy, para la configuración armada abajo: {pct}% menos que la más barata entre AWS, Azure y Google.',
     p: 'La diferencia no está en el hardware. Está en quién controla el stack, en qué moneda se firma el contrato y quién responde cuando algo se cae.',
     nota: 'Comparación basada en las características estructurales de cada modelo de contratación, no en mediciones de proveedores específicos. Valores y condiciones OMID según el contrato vigente.' },
   cog: { eb: 'Omid Cloud Cognitiva®', h: 'La capa de inteligencia<br>que le faltaba a tu nube.',
