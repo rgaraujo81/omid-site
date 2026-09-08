@@ -239,7 +239,7 @@
      data-vezes="× OMID" data-mais-caro="más caro que OMID" data-mais-barato="más barato que OMID"
      data-referencia="referencia" data-ao-vivo="cambio en vivo" data-consultado="precios consultados el"
      data-cambio="PTAX venta" data-inclui="contrato en reales · NOC 24×7 · data center propio"
-     data-eco-pos="menos al año de lo que la nube global más barata cobraría por esta misma máquina" data-eco-neg="más al año de lo que la nube global más barata cobraría por esta misma máquina" data-frase="En esta configuración, {item} explica el {pct}% de la diferencia con la nube global más barata.">
+     data-eco-pos="Ahorro al mes, en la misma máquina" data-eco-neg="Diferencia al mes, en la misma máquina" data-a-menos="menos" data-a-mais="más">
   <div class="duelo__cab">
     <p class="mono apaga">Comparativo en vivo<span class="duelo__vivo" data-duelo-vivo hidden></span></p>
     <h3 class="berro duelo__h t-16">La misma máquina, en los otros.</h3>
@@ -248,9 +248,13 @@
 
   <div class="duelo__topo t-32">
     <div class="duelo__eco nota-f">
-      <p class="mono apaga" data-duelo-eco-rot>menos al año de lo que la nube global más barata cobraría por esta misma máquina</p>
-      <p class="preco__n duelo__eco-n"><small>R$</small><span data-duelo-eco>—</span><span class="mes">/ano</span></p>
-      <p class="lead apaga duelo__frase" data-duelo-frase></p>
+      <p class="mono apaga" data-duelo-eco-rot>Ahorro al mes, en la misma máquina</p>
+      <p class="preco__n duelo__eco-n"><small>R$</small><span data-duelo-eco>—</span><span class="mes">/mes</span></p>
+      <dl class="duelo__conta">
+        <div><dt>Nube global más barata</dt><dd>R$ <span data-duelo-conta-outro>—</span></dd></div>
+        <div><dt>OMID</dt><dd>R$ <span data-duelo-conta-omid>—</span></dd></div>
+        <div class="duelo__conta-dif"><dt>Diferencia</dt><dd>R$ <span data-duelo-conta-dif>—</span><em data-duelo-conta-pct>—</em></dd></div>
+      </dl>
     </div>
     <div class="duelo__fx">
       <div class="ctl">

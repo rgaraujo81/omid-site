@@ -457,24 +457,23 @@
         else { d.textContent = '−' + Math.round((1 - r) * 100) + '% ' + ds.maisBarato; d.className = 'menor'; }
       });
 
-      /* economia anual contra a MAIS BARATA das três grandes — o cenário
-         menos favorável à OMID, que é o único que vale a pena anunciar */
+      /* o cartão da economia é uma conta de subtrair, POR MÊS, contra a MAIS
+         BARATA das três grandes (o cenário menos favorável à OMID): a nuvem
+         global mais barata, menos a OMID, igual à diferença — e o percentual.
+         A conta usa os totais já arredondados, para que as três linhas
+         visíveis fechem sempre; só o percentual sai dos valores exatos. */
       var grandes = ['aws', 'azure', 'gcp'], menor = grandes[0];
       grandes.forEach(function (k) { if (tot[k].total < tot[menor].total) menor = k; });
-      var dif = tot[menor].total - omid.total, eco = $('[data-duelo-eco]', duel), ecoRot = $('[data-duelo-eco-rot]', duel);
-      if (eco) eco.textContent = fmt0.format(Math.round(Math.abs(dif) * 12));
+      var dif = tot[menor].total - omid.total;
+      var outroR = Math.round(tot[menor].total), omidR = Math.round(omid.total), difR = outroR - omidR;
+      var eco = $('[data-duelo-eco]', duel), ecoRot = $('[data-duelo-eco-rot]', duel);
+      if (eco) eco.textContent = fmt0.format(Math.abs(difR));
       if (ecoRot) ecoRot.textContent = dif >= 0 ? ds.ecoPos : ds.ecoNeg;
-
-      /* a frase: qual item explica a maior parte da diferença */
-      var fr = $('[data-duelo-frase]', duel);
-      if (fr) {
-        if (dif > 0) {
-          var melhor = null, mv = 0;
-          ITENS.forEach(function (it) { var v = tot[menor].partes[it] - omid.partes[it]; if (v > mv) { mv = v; melhor = it; } });
-          var nomeItem = melhor ? ($('[data-item="' + melhor + '"]', duel) || {}).textContent : '';
-          fr.textContent = melhor ? ds.frase.replace('{item}', (nomeItem || '').trim().toLowerCase()).replace('{pct}', Math.round(mv / dif * 100)) : '';
-        } else fr.textContent = '';
-      }
+      var co = $('[data-duelo-conta-outro]', duel), cm = $('[data-duelo-conta-omid]', duel), cd = $('[data-duelo-conta-dif]', duel), cp = $('[data-duelo-conta-pct]', duel);
+      if (co) co.textContent = fmt0.format(outroR);
+      if (cm) cm.textContent = fmt0.format(omidR);
+      if (cd) cd.textContent = (dif >= 0 ? '' : '−') + fmt0.format(Math.abs(difR));
+      if (cp) cp.textContent = Math.round(Math.abs(dif) / tot[menor].total * 100) + '% ' + (dif >= 0 ? ds.aMenos : ds.aMais);
 
       /* o 40% lá em cima ganha o número real: quanto a OMID fica abaixo da
          mais barata das três grandes, na configuração atual */

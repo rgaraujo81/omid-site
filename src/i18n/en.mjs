@@ -65,9 +65,8 @@ video: {
 comparar: {
   cenarios: { rot: 'Start from a scenario', custom: 'Custom',
     itens: { site: 'Website and API', erp: 'ERP', banco: 'Database', k8s: 'Kubernetes' } },
-  economiaAno: 'less per year than the cheapest global cloud would charge for this very machine',
-  economiaAnoNeg: 'more per year than the cheapest global cloud would charge for this very machine',
-  fraseItem: 'In this configuration, {item} alone explains {pct}% of the gap to the cheapest global cloud.',
+  ecoRot: 'Savings per month, same machine', ecoRotNeg: 'Difference per month, same machine',
+  contaOutro: 'Cheapest global cloud', contaDif: 'Difference', aMenos: 'less', aMais: 'more',
   cambioRot: 'What if the dollar were', cambioHoje: 'back to today\'s rate',
   cambioNota: 'OMID bills in reais. Move the dollar: the others change, OMID\'s contract does not.',
   legenda: 'Each bar shows where the price comes from',

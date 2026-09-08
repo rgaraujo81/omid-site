@@ -271,7 +271,7 @@ export const duelo = (ctx) => {
      data-vezes="${C.vezes}" data-mais-caro="${C.maisCaro}" data-mais-barato="${C.maisBarato}"
      data-referencia="${C.referencia}" data-ao-vivo="${C.aoVivo}" data-consultado="${C.consultado}"
      data-cambio="${C.cambio}" data-inclui="${C.omidInclui}"
-     data-eco-pos="${C.economiaAno}" data-eco-neg="${C.economiaAnoNeg}" data-frase="${C.fraseItem}">
+     data-eco-pos="${C.ecoRot}" data-eco-neg="${C.ecoRotNeg}" data-a-menos="${C.aMenos}" data-a-mais="${C.aMais}">
   <div class="duelo__cab">
     <p class="mono apaga">${C.rot}<span class="duelo__vivo" data-duelo-vivo hidden></span></p>
     <h3 class="berro duelo__h t-16">${C.h}</h3>
@@ -280,9 +280,13 @@ export const duelo = (ctx) => {
 
   <div class="duelo__topo t-32">
     <div class="duelo__eco nota-f">
-      <p class="mono apaga" data-duelo-eco-rot>${C.economiaAno}</p>
-      <p class="preco__n duelo__eco-n"><small>R$</small><span data-duelo-eco>—</span><span class="mes">/${ctx.loc === 'en' ? 'year' : 'ano'}</span></p>
-      <p class="lead apaga duelo__frase" data-duelo-frase></p>
+      <p class="mono apaga" data-duelo-eco-rot>${C.ecoRot}</p>
+      <p class="preco__n duelo__eco-n"><small>R$</small><span data-duelo-eco>—</span><span class="mes">${R.mes}</span></p>
+      <dl class="duelo__conta">
+        <div><dt>${C.contaOutro}</dt><dd>R$ <span data-duelo-conta-outro>—</span></dd></div>
+        <div><dt>${C.provedores.omid}</dt><dd>R$ <span data-duelo-conta-omid>—</span></dd></div>
+        <div class="duelo__conta-dif"><dt>${C.contaDif}</dt><dd>R$ <span data-duelo-conta-dif>—</span><em data-duelo-conta-pct>—</em></dd></div>
+      </dl>
     </div>
     <div class="duelo__fx">
       <div class="ctl">

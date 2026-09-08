@@ -85,11 +85,15 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
   "use o mesmo botão e tamanho para todos, padrão o da CPU". Quando a trilha não cabe na coluna ela rola de
   lado sem barra e o JS acende `.troca--rola` (esmaecido na borda) até o fim da rolagem. No celular os grupos
   curtos dividem a largura em partes iguais e o de cenários rola. Não voltar aos chips contornados.
-- **O simulador tem quatro alavancas além das réguas:** cenários de um clique (`CENARIOS` em `ui.mjs`;
-  os números têm que cair nos passos das réguas), a régua do câmbio (move os concorrentes, a OMID não),
-  a frase gerada (`fraseItem`: qual item explica a maior parte da diferença para a mais barata das três
-  grandes) e o link compartilhável — a configuração inteira vive em `#simular?vcpu=…&so=…&fx=…`, lida no
-  load e no `hashchange`. A economia anual é sempre contra a MAIS BARATA de AWS/Azure/Google, nunca a média.
+- **O simulador tem três alavancas além das réguas:** cenários de um clique (`CENARIOS` em `ui.mjs`;
+  os números têm que cair nos passos das réguas), a régua do câmbio (move os concorrentes, a OMID não)
+  e o link compartilhável — a configuração inteira vive em `#simular?vcpu=…&so=…&fx=…`, lida no
+  load e no `hashchange`.
+- **O cartão da economia é uma conta de subtrair, POR MÊS, exposta em três linhas** (nuvem global mais
+  barata − OMID = diferença, com o percentual) — sempre contra a MAIS BARATA de AWS/Azure/Google, nunca a
+  média. O dono rejeitou a versão anualizada (×12) e a frase "{item} explica X% da diferença" em 2026-09-08
+  ("a lógica está errada, algo fácil de entender"). As linhas usam totais já arredondados para fecharem
+  sempre; só o percentual sai dos valores exatos.
 - **Como o duelo é "ao vivo" sem servidor:** a página lê `assets/dados/precos-nuvem.json` (snapshot diário do
   GitHub Actions) e, no navegador, refina o que libera CORS — o câmbio (BCB). AWS (arquivo de 290 MB), Azure (sem CORS) e
   Google (páginas) só pelo robô. Se o JSON não carregar, o bloco fica escondido.

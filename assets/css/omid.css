@@ -776,8 +776,14 @@ html.portal-vivo .portal__fio { background: #23232A; }
 .duelo__eco { padding: clamp(20px, 2.6vw, 30px); }
 .duelo__eco .preco__n { margin-top: 10px; }
 .duelo__eco-n { font-size: clamp(2.4rem, 4.6vw, 4rem); }
-.duelo__frase { margin-top: 12px; font-size: .95rem; max-width: 40ch; }
-.duelo__frase:empty { display: none; }
+/* a conta visível: três linhas que fecham (outro − OMID = diferença) */
+.duelo__conta { margin: 16px 0 0; display: grid; }
+.duelo__conta > div { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 8px 0; border-top: 1px solid var(--fio); font-size: .9rem; }
+.duelo__conta dt { color: var(--cinza); }
+.duelo__conta dd { margin: 0; font-family: var(--mono); font-size: .85rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.duelo__conta-dif { font-weight: 600; }
+.duelo__conta-dif dt { color: var(--tinta); }
+.duelo__conta-dif dd em { font-style: normal; font-weight: 500; font-size: .7rem; letter-spacing: .04em; color: var(--cinza); margin-left: 8px; }
 .duelo__fx { padding-top: 6px; }
 .duelo__fx .ctl__cab b { font-weight: 640; }
 .duelo__hoje { background: none; border: 0; padding: 0; font: inherit; color: var(--tinta); cursor: pointer;

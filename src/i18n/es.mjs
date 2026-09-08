@@ -65,9 +65,8 @@ video: {
 comparar: {
   cenarios: { rot: 'Empieza por un escenario', custom: 'Personalizado',
     itens: { site: 'Sitio y API', erp: 'ERP', banco: 'Base de datos', k8s: 'Kubernetes' } },
-  economiaAno: 'menos al año de lo que la nube global más barata cobraría por esta misma máquina',
-  economiaAnoNeg: 'más al año de lo que la nube global más barata cobraría por esta misma máquina',
-  fraseItem: 'En esta configuración, {item} explica el {pct}% de la diferencia con la nube global más barata.',
+  ecoRot: 'Ahorro al mes, en la misma máquina', ecoRotNeg: 'Diferencia al mes, en la misma máquina',
+  contaOutro: 'Nube global más barata', contaDif: 'Diferencia', aMenos: 'menos', aMais: 'más',
   cambioRot: 'Y si el dólar estuviera a', cambioHoje: 'volver al cambio de hoy',
   cambioNota: 'OMID cobra en reales. Mueve el dólar: los otros cambian, el contrato de OMID no.',
   legenda: 'Cada barra muestra de dónde viene el precio',
