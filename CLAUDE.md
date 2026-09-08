@@ -129,6 +129,16 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
   foi escolhida porque o critério é preço da família premium, não geração). Trocar o de/para = editar
   `familias` no JSON e o SKU/instância no robô; o JS não sabe de família nenhuma. Sem preço na família, o JS
   cai na família-padrão do provedor (uso geral) e `semEquivalente: true` põe o aviso na linha.
+- **A seção "Soluções" da home é a grade de cartões** (`solucoes()` em `ui.mjs`, CSS 10c). Era uma `pilha` de
+  `item`, com a descrição jogada na borda direita: o olho atravessava a tela para ligar nome e explicação, e
+  nada dizia o que havia DENTRO de cada produto. Cada cartão agora traz a categoria (`produtos[i].tag`), o
+  nome, o resumo e os **três primeiros `blocos`** do produto — que é o que responde "isso serve para quê?"
+  antes do clique. O cartão inteiro é o link. Refeita a pedido do dono em 2026-09-08 ("pense que quem acessar
+  tenha a melhor experiência visual e de informação"). **A grade tem SEIS colunas**: os três primeiros cartões
+  ocupam 2 (terços), os dois últimos ocupam 3 (metades) — assim as duas fileiras fecham e não sobra célula
+  vazia, que é o que acontecia com `auto-fit` e cinco itens. Abaixo de 1080px vira 2+2+1; abaixo de 680px,
+  uma coluna. `item`/`pilha` continuam sendo o componente das outras listas (soberania, institucional) —
+  não misturar.
 - **A seção "Integração vertical" da home é a figura isométrica das camadas** (`camadas()` em `ui.mjs`,
   CSS 10b, JS `lajes()`): quatro lajes em SVG (topo + duas faces, tingidas na cor da camada, grão de concreto
   na base) à esquerda, fixas na rolagem, e uma linha por camada à direita. Cada laje sobe 48px por `--k` via

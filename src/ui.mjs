@@ -76,6 +76,33 @@ export const nuvens = () => `
   <div class="nuvens__frente">${[0, 1, 2, 3, 4].map((n) => `<i style="--n:${n}"></i>`).join('')}</div>
 </div>`;
 
+/* --- as soluções: um cartão por produto ---
+   A lista antiga jogava a descrição para a borda direita e o olho tinha que
+   atravessar a tela para ligar nome e explicação; e não dizia o que havia
+   DENTRO de cada produto. Aqui cada cartão traz a categoria, o nome, o resumo
+   e os três primeiros serviços do produto — que é a informação que responde
+   "isso serve para quê?" antes do clique. O cartão inteiro é o link.
+   (dono, 2026-09-08: "pense que quem acessar tenha a melhor experiência
+   visual e de informação") --- */
+export const solucoes = (ctx, meta) => `
+<div class="solucoes">
+  ${meta.map((p, i) => {
+    const P = ctx.L.produtos[i];
+    const dentro = (P.blocos || []).slice(0, 3).map(([t]) => t);
+    return `
+  <a class="sol" href="${ctx.u('solucoes', p.slug)}" data-ver style="--pt:${p.cor}; --d:${i}">
+    <span class="sol__cima">
+      <span class="sol__tag mono">${P.tag}</span>
+      <span class="sol__n mono">${String(i + 1).padStart(2, '0')}</span>
+    </span>
+    <h3 class="sol__t">${p.nome}</h3>
+    <p class="sol__d">${P.resumo}</p>
+    ${dentro.length ? `<ul class="sol__itens">${dentro.map((t) => `<li>${t}</li>`).join('')}</ul>` : ''}
+    <span class="sol__ir">${ctx.L.c.verSolucao}${seta}</span>
+  </a>`;
+  }).join('')}
+</div>`;
+
 /* --- as camadas: figura isométrica + linhas ---
    À esquerda, as quatro lajes desenhadas em SVG (topo, face esquerda, face
    direita), do concreto (k=0, embaixo, com grão) ao time (k=3, em cima);

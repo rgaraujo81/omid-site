@@ -1,6 +1,6 @@
 import { prodMeta, numeroValores, certDots, enderecos } from '../shared.mjs';
 import {
-  ver, rotulo, botao, botaoSim, varre, cabeca, camadas, item, pilha, nuvens,
+  ver, rotulo, botao, botaoSim, varre, cabeca, camadas, item, pilha, nuvens, solucoes,
   letreiro, credenciais, defs, chamada, linhas, lume, regua
 } from '../ui.mjs';
 
@@ -75,12 +75,7 @@ ${credenciais(ctx, faixa1)}
 <section class="bloco dobra dobra--fio dobra--colapso">
   <div class="faixa-p max">
     ${cabeca({ rot: H.solucoes.eb, h: H.solucoes.h, p: H.solucoes.p })}
-    <div class="t-56">
-      ${pilha(prodMeta.map((p, i) => item({
-        n: String(i + 1).padStart(2, '0'), t: p.nome, d: L.produtos[i].resumo,
-        cor: CORES[i], href: u('solucoes', p.slug)
-      })))}
-    </div>
+    <div class="t-56">${solucoes(ctx, prodMeta)}</div>
   </div>
 </section>
 

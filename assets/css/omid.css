@@ -625,6 +625,38 @@ a.quadro:hover, .quadro--hov:hover { transform: translateY(-4px); box-shadow: va
 /* últimos tamanhos que viviam em style="" nas páginas internas */
 .tela__t { color: inherit; }
 .etiquetas--g { font-size: var(--t-xs); padding: 9px 14px; }
+
+/* ---------- 10c. As solucoes: um cartao por produto ----------
+   Antes era uma lista com a descricao jogada na borda direita: o olho
+   atravessava a tela para ligar nome e explicacao, e nada dizia o que havia
+   DENTRO do produto. Agora cada cartao carrega categoria, nome, resumo e os
+   tres primeiros servicos — e o cartao inteiro e o link. */
+/* cinco produtos numa grade de SEIS colunas: tres tercos em cima, duas
+   metades embaixo — as duas fileiras fecham, sem celula vazia */
+.solucoes { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px;
+  background: var(--fio); border: 1px solid var(--fio); border-radius: var(--rd-g); overflow: hidden; }
+.sol { grid-column: span 2; position: relative; display: grid; align-content: start; gap: 10px;
+  padding: clamp(24px, 2.6vw, 34px) clamp(22px, 2.4vw, 30px) clamp(20px, 2.2vw, 26px);
+  background: var(--papel); transition: background .4s var(--ease); }
+.sol::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--pt);
+  transform: scaleX(0); transform-origin: 0 50%; transition: transform .5s var(--ease); }
+.sol:hover { background: var(--papel-2); }
+.sol:hover::before, .sol:focus-visible::before { transform: scaleX(1); }
+.sol__cima { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.sol__tag { color: var(--pt); }
+.sol__n { color: var(--cinza-2); }
+.sol__t { font-size: var(--t-t4); font-weight: 600; letter-spacing: -.02em; line-height: 1.2; }
+.sol__d { font-size: var(--t-s); line-height: 1.55; color: var(--cinza); }
+.sol__itens { list-style: none; margin: 4px 0 0; padding: 12px 0 0; border-top: 1px solid var(--fio-2); display: grid; gap: 5px; }
+.sol__itens li { font-size: var(--t-xs); color: var(--cinza); display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 9px; align-items: baseline; }
+.sol__itens li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--pt); opacity: .55; }
+.sol__ir { margin-top: auto; padding-top: 16px; display: inline-flex; align-items: center; gap: 8px;
+  font-size: var(--t-xs); font-weight: 500; color: var(--tinta); }
+.sol__ir svg { transition: transform .4s var(--ease); }
+.sol:hover .sol__ir svg { transform: translateX(4px); }
+.sol:nth-child(n+4) { grid-column: span 3; }
+@media (max-width: 1080px) { .sol, .sol:nth-child(n+4) { grid-column: span 3; } .sol:nth-child(5) { grid-column: span 6; } }
+@media (max-width: 680px) { .solucoes { grid-template-columns: 1fr; } .sol, .sol:nth-child(n+4), .sol:nth-child(5) { grid-column: auto; } }
 .valor-mono { font-family: var(--mono); font-size: var(--t-s); }
 .rodape__pe { display: flex; flex-wrap: wrap; gap: 12px 30px; justify-content: space-between; margin-top: 38px; padding-top: 20px; border-top: 1px solid #202024; font-family: var(--mono); font-size: var(--t-mono); letter-spacing: .14em; text-transform: uppercase; color: #64615B; }
 .social { display: flex; gap: 8px; margin-top: 18px; }
