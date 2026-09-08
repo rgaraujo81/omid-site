@@ -67,6 +67,16 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
    O fundo continua sendo só céu e nuvem: `nuvens()` em `ui.mjs`, CSS 5b: aurora roxa ao fundo e dois
    planos de nuvem (as de trás largas e lentas, as da frente densas e mais borradas), com o texto na frente.
    Nada de 3D aqui, então `filter: blur()` é seguro.
+   **O fluxo é CONTÍNUO** (dono, 2026-09-08: "as nuvens se mexendo fluindo constantemente"): cada nuvem
+   atravessa a tela em linha reta, `linear` e `infinite`, sem `alternate`. Com `ease-io` + `alternate` elas
+   desaceleravam até parar nas pontas e o céu congelava duas vezes por ciclo. Cada uma tem `--dur` (78s a
+   168s) e `--atraso` NEGATIVO próprio, para o céu já nascer povoado e nunca sincronizar. As da frente andam
+   quase o dobro da velocidade das de trás — é isso que dá a profundidade.
+   **A travessia é de 168% da largura da própria nuvem, não 142%:** o `blur` pinta até ~70px além da caixa,
+   então ela precisa sair INTEIRA da tela antes do salto do laço, senão a borda desfocada reaparece do outro
+   lado e a emenda fica visível. Conferido por aritmética (o painel do navegador com aba oculta não aplica o
+   valor da animação, então medir por `getBoundingClientRect` ali não vale): folga mínima de 33px no celular
+   e 321px no desktop, já descontado o espalhamento do desfoque.
    **Histórico, para ninguém repetir:** o dono pediu o símbolo gigante voando entre as nuvens e depois
    **cancelou** — "deixe apenas as nuvens já que você não conseguiu fazer" (2026-09-08). Quatro tentativas
    foram rejeitadas: placas genéricas em CSS que não eram o logo ("o que você usou não é o logo da OMID"),
