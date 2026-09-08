@@ -252,8 +252,8 @@ export const chamada = (ctx, o = {}) => {
   <div class="regua regua--inv" aria-hidden="true"></div>
   <div class="faixa-p max">
     ${rotulo(L.c.proximoPasso)}
-    <h2 class="grito t-24 respira">${linhas(o.h || L.cta.h)}</h2>
-    <p class="lead apaga t-32">${o.p || L.cta.p}</p>
+    <h2 class="berro t-16 respira">${linhas(o.h || L.cta.h)}</h2>
+    <p class="lead apaga t-24">${o.p || L.cta.p}</p>
     <div class="linha-botoes t-32">
       ${botaoSim(ctx, L.c.simularAmbiente, true)}
       <a class="botao botao--vazio botao--g" href="${ctx.u('contato')}"><span>${L.cta.a}</span>${seta}</a>

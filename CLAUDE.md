@@ -165,6 +165,11 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
   grade, então as duas colunas têm exatamente a mesma altura em qualquer conteúdo. Não voltar a pôr o
   `cabeca()` fora de `camadas()`. `item`/`pilha` seguem sendo o componente das listas de produtos e
   soberania — não misturar.
+- **A chamada final usa o MESMO título de seção do resto do site** (`.berro`, `--t-t2`). Ela e o topo do
+  rodapé usavam `--t-t1`, o degrau da manchete da home, e ficavam maiores que tudo à volta; e as duas
+  repetiam o mesmo par de botões, uma embaixo da outra, em 8 das 12 páginas. Agora o par de botões vive só
+  na chamada, e o rodapé fica com a manchete em `--t-t3` e UM link de texto. A classe `.grito` morreu junto.
+  O fundo de aurora da chamada foi elogiado pelo dono em 2026-09-08 — mexer no tamanho, não no fundo.
 - **O respiro vertical é escala fechada, como a tipografia.** Três degraus no `:root` e **nenhum
   `padding-block` solto em seção**. Histórico, porque o dono mudou de ideia vendo renderizado: pediu "mais
   espaço" (fui a 171px/lado, 342px entre dobras), depois "padronize", depois **"diminui isso para 1/3 e igual

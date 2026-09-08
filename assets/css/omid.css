@@ -113,11 +113,6 @@ p { text-wrap: pretty; }
 b, strong { font-weight: 600; }
 
 /* títulos: grandes, calmos, em voz normal */
-.grito {
-  font-weight: 600; font-stretch: 102%;
-  font-size: var(--t-t1);
-  line-height: 1.02; letter-spacing: -.032em; text-wrap: balance;
-}
 .berro {
   font-weight: 600; font-stretch: 102%;
   font-size: var(--t-t2);
@@ -613,7 +608,9 @@ a.quadro:hover, .quadro--hov:hover { transform: translateY(-4px); box-shadow: va
 .rodape { background: #0C0C0E; color: #B9B6AD; padding-block: var(--dobra) 30px; }
 .rodape a { transition: color .25s; }
 .rodape a:hover { color: #fff; }
-.rodape__g { font-weight: 600; font-stretch: 102%; font-size: var(--t-t1); line-height: 1.02; letter-spacing: -.03em; color: #EFEDE6; max-width: 16ch; }
+.rodape__g { font-weight: 600; font-stretch: 102%; font-size: var(--t-t3); line-height: 1.14; letter-spacing: -.02em; color: #EFEDE6; max-width: 20ch; }
+.rodape__acao { margin-top: 18px; }
+.rodape__acao .varre { color: #EFEDE6; }
 .rodape__cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 34px; margin-top: clamp(38px, 6vh, 76px); padding-top: 30px; border-top: 1px solid #202024; }
 .rodape h5 { font-family: var(--mono); font-size: var(--t-mono); letter-spacing: .2em; text-transform: uppercase; color: #64615B; margin-bottom: 15px; font-weight: 400; }
 .rodape__nav { display: grid; gap: 10px; font-size: var(--t-s); }

@@ -83,11 +83,10 @@ const rodape = (ctx) => `
 <footer class="rodape">
   <div class="regua regua--inv" aria-hidden="true"></div>
   <div class="faixa-p max" style="position:relative;z-index:1">
+    <!-- o rodape nao repete a chamada: manchete no degrau de bloco e UM link.
+         O par de botoes fica na secao de cima, que e onde a acao pertence. -->
     <p class="rodape__g">${linhas(ctx.L.footer.grito)}</p>
-    <div class="linha-botoes t-32">
-      ${botaoSim(ctx, ctx.L.c.simularAmbiente, true)}
-      <a class="botao botao--vazio botao--g" href="${ctx.u('contato')}" style="--fg:var(--tinta);border-color:var(--linha)"><span>${ctx.L.nav.cta}</span>${seta}</a>
-    </div>
+    <div class="rodape__acao"><a class="varre" href="${ctx.u('contato')}"><span>${ctx.L.nav.cta}</span>${seta}</a></div>
 
     <div class="rodape__cols">
       <div>
