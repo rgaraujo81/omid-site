@@ -84,6 +84,9 @@ html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-t
    herda. Sem isto, um <h3> solto entra com 1.17em e cria um degrau fantasma
    fora da escala — foi o que aconteceu na sanfona. */
 h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+/* `100vw` (aurora, nuvens) conta a barra de rolagem e sobra rolagem lateral.
+   `clip` e nao `hidden`: `hidden` cria contexto de rolagem e quebra sticky. */
+body { overflow-x: clip; }
 body {
   background: var(--papel); color: var(--tinta);
   font-family: var(--sans); font-size: var(--t-m); font-weight: 400; line-height: 1.6;
@@ -341,82 +344,42 @@ body.aberto .gaveta__a { animation: gavIn .5s var(--ease) forwards; animation-de
 .abertura { min-height: calc(100svh - var(--topo-h)); display: flex; flex-direction: column; justify-content: center; padding-block: clamp(30px, 6vh, 70px) clamp(24px, 4vh, 48px); }
 .abertura--ive { justify-content: center; position: relative; text-align: center; }
 .sereno { display: grid; justify-items: center; }
-/* ---------- 5b. A abertura: o logo voando entre as nuvens ----------
-   Cinco lajes do simbolo como planos 3D reais e a nevoa INTERCALADA entre
-   elas - a nuvem atravessa a estrutura porque esta no mesmo `preserve-3d`,
-   num Z entre duas lajes. A cena inclina e volta, como um aviao em curva.
-   Regra da casa: dentro de `preserve-3d` nada de `filter: blur()` (o borrao
-   escapa do elemento); a maciez vem de gradiente radial. So as nuvens da
-   frente, que ficam FORA do 3D, borram.
-   Paleta puxada para o roxo - o dono tirou o azul da abertura em 2026-09-08.
-   (dono: "o logo gigante voando e as nuvens envolta, mudando de angulo") */
-/* superestrutura: o simbolo e MAIOR que a tela de proposito — so um pedaco
-   dele aparece entre as nuvens, como uma estrutura vista de um aviao
-   (dono, 2026-09-08: "apenas um pedaco dele"). Quem esconde o resto e a
-   nuvem, nao o corte: por isso ela precisa ter corpo, nao ser nevoa. */
-.voo { --l: max(96vw, 104vh);
-  /* `inset: 0` e nao `100vw`: 100vw conta a barra de rolagem e sobra 19px de
-     rolagem lateral. A mascara dissolve as bordas, entao ficar do tamanho da
-     secao nao cria emenda. */
-  position: absolute; inset: 0;
-  z-index: 0; pointer-events: none; perspective: 1400px; perspective-origin: 50% 44%;
-  /* CORTA aqui: mascara so pinta, nao corta layout — sem isto a pagina ganha
-     7500px de rolagem lateral por causa das nuvens gigantes */
-  overflow: clip;
-  /* e a mascara dissolve a cena antes da borda, entao o corte nao aparece */
-  -webkit-mask-image: radial-gradient(120% 104% at 50% 46%, #000 62%, transparent 96%);
-  mask-image: radial-gradient(120% 104% at 50% 46%, #000 62%, transparent 96%); }
-/* O simbolo ja e um desenho isometrico: a cena so INCLINA de leve e volta,
-   senao a projecao do proprio logo briga com a do CSS. */
-.voo__cena { position: absolute; left: 47%; top: 44%; width: 0; height: 0; transform-style: preserve-3d;
-  animation: vooCurva 32s var(--ease-io) infinite alternate; }
-@keyframes vooCurva {
-  from { transform: rotateX(9deg) rotateY(-13deg) rotateZ(-3deg); }
-  to   { transform: rotateX(-7deg) rotateY(14deg) rotateZ(4deg); }
-}
-.voo__camada, .voo__nevoa { position: absolute; left: 50%; top: 50%;
-  width: var(--l); margin-left: calc(var(--l) / -2); transform: translateZ(var(--z, 0)); }
-/* as duas camadas do losango oficial, separadas em profundidade */
-.voo__camada { height: calc(var(--l) / 1.303); margin-top: calc(var(--l) / -2.606); }
-.voo__camada .camada-logo { display: block; width: 100%; height: 100%; opacity: .82;
-  filter: drop-shadow(0 30px 64px rgba(84, 94, 160, .3)) saturate(1.16); }
-.voo__nevoa { height: var(--l); margin-top: calc(var(--l) / -2); }
-/* a nevoa entre as lajes: um wrapper leva o Z, o filho anda - assim a deriva
-   nunca soma com o translateZ da posicao */
-.voo__nevoa i { position: absolute; left: 50%; top: 50%; width: var(--w, 190%); height: var(--h, 190%);
-  margin: calc(var(--h, 210%) / -2) 0 0 calc(var(--w, 210%) / -2);
-  /* `translate` (lugar fixo) e o `transform` do keyframe (deriva) somam DE
-     PROPOSITO aqui — e a unica soma intencional desta base */
-  translate: var(--dx, 0) var(--dy, 0);
-  border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 255, 255, .74), rgba(252, 248, 255, .5) 30%, rgba(238, 226, 248, .24) 54%, rgba(226, 208, 240, 0) 78%);
-  animation: nevoaAnda calc(30s + var(--n) * 11s) var(--ease-io) infinite alternate; }
-/* cada nevoa tem forma e lugar proprios: concentricas viravam um brilho no
-   meio; deslocadas e achatadas viram banco de nuvem cortando a estrutura.
-   A camada de baixo e o filho 1, as nevoas 2-5, a de cima o 6. */
-.voo__nevoa:nth-child(2) i { --w: 300%; --h: 108%; --dx: -24%; --dy: 16%; }
-.voo__nevoa:nth-child(3) i { --w: 210%; --h: 175%; --dx: 27%; --dy: -8%; animation-direction: alternate-reverse; }
-.voo__nevoa:nth-child(4) i { --w: 320%; --h: 92%;  --dx: 12%;  --dy: -20%; }
-.voo__nevoa:nth-child(5) i { --w: 230%; --h: 140%; --dx: -20%; --dy: 2%; animation-direction: alternate-reverse; }
-@keyframes nevoaAnda { from { transform: translate3d(-26%, 12%, 0) scale(.86); } to { transform: translate3d(24%, -12%, 0) scale(1.16); } }
-/* A CAMADA DO MEIO: a nuvem entre a superestrutura e o texto — e ela que
-   decide QUAL pedaco do simbolo aparece. Massas densas cobrindo as bordas e
-   um rasgo no meio; vivem fora do `preserve-3d`, entao aqui o blur e seguro. */
-.voo__frente { position: absolute; inset: -18%; }
-.voo__frente i { position: absolute; border-radius: 50%; filter: blur(34px);
-  background: radial-gradient(closest-side, var(--papel), color-mix(in srgb, var(--papel) 88%, #EFE4FA) 40%, color-mix(in srgb, var(--papel) 40%, transparent) 66%, transparent 84%);
-  animation: frenteAnda calc(40s + var(--n) * 11s) var(--ease-io) infinite alternate; }
-.voo__frente i:nth-child(1) { left: -22%; top: 40%; width: 92%; height: 52%; }
-.voo__frente i:nth-child(2) { right: -24%; top: 6%;  width: 86%; height: 48%; animation-direction: alternate-reverse; }
-.voo__frente i:nth-child(3) { left: 6%;   bottom: -26%; width: 104%; height: 50%; }
-.voo__frente i:nth-child(4) { left: 16%;  top: -24%; width: 84%; height: 42%; animation-direction: alternate-reverse; }
-.voo__frente i:nth-child(5) { right: -6%; bottom: 18%; width: 70%; height: 38%; }
-@keyframes frenteAnda { from { transform: translate3d(-13%, 4%, 0) scale(.96); } to { transform: translate3d(13%, -4%, 0) scale(1.18); } }
-/* o texto por cima do voo: um veu de papel so onde ele pousa */
-.abertura--voo .sereno { position: relative; }
-.abertura--voo .sereno::before { content: ""; position: absolute; inset: -10% -6%; z-index: -1; border-radius: 50%;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--papel) 76%, transparent), color-mix(in srgb, var(--papel) 40%, transparent) 50%, transparent 78%); }
-.abertura--voo .sereno__h { text-shadow: 0 1px 26px color-mix(in srgb, var(--papel) 88%, transparent); }
-.abertura--voo canvas.aurora { opacity: .9; }
+/* ---------- 5b. A abertura: um campo de nuvens ----------
+   Só nuvem. O dono tirou o símbolo da primeira dobra em 2026-09-08. Duas
+   profundidades: as de trás largas e lentas, as da frente densas e mais
+   borradas. Sem 3D aqui — `filter: blur()` é seguro. */
+/* SANGRIA TOTAL. Preso ao `inset: 0` a nuvem parava na largura da secao
+   (1440) enquanto o ceu vai ate a borda da tela — e o encontro dos dois
+   desenhava um retangulo mais claro no meio (dono, 2026-09-08). */
+.nuvens { position: absolute; top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%);
+  z-index: 0; pointer-events: none; overflow: clip;
+  /* a máscara dissolve as bordas; o clip é que segura a rolagem lateral */
+  -webkit-mask-image: radial-gradient(122% 106% at 50% 46%, #000 58%, transparent 96%);
+  mask-image: radial-gradient(122% 106% at 50% 46%, #000 58%, transparent 96%); }
+.nuvens__fundo, .nuvens__frente { position: absolute; inset: -18%; }
+.nuvens i { position: absolute; border-radius: 50%; }
+.nuvens__fundo i { filter: blur(46px);
+  background: radial-gradient(closest-side, rgba(255, 255, 255, .78), rgba(250, 244, 255, .5) 34%, rgba(236, 224, 248, .2) 58%, rgba(236, 224, 248, 0) 80%);
+  animation: nuvemAnda calc(52s + var(--n) * 15s) var(--ease-io) infinite alternate; }
+.nuvens__fundo i:nth-child(1) { left: -12%; top: 8%;  width: 78%; height: 46%; }
+.nuvens__fundo i:nth-child(2) { right: -14%; top: 34%; width: 72%; height: 44%; animation-direction: alternate-reverse; }
+.nuvens__fundo i:nth-child(3) { left: 22%;  bottom: 2%; width: 84%; height: 42%; }
+.nuvens__fundo i:nth-child(4) { left: 34%;  top: -6%; width: 62%; height: 36%; animation-direction: alternate-reverse; }
+.nuvens__frente i { filter: blur(34px);
+  background: radial-gradient(closest-side, var(--papel), color-mix(in srgb, var(--papel) 88%, #EFE4FA) 40%, color-mix(in srgb, var(--papel) 38%, transparent) 66%, transparent 84%);
+  animation: nuvemAnda calc(38s + var(--n) * 11s) var(--ease-io) infinite alternate; }
+.nuvens__frente i:nth-child(1) { left: -22%; top: 42%; width: 92%; height: 50%; }
+.nuvens__frente i:nth-child(2) { right: -24%; top: 4%;  width: 86%; height: 46%; animation-direction: alternate-reverse; }
+.nuvens__frente i:nth-child(3) { left: 4%;   bottom: -26%; width: 104%; height: 48%; }
+.nuvens__frente i:nth-child(4) { left: 18%;  top: -24%; width: 82%; height: 40%; animation-direction: alternate-reverse; }
+.nuvens__frente i:nth-child(5) { right: -6%; bottom: 20%; width: 68%; height: 36%; }
+@keyframes nuvemAnda { from { transform: translate3d(-12%, 4%, 0) scale(.94); } to { transform: translate3d(12%, -4%, 0) scale(1.16); } }
+/* o texto é o assunto: chão de papel suficiente, sem borrão */
+.abertura--nuvens .sereno { position: relative; }
+.abertura--nuvens .sereno::before { content: ""; position: absolute; inset: -12% -8%; z-index: -1; border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--papel) 42%, transparent), transparent 72%); }
+.abertura--nuvens canvas.aurora { opacity: .9; }
+.sereno__h { text-shadow: 0 1px 26px color-mix(in srgb, var(--papel) 88%, transparent); }
 .sereno__h {
   font-weight: 400; font-stretch: 102%;
   font-size: var(--t-t1);

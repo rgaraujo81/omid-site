@@ -1,6 +1,6 @@
 import { prodMeta, numeroValores, certDots, enderecos } from '../shared.mjs';
 import {
-  ver, rotulo, botao, botaoSim, varre, cabeca, camadas, item, pilha, voo,
+  ver, rotulo, botao, botaoSim, varre, cabeca, camadas, item, pilha, nuvens,
   letreiro, credenciais, defs, chamada, linhas, lume, regua
 } from '../ui.mjs';
 
@@ -18,9 +18,9 @@ export const home = (ctx) => {
   };
 
   return `
-<section class="abertura abertura--ive abertura--voo faixa-p max">
+<section class="abertura abertura--ive abertura--nuvens faixa-p max">
   <canvas class="aurora" aria-hidden="true"></canvas>
-  ${voo()}
+  ${nuvens()}
   <div class="sereno">
     <h1 class="sereno__h ent" style="--e:0">${H.h1a.replace('<br>', ' ')}<b>${H.h1b}</b>.</h1>
     <p class="sereno__p ent" style="--e:1">${H.lead}</p>

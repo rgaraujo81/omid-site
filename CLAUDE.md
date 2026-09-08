@@ -52,31 +52,24 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
    com o padrão do navegador (1.17em) e cria um degrau fantasma — aconteceu com o `h3` da sanfona; o
    `th` do `thead` entrava em 700 pelo mesmo motivo.
    **Sobriedade, profissionalismo e minimalismo** são o filtro de qualquer decisão visual: na dúvida, tirar.
-3c. **A abertura é o VOO: o símbolo como superestrutura entre nuvens** (`voo()` em `ui.mjs`, CSS 5b).
-   Pedido do dono em 2026-09-08, em três correções: "o logo gigante voando e as nuvens envolta, mudando de
-   ângulo" → "o texto na frente, ao fundo o logo como superestrutura e nuvens entre eles" → "apenas um
-   pedaço dele". Como funciona:
-   - **O símbolo é o arquivo oficial, não um desenho novo.** `logoCamada('alta'|'baixa')` em `logo.mjs`
-     recorta os dois grupos do próprio SVG (`Grupo_6-2` e `Grupo_7`) por varredura de tags; os gradientes
-     continuam nos `<defs>` do símbolo principal, que já está na página. Uma tentativa anterior desenhou
-     placas genéricas em CSS e o dono cortou na hora: "o que você usou não é o logo da OMID".
-   - **Profundidade real**: as duas camadas ficam em `translateZ` opostos dentro de um `preserve-3d`, e as
-     quatro névoas em Z intermediários — é por isso que a nuvem passa ENTRE as camadas, e não por cima.
-   - **Escala**: `--l: max(96vw, 104vh)`, maior que a tela de propósito. Quem esconde o resto é a nuvem, não
-     o corte. Muito maior (128vw) e o pedaço vira barra solta sem identidade; inteiro na tela e perde a ideia
-     de superestrutura.
-   - **A cena só inclina de leve** (±13°): o símbolo já é um desenho isométrico e uma rotação forte briga com
-     a projeção dele.
-   - **Armadilhas que custaram tempo aqui**: (a) `filter: blur()` dentro de `preserve-3d` escapa do elemento —
-     a maciez das névoas internas vem de gradiente radial, e só as nuvens da frente, fora do 3D, borram;
-     (b) `mask-image` PINTA mas não CORTA — sem `overflow: clip` no `.voo` a página ganhava 7.500px de rolagem
-     lateral; (c) `width: 100vw` conta a barra de rolagem e sobra 19px, por isso a cena usa `inset: 0`;
-     (d) `translate` (lugar fixo da névoa) + `transform` do keyframe (deriva) somam DE PROPÓSITO aqui — é a
-     única soma intencional desta base.
-   - **A aurora virou roxa** (`paleta()` em `aurora.js`: índigo → roxo → magenta, no lugar de teal → ciano →
-     índigo). Razão do dono: "azul é o padrão visual da Microsoft". Teal e ciano seguem na paleta do site,
-     só não lideram mais o céu. O gradiente do logo é o do próprio arquivo, não uma aplicação decorativa do
-     espectro — a regra 2 continua valendo.
+3c. **A abertura é céu e nuvem — SEM o logo.** `nuvens()` em `ui.mjs`, CSS 5b: aurora roxa ao fundo e dois
+   planos de nuvem (as de trás largas e lentas, as da frente densas e mais borradas), com o texto na frente.
+   Nada de 3D aqui, então `filter: blur()` é seguro.
+   **Histórico, para ninguém repetir:** o dono pediu o símbolo gigante voando entre as nuvens e depois
+   **cancelou** — "deixe apenas as nuvens já que você não conseguiu fazer" (2026-09-08). Quatro tentativas
+   foram rejeitadas: placas genéricas em CSS que não eram o logo ("o que você usou não é o logo da OMID"),
+   o símbolo inteiro cortado nas bordas virando rabisco, o mesmo com emendas duras nas laterais, e a
+   superestrutura só com um pedaço à mostra ("horrível"). Não reabrir sem pedido explícito dele.
+   **Duas armadilhas que este bloco resolveu e valem para qualquer fundo:**
+   - `mask-image` PINTA mas não CORTA. Fundo maior que a tela precisa de `overflow: clip` de verdade, senão
+     a página ganha rolagem lateral (chegou a 7.500px numa das tentativas).
+   - Fundo preso a `inset: 0` para na largura da SEÇÃO (1440) enquanto a aurora vai até a borda da tela — o
+     encontro dos dois desenha um retângulo mais claro no meio, que o dono viu na hora. Fundo de abertura é
+     sangria total (`left: 50%; width: 100vw; transform: translateX(-50%)`), e o preço disso é rolagem
+     lateral, porque `100vw` conta a barra — daí o `body { overflow-x: clip }` (`clip`, não `hidden`:
+     `hidden` cria contexto de rolagem e quebra `position: sticky`).
+   - A aurora ficou ROXA (`paleta()` em `aurora.js`: índigo → roxo → magenta). Razão do dono: "azul é o
+     padrão visual da Microsoft". Teal e ciano seguem na paleta do site, só não lideram mais o céu.
 4. **Movimento é classe `.viu` + transição via IntersectionObserver.** NUNCA usar
    `animation-timeline`/scroll-timelines para estados de entrada — travou no Safari do dono
    deixando conteúdo invisível (lição cara). Nada pode ficar oculto sem a classe `.sdt`
