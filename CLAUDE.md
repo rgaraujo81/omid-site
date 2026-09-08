@@ -112,19 +112,21 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
   grade, então as duas colunas têm exatamente a mesma altura em qualquer conteúdo. Não voltar a pôr o
   `cabeca()` fora de `camadas()`. `item`/`pilha` seguem sendo o componente das listas de produtos e
   soberania — não misturar.
-- **O respiro vertical é escala fechada, como a tipografia** (dono, 2026-09-08: "deixe mais espaços entre as
-  dobras" e depois "padronize a separação entre as dobras"). Três degraus no `:root` e **nenhum
-  `padding-block` solto em seção**:
-  `--dobra` (171px em tela de 900 → **342px entre duas dobras, em todo o site**) para `.bloco`, `#simular` e
-  `.quieto`; `--dobra-c` (99px) para o chapéu das páginas internas e o topo do `.bloco--curto`; `--dobra-i`
-  (81px) para o salto dentro de uma dobra (`.t-dobra`, o 40% → configurador), a base do chapéu e o topo do
-  rodapé. `.bloco--curto` é assimétrico de propósito: `--dobra-c` em cima (segue o ritmo do cabeçalho, 180px
-  do chapéu) e `--dobra` embaixo (dobra normal). Abaixo de 700px os três degraus caem juntos (212px entre
-  dobras), senão o celular vira meia tela de vazio. Antes havia cinco medidas concorrentes — `.bloco` 19vh,
-  `#simular` 17/15vh, `.quieto` 26vh, `.bloco--curto` 10vh, chapéu 8/4vh — e nenhuma dobra respirava igual à
-  vizinha. Única exceção: `.abertura`, que é `min-height: 100svh` centrada — o padding dela é folga interna
-  da primeira tela, não separação. Quando a distância medida passa de 342px há uma FAIXA de conteúdo no meio
-  (as certificações na home, o letreiro em Sobre), não ar sobrando.
+- **O respiro vertical é escala fechada, como a tipografia.** Três degraus no `:root` e **nenhum
+  `padding-block` solto em seção**. Histórico, porque o dono mudou de ideia vendo renderizado: pediu "mais
+  espaço" (fui a 171px/lado, 342px entre dobras), depois "padronize", depois **"diminui isso para 1/3 e igual
+  todas as outras"** — valor atual e final: `--dobra` = 57px de cada lado, **116px entre duas dobras**, igual
+  em todo o site. `--dobra-c` (41px) no chapéu das páginas internas e no topo do `.bloco--curto`; `--dobra-i`
+  (36px) no salto dentro de uma dobra (`.t-dobra`, o 40% → configurador) e na base do chapéu; o rodapé usa
+  `--dobra`. No celular caem juntos (82px entre dobras). Únicas exceções: `.abertura`, que é `min-height:
+  100svh` centrada (padding é folga interna da 1ª tela, não separação).
+- **Vão percebido ≠ padding.** Quando o dono reclamar de "espaço gigante" entre duas seções, MEÇA da última
+  coisa pintada até a próxima, não o padding: três coisas inflam o vão sem aparecer no CSS da seção —
+  (a) moldura vazia dentro de um SVG (a figura das camadas tinha 40px de margem no viewBox; hoje `M = 14`),
+  (b) `align-items: stretch` numa grade de duas colunas, que estica a coluna curta e deixa a última linha
+  dela flutuando bem acima da borda (foi o caso: a lista terminava 133px antes da figura — resolvido
+  equilibrando o tamanho da figura com o respiro das linhas, hoje 9px de diferença), e (c) seções com fundo
+  (`.inv`), cuja borda visual é a do padding e não a do conteúdo.
 - **O duelo é um painel institucional numa dobra só** (pedidos do dono em 2026-09-08: "tudo visível de uma
   vez", "um fundo lindo e moderno", e depois "não quero preto, tom de empresa séria e grande" — a versão
   escura foi REJEITADA). Painel claro levantado como folha de relatório: gradiente de papel, fio de 3px em
