@@ -99,7 +99,7 @@ b, strong { font-weight: 640; }
   /* era clamp(4.6rem, 21vw, 17rem) — 272px, um muro. Mas 7.4rem tinha ido
      longe demais: o número virava nota de rodapé ao lado da manchete.
      11rem é a massa óptica que equilibra as duas colunas. */
-  font-size: clamp(4.8rem, 15vw, 13.5rem);
+  font-size: clamp(4.8rem, 15vw, 14rem);
   line-height: .82; letter-spacing: -.052em;
 }
 /* o % pousa na altura de x do número, não no topo dele */
@@ -121,16 +121,19 @@ b, strong { font-weight: 640; }
    O que dá corpo ao bloco: um halo atrás do número (o único objeto com
    profundidade na dobra) e o ritmo apertado entre número e manchete —
    os dois são uma frase só, "40% · o mesmo workload, outra conta". */
-.cmp { display: grid; justify-items: center; text-align: center; }
-.cmp__n { display: grid; justify-items: center; position: relative; isolation: isolate; }
+/* espalhado na largura: o número ancora a esquerda, a manchete e o apoio
+   tomam o resto da linha, os pilares fecham de borda a borda embaixo */
+.cmp { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: clamp(32px, 5vw, 88px);
+  align-items: center; text-align: left; }
+.cmp__n { display: grid; justify-items: start; position: relative; isolation: isolate; }
 .cmp__n::before { content: ""; position: absolute; left: 50%; top: 58%; z-index: -1; translate: -50% -50%;
   width: min(720px, 94vw); height: min(360px, 44vw); border-radius: 50%; pointer-events: none;
   background: radial-gradient(closest-side, rgba(64,173,183,.16), rgba(127,36,131,.09) 52%, transparent 76%);
   filter: blur(22px); }
-.cmp .cifra { justify-content: center; }
-.cmp__t { margin-top: clamp(8px, 1.6vh, 16px); }
-.cmp__t h2 { font-size: clamp(2.3rem, 4.5vw, 4.3rem); max-width: 24ch; margin-inline: auto; }
-.cmp__t .lead { font-size: clamp(1.02rem, 1.3vw, 1.2rem); max-width: 60ch; margin: 18px auto 0; }
+.cmp .cifra { justify-content: start; }
+.cmp__t { margin-top: 0; }
+.cmp__t h2 { font-size: clamp(2.3rem, 4.6vw, 4.4rem); max-width: none; }
+.cmp__t .lead { font-size: clamp(1.02rem, 1.3vw, 1.2rem); max-width: 64ch; margin: 18px 0 0; }
 /* os três pilares: mesma pontuação colorida da faixa de certificações */
 .cmp__pilares { list-style: none; padding: 0; margin: clamp(32px, 5vh, 52px) 0 0; width: 100%;
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3.4vw, 56px); text-align: left; }
@@ -139,8 +142,9 @@ b, strong { font-weight: 640; }
 .cmp__pilares li::before { content: ""; width: 14px; height: 3px; border-radius: 3px; background: var(--pt); margin-top: .62em; grid-row: 1 / 3; }
 .cmp__pilares b { font-weight: 620; font-size: clamp(1rem, 1.25vw, 1.14rem); letter-spacing: -.014em; }
 .cmp__pilares span { font-size: clamp(.86rem, 1vw, .95rem); color: var(--cinza); line-height: 1.5; }
-.cmp__vivo { margin: clamp(18px, 2.6vh, 26px) auto 0; max-width: 70ch; font-size: .6rem; text-align: center; }
+.cmp__vivo { margin: clamp(18px, 2.6vh, 26px) 0 0; max-width: none; font-size: .6rem; text-align: left; }
 @media (max-width: 860px) {
+  .cmp { grid-template-columns: 1fr; gap: 14px; }
   .cmp__t h2, .cmp__t .lead { max-width: none; }
   .cmp__pilares { grid-template-columns: 1fr; gap: 10px; }
 }
@@ -736,9 +740,11 @@ html.portal-vivo .portal__fio { background: #23232A; }
 
 /* cenários: chips numa linha, não a pílula segmentada (feita para dois).
    Com cinco opções ela virava um bloco de três linhas e comia meia dobra. */
-.cenarios { display: flex; flex-wrap: wrap; gap: 6px; }
-.cenarios .troca__b { padding: 7px 13px; border: 1px solid var(--fio); border-radius: 999px; background: transparent;
-  font-size: .8rem; line-height: 1.2; color: var(--cinza); }
+/* todos do mesmo tamanho: colunas iguais, e a grade quebra em linhas quando
+   a coluna aperta — nunca um chip maior que o outro, nunca texto vazando */
+.cenarios { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 6px; }
+.cenarios .troca__b { padding: 7px 8px; border: 1px solid var(--fio); border-radius: 999px; background: transparent;
+  font-size: .8rem; line-height: 1.2; color: var(--cinza); text-align: center; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .cenarios .troca__b:hover { color: var(--tinta); border-color: var(--tinta); }
 .cenarios .troca__b.abre { background: var(--tinta); border-color: var(--tinta); color: var(--papel); box-shadow: none; }
 
