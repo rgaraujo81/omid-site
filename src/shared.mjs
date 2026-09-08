@@ -119,19 +119,30 @@ export const modalidadeDots = ['var(--c-teal)', 'var(--c-cyan)', 'var(--c-blue)'
 /* Unidades da régua interativa da home — os mesmos valores da tabela pública
    (CPU Eco por vCPU, memória padrão por GiB, SSD por GB). */
 export const precoUnit = {
-  vcpu: 32.42,      // CPU Eco, por vCPU/mês
-  vcpuUmax: 356.56, // CPU UMax, por vCPU/mês (tipo selecionável na calculadora)
-  ram: 11.60,       // memória padrão, por GiB/mês
+  vcpu: 32.42,      // CPU Eco, por vCPU/mês (degrau-padrão; os outros estão em tiposMaquina)
+  ram: 11.60,       // Memória Eco, por GiB/mês
   ssd: 0.72,        // SSD, por GB/mês
   backup: 0.09,     // BKaaS, por GB/mês
   egress: 0.016,    // tráfego de saída, por GB
   winPar: 98.26     // Windows Server, por par de vCPU/mês
 };
 
+/* Degraus de máquina da tabela pública (vigência até 27/11/2027). Cada degrau
+   tem o SEU preço de vCPU E de memória — trocar só a CPU e manter a RAM Eco
+   subcobra o degrau. Pro-G2 custa o mesmo que Pro e o Kubernetes segue a
+   mesma tabela por degrau, por isso não aparecem como opção à parte. */
+export const tiposMaquina = {
+  eco:  { vcpu: 32.42,  ram: 11.60 },
+  pro:  { vcpu: 73.00,  ram: 26.11 },
+  xpro: { vcpu: 110.00, ram: 29.00 },
+  umax: { vcpu: 356.56, ram: 29.00 }
+};
+
 /* Tabela de preços: os valores em R$ são iguais em qualquer idioma. */
 export const precoValores = [
   { linhas: [['Windows Server', 'R$ 98,26'], ['SQL Server', 'R$ 223,97 — R$ 1.492,48'], ['Linux enterprise', 'R$ 308,00 — R$ 951,08']] },
-  { linhas: [['CPU Eco', 'R$ 32,42'], ['CPU UMax', 'R$ 356,56'], ['RAM', 'R$ 11,60'], ['RAM Kubernetes', 'R$ 29,00']] },
+  { linhas: [['CPU Eco', 'R$ 32,42'], ['CPU Pro / Pro-G2', 'R$ 73,00'], ['CPU XPro', 'R$ 110,00'], ['CPU UMax', 'R$ 356,56'],
+             ['RAM Eco', 'R$ 11,60'], ['RAM Pro / Pro-G2', 'R$ 26,11'], ['RAM XPro / UMax', 'R$ 29,00']] },
   { linhas: [['NL-SAS', 'R$ 0,12'], ['SSD', 'R$ 0,72'], ['BKaaS', 'R$ 0,09']] },
   { linhas: [['VPC', 'R$ 49,90 — R$ 999,90'], ['Egress', 'R$ 0,016'], ['Ingress', 'R$ 0,10'], ['IP', 'R$ 25,00']] },
   { linhas: [['DBaaS A', 'R$ 4.084,05'], ['DBaaS C', 'R$ 12.184,22'], ['Monitoring', 'R$ 89,90'], ['Microsoft AD', 'R$ 1.090,00'], ['SOC agent', 'R$ 400,00 — R$ 500,00']] }

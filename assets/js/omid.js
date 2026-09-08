@@ -354,9 +354,15 @@
     var cx = $('[data-regua]');
     if (!cx) return;
     var out = $('[data-preco-out]', cx);
-    var unit = { vcpu: +cx.dataset.vcpu, vcpuUmax: +cx.dataset.vcpuUmax || +cx.dataset.vcpu, ram: +cx.dataset.ram, ssd: +cx.dataset.ssd,
+    var unit = { vcpu: +cx.dataset.vcpu, ram: +cx.dataset.ram, ssd: +cx.dataset.ssd,
                  backup: +cx.dataset.backup, egress: +cx.dataset.egress, win: +cx.dataset.win };
-    var tipo = 'eco';                                  /* 'eco' | 'umax' — linha da tabela usada na vCPU */
+    /* degraus de máquina (Eco, Pro, XPro, UMax): cada um tem o SEU preço de
+       vCPU e de memória, vindos do HTML como JSON. Sem JSON, só o Eco. */
+    var tipos = {};
+    try { tipos = JSON.parse(cx.dataset.tipos || '{}'); } catch (e) {}
+    if (!tipos.eco) tipos.eco = { vcpu: unit.vcpu, ram: unit.ram };
+    var temTipo = function (k) { return Object.prototype.hasOwnProperty.call(tipos, k) && !!tipos[k] && tipos[k].vcpu > 0; };
+    var tipo = 'eco';
     var fmt0 = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 });
     var fmt2 = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     var so = 0;
@@ -368,7 +374,8 @@
         var alvo = $('[data-val="' + i.dataset.rg + '"]', cx);
         if (alvo) alvo.textContent = fmt0.format(+i.value) + ' ' + i.dataset.un;
       });
-      var compute = g.vcpu * (tipo === 'umax' ? unit.vcpuUmax : unit.vcpu) + g.ram * unit.ram;
+      var t = temTipo(tipo) ? tipos[tipo] : tipos.eco;
+      var compute = g.vcpu * t.vcpu + g.ram * t.ram;
       var disco = g.ssd * unit.ssd;
       var bk = g.backup * unit.backup;
       var tr = g.egress * unit.egress;
@@ -518,7 +525,7 @@
     function aplica(c) {
       ['vcpu', 'ram', 'ssd', 'backup', 'egress'].forEach(function (k) { var i = $('input[data-rg="' + k + '"]', cx); if (i && c[k] != null) i.value = c[k]; });
       if (c.so != null) { so = +c.so; $$('.troca__b[data-so]', cx).forEach(function (o) { var on = +o.dataset.so === so; o.classList.toggle('abre', on); o.setAttribute('aria-pressed', String(on)); }); }
-      if (c.tipo === 'eco' || c.tipo === 'umax') { tipo = c.tipo; marcaTipo(); }
+      if (typeof c.tipo === 'string' && temTipo(c.tipo)) { tipo = c.tipo; marcaTipo(); }
     }
     cens.forEach(function (b) {
       b.addEventListener('click', function () {
@@ -574,9 +581,11 @@
     $$('input[data-rg]', cx).forEach(function (i) { i.addEventListener('input', function () { cenario(null); calc(); }, { passive: true }); });
     function marcaTipo() {
       $$('.troca__b[data-tipo]', cx).forEach(function (o) { var on = o.dataset.tipo === tipo; o.classList.toggle('abre', on); o.setAttribute('aria-pressed', String(on)); });
+      var tv = $('[data-tipo-val]', cx), t = temTipo(tipo) ? tipos[tipo] : tipos.eco;
+      if (tv) tv.textContent = 'R$ ' + fmt2.format(t.vcpu) + '/vCPU · R$ ' + fmt2.format(t.ram) + '/GiB';
     }
     $$('.troca__b[data-tipo]', cx).forEach(function (b) {
-      b.addEventListener('click', function () { tipo = b.dataset.tipo; marcaTipo(); cenario(null); calc(); });
+      b.addEventListener('click', function () { if (!temTipo(b.dataset.tipo)) return; tipo = b.dataset.tipo; marcaTipo(); cenario(null); calc(); });
     });
     $$('.troca__b[data-so]', cx).forEach(function (b) {
       b.addEventListener('click', function () {

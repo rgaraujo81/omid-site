@@ -86,7 +86,7 @@ regua: {
   rot: 'The proof, in reais',
   h: 'Build it here.<br>This is the price.',
   p: 'Drag and watch the bill recalculate instantly, using OMID public price-list figures. Nothing leaves this page until you decide to order.',
-  tipo: 'Machine type', eco: 'CPU Eco', umax: 'CPU UMax',
+  tipo: 'Machine type', tipos: { eco: 'Eco', pro: 'Pro', xpro: 'XPro', umax: 'UMax' },
   so: 'Operating system', linux: 'Linux', windows: 'Windows Server',
   vcpu: 'vCPU', ram: 'Memory', ssd: 'SSD storage', backup: 'Backup', egress: 'Outbound traffic',
   mes: '/month', total: 'Monthly estimate',

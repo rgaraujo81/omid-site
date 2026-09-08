@@ -165,7 +165,7 @@
     <!-- o 40% ligado ao número real do duelo: preenchido pelo JS, escondido sem dado -->
     <p class="mono apaga cmp__vivo" data-cmp-vivo data-molde="Today, for the machine built just below: {pct}% less than the cheapest global cloud." hidden></p>
     <div class="t-56">
-<div class="prova" data-regua data-vcpu="32.42" data-vcpu-umax="356.56" data-ram="11.6" data-ssd="0.72"
+<div class="prova" data-regua data-tipos='{"eco":{"vcpu":32.42,"ram":11.6},"pro":{"vcpu":73,"ram":26.11},"xpro":{"vcpu":110,"ram":29},"umax":{"vcpu":356.56,"ram":29}}' data-vcpu="32.42" data-ram="11.6" data-ssd="0.72"
      data-backup="0.09" data-egress="0.016" data-win="98.26">
   <div data-ver style="--d:0">
     <p class="mono apaga">The proof, in reais</p>
@@ -175,15 +175,14 @@
       <div class="ctl">
         <div class="ctl__cab"><span class="mono apaga" id="rot-cen">Start from a scenario</span></div>
         <div class="cenarios" role="group" aria-labelledby="rot-cen">
-          <button type="button" class="troca__b" data-cen='{"vcpu":4,"ram":8,"ssd":100,"backup":250,"egress":500,"so":0,"tipo":"eco"}' aria-pressed="false">Website and API</button><button type="button" class="troca__b" data-cen='{"vcpu":8,"ram":32,"ssd":500,"backup":500,"egress":1000,"so":1,"tipo":"eco"}' aria-pressed="false">ERP</button><button type="button" class="troca__b" data-cen='{"vcpu":16,"ram":64,"ssd":1000,"backup":2000,"egress":500,"so":0,"tipo":"umax"}' aria-pressed="false">Database</button><button type="button" class="troca__b" data-cen='{"vcpu":32,"ram":128,"ssd":1000,"backup":500,"egress":5000,"so":0,"tipo":"eco"}' aria-pressed="false">Kubernetes</button>
+          <button type="button" class="troca__b" data-cen='{"vcpu":4,"ram":8,"ssd":100,"backup":250,"egress":500,"so":0,"tipo":"eco"}' aria-pressed="false">Website and API</button><button type="button" class="troca__b" data-cen='{"vcpu":8,"ram":32,"ssd":500,"backup":500,"egress":1000,"so":1,"tipo":"pro"}' aria-pressed="false">ERP</button><button type="button" class="troca__b" data-cen='{"vcpu":16,"ram":64,"ssd":1000,"backup":2000,"egress":500,"so":0,"tipo":"umax"}' aria-pressed="false">Database</button><button type="button" class="troca__b" data-cen='{"vcpu":32,"ram":128,"ssd":1000,"backup":500,"egress":5000,"so":0,"tipo":"eco"}' aria-pressed="false">Kubernetes</button>
           <button type="button" class="troca__b abre" data-cen="" aria-pressed="true">Custom</button>
         </div>
       </div>
       <div class="ctl">
-        <div class="ctl__cab"><span class="mono apaga" id="rot-tipo">Machine type</span></div>
-        <div class="troca" role="group" aria-labelledby="rot-tipo">
-          <button type="button" class="troca__b abre" data-tipo="eco" aria-pressed="true">CPU Eco</button>
-          <button type="button" class="troca__b" data-tipo="umax" aria-pressed="false">CPU UMax</button>
+        <div class="ctl__cab"><span class="mono apaga" id="rot-tipo">Machine type</span><b class="ctl__unit" data-tipo-val>R$ 32,42/vCPU · R$ 11,60/GiB</b></div>
+        <div class="troca troca--4" role="group" aria-labelledby="rot-tipo">
+          <button type="button" class="troca__b abre" data-tipo="eco" aria-pressed="true">Eco</button><button type="button" class="troca__b" data-tipo="pro" aria-pressed="false">Pro</button><button type="button" class="troca__b" data-tipo="xpro" aria-pressed="false">XPro</button><button type="button" class="troca__b" data-tipo="umax" aria-pressed="false">UMax</button>
         </div>
       </div>
       <div class="ctl">

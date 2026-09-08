@@ -72,10 +72,13 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
 - `translate:` (propriedade) + `transform: translate()` no keyframe SOMAM — o elemento anda o dobro. Aconteceu
   três vezes nesta base. Use um ou outro.
 - `filter: blur()` dentro de `preserve-3d` é rasterizado à parte e o borrão escapa do elemento. Use `box-shadow`.
-- **Tipo de máquina no simulador:** CPU Eco (R$ 32,42/vCPU) ou CPU UMax (R$ 356,56/vCPU), ambos da tabela
-  pública; a RAM é a padrão nos dois. O duelo compara os dois tipos com as MESMAS instâncias de uso geral dos
-  concorrentes (m6i, D8s v5, N2) — em UMax a OMID fica perto da paridade e o bloco mostra isso. Se o dono
-  disser o que Eco e UMax são tecnicamente (vCPU compartilhada? dedicada? alta frequência?), as famílias
+- **Tipo de máquina no simulador:** quatro degraus da tabela pública, cada um com o SEU preço de vCPU E de
+  memória (`tiposMaquina` em `shared.mjs`): Eco 32,42 + 11,60 · Pro 73,00 + 26,11 · XPro 110,00 + 29,00 ·
+  UMax 356,56 + 29,00. Pro-G2 custa igual ao Pro e o Kubernetes segue a mesma tabela por degrau — por isso
+  não são opções à parte. Tabela lida em 2026-09-08, vigência publicada até 27/11/2027. O duelo cota a mesma
+  vCPU/GiB nas famílias de uso geral dos concorrentes (m6i, D8s v5, N2) qualquer que seja o degrau: em Pro e
+  XPro a OMID vence os três; em UMax os três ficam 2–20% mais baratos e o bloco mostra isso, em verde.
+  Se o dono disser o que cada degrau é tecnicamente (compartilhada? dedicada? alta frequência?), as famílias
   comparadas devem mudar: Eco ↔ burstable (t3, B, e2); UMax ↔ dedicada/otimizada (c6i, F, c2). Pendente.
 - **O simulador tem quatro alavancas além das réguas:** cenários de um clique (`CENARIOS` em `ui.mjs`;
   os números têm que cair nos passos das réguas), a régua do câmbio (move os concorrentes, a OMID não),
@@ -97,7 +100,6 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
 - `form.endpoint` em `src/shared.mjs` (formulários em modo demonstração até lá).
 - Revisão jurídica da Política de Privacidade (marcada como minuta nas 3 línguas).
 - Cases reais (`casesData.itens` nos i18n) e revisão nativa de EN/ES.
-- Vigência da tabela de preços pública.
 - Fundir a branch `aberturas-e-ajustes` (8 modelos de abertura em `/aberturas/`, nenhum aplicado à home).
 - Suporte nos hyperscalers no duelo (AWS Business, Azure Standard…) — a OMID inclui NOC; os outros cobram à
   parte. Só entra com preço oficial sourceado, como o resto.
