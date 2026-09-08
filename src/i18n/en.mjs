@@ -18,7 +18,7 @@ c: {
   erroCampos: `Please check the highlighted fields before sending.`,
   erroEnvio: `We could not send it right now. Try again in a moment or write to <a href="mailto:comercial@omid.com.br">comercial@omid.com.br</a>.`,
   naoPreencha: `Do not fill in this field`,
-  construida: 'Built in', dc: 'Data center', escritorio: 'Office',
+  construida: 'Built in', dc: 'Data center', escritorio: 'Office', datacenters: 'OMID data centers',
   criterio: 'Criterion', comecarAgora: 'Start now', obrigatorio: 'required'
 },
 

@@ -18,7 +18,7 @@ c: {
   erroCampos: `Confira os campos destacados antes de enviar.`,
   erroEnvio: `Não conseguimos enviar agora. Tente de novo em instantes ou escreva para <a href="mailto:comercial@omid.com.br">comercial@omid.com.br</a>.`,
   naoPreencha: `Não preencha este campo`,
-  construida: 'Construída em', dc: 'Data center', escritorio: 'Escritório',
+  construida: 'Construída em', dc: 'Data center', escritorio: 'Escritório', datacenters: 'Data centers OMID',
   criterio: 'Critério', comecarAgora: 'Comece agora', obrigatorio: 'obrigatório'
 },
 

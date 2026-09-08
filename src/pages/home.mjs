@@ -27,7 +27,11 @@ export const home = (ctx) => {
     </div>
   </div>
   <div class="procedencia ent" style="--e:3">
-    <p>${L.c.construida} ${enderecos[0].cidade}, ${enderecos[0].uf} · ${enderecos[0].coord}</p>
+    <div class="procedencia__dcs">
+      <span class="procedencia__rot">${L.c.datacenters}</span>
+      ${enderecos.filter((e) => e.papel === 'dc').sort((a, b) => (a.uf === 'RJ' ? -1 : 1) - (b.uf === 'RJ' ? -1 : 1))
+        .map((e) => `<span class="procedencia__dc" style="--pt:${e.dot}">${e.cidade}, ${e.uf} · ${e.coord}</span>`).join('')}
+    </div>
     <i aria-hidden="true"></i>
   </div>
 </section>

@@ -311,6 +311,12 @@ body.aberto .gaveta__a { animation: gavIn .5s var(--ease) forwards; animation-de
 .sereno__acao { margin-top: clamp(28px, 4.6vh, 48px); display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: center; justify-content: center; }
 .procedencia { position: absolute; left: 0; right: 0; bottom: clamp(18px, 4vh, 38px); display: grid; justify-items: center; gap: 14px; }
 .procedencia p { font-family: var(--mono); font-size: .6rem; letter-spacing: .24em; text-transform: uppercase; color: var(--cinza-2); }
+/* os dois data centers lado a lado, cada um com o traço colorido do seu endereço */
+.procedencia__dcs { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px clamp(18px, 3vw, 40px);
+  font-family: var(--mono); font-size: .6rem; letter-spacing: .22em; text-transform: uppercase; color: var(--cinza-2); }
+.procedencia__rot { color: var(--cinza); }
+.procedencia__dc { display: inline-flex; align-items: center; gap: 9px; white-space: nowrap; }
+.procedencia__dc::before { content: ""; width: 12px; height: 3px; border-radius: 3px; background: var(--pt); }
 .procedencia i { display: block; width: 1px; height: 36px; background: var(--fio); position: relative; overflow: hidden; }
 .procedencia i::after { content: ""; position: absolute; left: 0; top: -12px; width: 1px; height: 12px; background: var(--tinta); animation: desce 2.8s var(--ease-io) infinite; }
 @keyframes desce { 0% { top: -12px; } 70%, 100% { top: 36px; } }
