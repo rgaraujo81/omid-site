@@ -48,6 +48,12 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
    acho que temos muitas fontes e tamanhos diferentes"** — nessa segunda rodada caíram três pares quase
    idênticos (corpo 17 vs 15,4 · manchete 73,6 vs número 67,2 · mono 11,2 vs 9,9) e os últimos `font-size`
    inline, que viviam no rodapé (endereços) e em `institucional.mjs` (pílulas e tabelas).
+   **O IBM Plex Mono tem DOIS papéis e mais nenhum** (dono, 2026-09-08: "quero passar a noção de seriedade
+   e sobriedade"): (1) o rótulo curto em caixa alta com tracking largo (`.mono`), e (2) identificador técnico
+   de máquina (`t3.2xlarge · sa-east-1`), em caixa baixa e sem tracking. Não é mono: valor em dinheiro,
+   sufixo (`/mês`), nota de rodapé, frase explicativa nem texto de botão — tudo isso é Archivo. O comparativo
+   chegou a usar mono em sete papéis e doze espaçamentos de letra diferentes; hoje são dois papéis. Número em
+   dinheiro leva `font-variant-numeric: tabular-nums`, não a família mono.
    Há um **reset `h1..h6 { font-size: inherit; font-weight: inherit }`**: sem ele um título sem regra entra
    com o padrão do navegador (1.17em) e cria um degrau fantasma — aconteceu com o `h3` da sanfona; o
    `th` do `thead` entrava em 700 pelo mesmo motivo.

@@ -236,7 +236,7 @@
       <a class="botao botao--vazio" href="/es/contacto/"><span>Hablar con un experto</span><svg class="seta" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7"/></svg></a>
     </div>
     <p class="miudo apaga">La contratación abre el portal OMID para aprovisionar un perfil como este.</p>
-    <button type="button" class="duelo__copiar mono" data-copiar data-copiado="Enlace copiado">Copiar enlace de esta simulación</button>
+    <button type="button" class="duelo__copiar" data-copiar data-copiado="Enlace copiado">Copiar enlace de esta simulación</button>
   </div>
 </div>
 
@@ -270,7 +270,7 @@
   </div>
 
   <div class="duelo__corpo">
-  <p class="mono apaga">Cada barra muestra de dónde viene el precio</p>
+  <p class="miudo apaga">Cada barra muestra de dónde viene el precio</p>
   <ul class="duelo__legenda">
     <li data-item="compute"><i style="--c:#40ADB7"></i>Cómputo</li><li data-item="licenca"><i style="--c:#E73587"></i>Licenciamiento</li><li data-item="disco"><i style="--c:#2D93BB"></i>Almacenamiento</li><li data-item="backup"><i style="--c:#545EA0"></i>Backup</li><li data-item="trafego"><i style="--c:#7F2483"></i>Tráfico de salida</li>
   </ul>
@@ -280,29 +280,29 @@
     <li class="duelo__li duelo__li--omid" data-prov="omid">
       <div class="duelo__nome"><b>OMID</b><span class="mono apaga" data-duelo-inst></span></div>
       <div class="duelo__barra"><i data-seg="compute" style="--c:#40ADB7"></i><i data-seg="licenca" style="--c:#E73587"></i><i data-seg="disco" style="--c:#2D93BB"></i><i data-seg="backup" style="--c:#545EA0"></i><i data-seg="trafego" style="--c:#7F2483"></i></div>
-      <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span class="mono apaga">/mes</span></div>
+      <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span>/mes</span></div>
       <div class="duelo__delta"><span data-duelo-delta></span></div>
     </li>
     <li class="duelo__li duelo__li--aws" data-prov="aws">
       <div class="duelo__nome"><b>AWS</b><span class="mono apaga" data-duelo-inst></span></div>
       <div class="duelo__barra"><i data-seg="compute" style="--c:#40ADB7"></i><i data-seg="licenca" style="--c:#E73587"></i><i data-seg="disco" style="--c:#2D93BB"></i><i data-seg="backup" style="--c:#545EA0"></i><i data-seg="trafego" style="--c:#7F2483"></i></div>
-      <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span class="mono apaga">/mes</span></div>
+      <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span>/mes</span></div>
       <div class="duelo__delta"><span data-duelo-delta></span></div>
     </li>
     <li class="duelo__li duelo__li--azure" data-prov="azure">
       <div class="duelo__nome"><b>Microsoft Azure</b><span class="mono apaga" data-duelo-inst></span></div>
       <div class="duelo__barra"><i data-seg="compute" style="--c:#40ADB7"></i><i data-seg="licenca" style="--c:#E73587"></i><i data-seg="disco" style="--c:#2D93BB"></i><i data-seg="backup" style="--c:#545EA0"></i><i data-seg="trafego" style="--c:#7F2483"></i></div>
-      <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span class="mono apaga">/mes</span></div>
+      <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span>/mes</span></div>
       <div class="duelo__delta"><span data-duelo-delta></span></div>
     </li>
     <li class="duelo__li duelo__li--gcp" data-prov="gcp">
       <div class="duelo__nome"><b>Google Cloud</b><span class="mono apaga" data-duelo-inst></span></div>
       <div class="duelo__barra"><i data-seg="compute" style="--c:#40ADB7"></i><i data-seg="licenca" style="--c:#E73587"></i><i data-seg="disco" style="--c:#2D93BB"></i><i data-seg="backup" style="--c:#545EA0"></i><i data-seg="trafego" style="--c:#7F2483"></i></div>
-      <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span class="mono apaga">/mes</span></div>
+      <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span>/mes</span></div>
       <div class="duelo__delta"><span data-duelo-delta></span></div>
     </li>
   </ol>
-  <p class="mono apaga duelo__linha" data-duelo-base></p>
+  <p class="apaga duelo__linha" data-duelo-base></p>
   <details class="duelo__fontes">
     <summary class="mono">Fuentes y método</summary>
     <p class="miudo apaga">Precios de lista on-demand, sin compromiso, región São Paulo. El cómputo usa la familia equivalente al nivel elegido — Eco ↔ instancias burstable (t3, Bsv2, E2); Pro ↔ uso general (m6i, Dsv5, N2); XPro ↔ optimizadas para cómputo (c6i, Fsv2, C2); UMax ↔ la familia premium más cara de 8 vCPU de cada proveedor, sin GPU, storage ni bare metal (m5zn a 4,5 GHz, Ebdsv5, C3 highmem), con la memoria que trae. Donde el proveedor vende por instancia, entran tantas como hagan falta para cubrir vCPU y memoria; donde vende por recurso, por vCPU y GiB. Disco SSD de uso general; backup como snapshot u objeto; salida a internet en los tramos públicos. No incluye soporte, IPs, impuestos ni descuentos por compromiso. Las marcas citadas pertenecen a sus dueños.</p>

@@ -298,7 +298,7 @@ export const regua = (ctx) => {
       <a class="botao botao--vazio" href="${ctx.u('contato')}"><span>${R.btn2}</span>${seta}</a>
     </div>
     <p class="miudo apaga">${R.btnNota}</p>
-    <button type="button" class="duelo__copiar mono" data-copiar data-copiado="${ctx.L.comparar.copiado}">${ctx.L.comparar.copiar}</button>
+    <button type="button" class="duelo__copiar" data-copiar data-copiado="${ctx.L.comparar.copiado}">${ctx.L.comparar.copiar}</button>
   </div>
 </div>
 ${duelo(ctx)}`;
@@ -354,7 +354,7 @@ export const duelo = (ctx) => {
   </div>
 
   <div class="duelo__corpo">
-  <p class="mono apaga">${C.legenda}</p>
+  <p class="miudo apaga">${C.legenda}</p>
   <ul class="duelo__legenda">
     ${ITENS_DUELO.map((k) => `<li data-item="${k}"><i style="--c:${COR_ITEM[k]}"></i>${R.partes[k]}</li>`).join('')}
   </ul>
@@ -364,11 +364,11 @@ export const duelo = (ctx) => {
     <li class="duelo__li duelo__li--${k}" data-prov="${k}">
       <div class="duelo__nome"><b>${C.provedores[k]}</b><span class="mono apaga" data-duelo-inst></span></div>
       <div class="duelo__barra">${ITENS_DUELO.map((i) => `<i data-seg="${i}" style="--c:${COR_ITEM[i]}"></i>`).join('')}</div>
-      <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span class="mono apaga">${R.mes}</span></div>
+      <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span>${R.mes}</span></div>
       <div class="duelo__delta"><span data-duelo-delta></span></div>
     </li>`).join('')}
   </ol>
-  <p class="mono apaga duelo__linha" data-duelo-base></p>
+  <p class="apaga duelo__linha" data-duelo-base></p>
   <details class="duelo__fontes">
     <summary class="mono">${C.fontes}</summary>
     <p class="miudo apaga">${C.base}</p>
