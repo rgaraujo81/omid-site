@@ -381,9 +381,12 @@
 
     /* ---------- o duelo ----------
        Mesma configuração, cotada nos preços públicos on-demand dos quatro
-       hyperscalers (São Paulo) e convertida pelo câmbio. Os preços vêm do
-       snapshot diário em /assets/dados/precos-nuvem.json; câmbio (BCB) e
-       Oracle liberam CORS, então esses dois são refinados ao vivo.
+       três maiores nuvens globais (São Paulo) e convertida pelo câmbio. Os
+       preços vêm do snapshot diário em /assets/dados/precos-nuvem.json; o
+       câmbio (BCB) libera CORS, então é refinado ao vivo.
+       Regra do dono: os nomes dos concorrentes aparecem SÓ nas linhas das
+       barras (e nas URLs de fonte). Todo o resto do site fala em
+       "nuvem global" — inclusive a frase gerada e a economia anual.
        Nada disto é inventado: cada número tem fonte listada no próprio bloco.
        O câmbio é uma alavanca: o visitante move o dólar e vê os outros
        mudarem enquanto a OMID fica parada — que é o argumento inteiro. */
@@ -461,8 +464,7 @@
           var melhor = null, mv = 0;
           ITENS.forEach(function (it) { var v = tot[menor].partes[it] - omid.partes[it]; if (v > mv) { mv = v; melhor = it; } });
           var nomeItem = melhor ? ($('[data-item="' + melhor + '"]', duel) || {}).textContent : '';
-          var nomeProv = ($('[data-prov="' + menor + '"] .duelo__nome b', duel) || {}).textContent;
-          fr.textContent = melhor ? ds.frase.replace('{item}', (nomeItem || '').trim().toLowerCase()).replace('{pct}', Math.round(mv / dif * 100)).replace('{prov}', nomeProv) : '';
+          fr.textContent = melhor ? ds.frase.replace('{item}', (nomeItem || '').trim().toLowerCase()).replace('{pct}', Math.round(mv / dif * 100)) : '';
         } else fr.textContent = '';
       }
 

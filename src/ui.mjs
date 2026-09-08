@@ -226,7 +226,7 @@ const CENARIOS = {
 
 /* --- o duelo: a mesma máquina cotada nos hyperscalers ---
    Só a marcação vive aqui. Os preços vêm de assets/dados/precos-nuvem.json
-   (snapshot diário) e o JS refina ao vivo o que tem CORS: câmbio e Oracle.
+   (snapshot diário) e o JS refina ao vivo o que tem CORS: o câmbio.
    Começa escondido e só aparece quando o JSON chega — sem dado, sem duelo.
    Cada barra é EMPILHADA por item (computação, licença, disco, backup,
    saída): é assim que se vê DE ONDE vem a diferença, não só o tamanho dela. */
