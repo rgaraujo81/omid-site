@@ -626,6 +626,16 @@ a.quadro:hover, .quadro--hov:hover { transform: translateY(-4px); box-shadow: va
 .tela__t { color: inherit; }
 .etiquetas--g { font-size: var(--t-xs); padding: 9px 14px; }
 
+/* ---------- 10d. Marco legal (dobra preta da soberania) ----------
+   O argumento da secao e juridico, entao a informacao tem que ser juridica:
+   qual lei, qual numero, o que ela alcanca. Tres colunas, fio na cor do item. */
+.marco { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--fio); border-block: 1px solid var(--fio); }
+.marco__i { background: var(--papel); padding: clamp(20px, 2.2vw, 28px) clamp(18px, 2vw, 24px); display: grid; gap: 6px; align-content: start; }
+.marco__t { font-size: var(--t-t4); font-weight: 600; letter-spacing: -.02em; line-height: 1.2; }
+.marco__l { color: var(--pt); }
+.marco__d { margin-top: 4px; font-size: var(--t-s); line-height: 1.55; color: var(--cinza); }
+@media (max-width: 860px) { .marco { grid-template-columns: 1fr; } }
+
 /* ---------- 10c. As solucoes: um cartao por produto ----------
    Antes era uma lista com a descricao jogada na borda direita: o olho
    atravessava a tela para ligar nome e explicacao, e nada dizia o que havia

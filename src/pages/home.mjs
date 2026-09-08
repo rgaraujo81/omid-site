@@ -89,7 +89,26 @@ ${credenciais(ctx, faixa1)}
         n: String(i + 1).padStart(2, '0'), t, d, cor: [certDots[0], certDots[3], certDots[4]][i]
       })))}
     </div>
-    <div class="defs t-56" style="max-width:640px"${ver()}>
+    <!-- marco legal: qual lei alcança o dado, com o número da lei -->
+    <div class="t-56"${ver(1)}>
+      ${rotulo(L.soberania.legalEb)}
+      <div class="marco t-16">
+        ${L.soberania.legal.map(([t, lei, d], i) => `
+        <div class="marco__i" style="--pt:${[certDots[0], certDots[3], certDots[4]][i]}">
+          <p class="marco__t">${t}</p>
+          <p class="marco__l mono">${lei}</p>
+          <p class="marco__d">${d}</p>
+        </div>`).join('')}
+      </div>
+    </div>
+    <!-- e o que sustenta a promessa, auditado por terceiro -->
+    <div class="t-56"${ver(2)}>
+      ${rotulo(L.soberania.certEb)}
+      <ul class="etiquetas t-16">
+        ${[0, 1, 2, 5, 6, 8, 9].map((i) => `<li>${L.certificacoes[i][0]}</li>`).join('')}
+      </ul>
+    </div>
+    <div class="defs t-56" style="max-width:640px"${ver(3)}>
       ${enderecos.filter((e) => e.papel === 'dc').map((e) => `<div><dt>${e.cidade} — ${e.uf}</dt><dd>${e.coord}</dd></div>`).join('')}
       <div><dt>${L.soberania.agora}</dt><dd><span data-relogio>--:--:--</span></dd></div>
     </div>

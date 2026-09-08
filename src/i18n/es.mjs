@@ -47,6 +47,13 @@ soberania: {
     ['Jurisdicción brasileña, de principio a fin.', 'LGPD y Marco Civil da Internet, con foro en Brasil. Sin exposición al CLOUD Act estadounidense ni a solicitudes de autoridades extranjeras.'],
     ['Infraestructura, operación y soporte dentro del país.', 'El data center es nuestro, el NOC es nuestro y quien atiende tu ticket vive aquí. Ninguna capa se delega al exterior.']
   ],
+  legalEb: 'Qué se aplica a tus datos',
+  legal: [
+    ['LGPD', 'Ley n.º 13.709/2018', 'Tratamiento de datos personales con titular y operador bajo ley brasileña.'],
+    ['Marco Civil de Internet', 'Ley n.º 12.965/2014', 'Guarda de registros de acceso y foro brasileño para litigios.'],
+    ['Foro en Brasil', 'Contrato bajo jurisdicción nacional', 'Solicitud de datos solo por autoridad brasileña, en la forma de la ley.']
+  ],
+  certEb: 'Las certificaciones que lo sostienen',
   coordEb: 'Dónde está tu dato, exactamente',
   agora: 'Hora de Brasilia',
   nota: 'Coordenadas aproximadas de los sitios. Se pueden agendar visitas técnicas con el equipo comercial.'

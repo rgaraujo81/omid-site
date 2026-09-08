@@ -47,6 +47,13 @@ soberania: {
     ['Brazilian jurisdiction, end to end.', 'Governed by the LGPD and the Marco Civil da Internet, under Brazilian courts. No exposure to the US CLOUD Act or to foreign authority requests.'],
     ['Infrastructure, operations and support inside the country.', 'The data center is ours, the NOC is ours, and whoever answers your ticket lives here. No layer is handed off abroad.']
   ],
+  legalEb: 'What applies to your data',
+  legal: [
+    ['LGPD', 'Law 13.709/2018', 'Personal data processing with subject and operator under Brazilian law.'],
+    ['Internet Civil Rights Framework', 'Law 12.965/2014', 'Access-log retention and Brazilian venue for disputes.'],
+    ['Venue in Brazil', 'Contract under national jurisdiction', 'Data requests only from Brazilian authorities, as the law provides.']
+  ],
+  certEb: 'The certifications behind it',
   coordEb: 'Where your data sits, precisely',
   agora: 'Brasília time',
   nota: 'Approximate site coordinates. Technical visits can be arranged with the sales team.'

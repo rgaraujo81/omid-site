@@ -129,6 +129,13 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
   foi escolhida porque o critério é preço da família premium, não geração). Trocar o de/para = editar
   `familias` no JSON e o SKU/instância no robô; o JS não sabe de família nenhuma. Sem preço na família, o JS
   cai na família-padrão do provedor (uso geral) e `semEquivalente: true` põe o aviso na linha.
+- **A dobra preta da soberania carrega o MARCO LEGAL** (`.marco`, CSS 10d; texto em `soberania.legal`).
+  O dono gostou dessa dobra e pediu mais informação em 2026-09-08. O argumento da seção é jurídico, então a
+  informação é jurídica: qual lei, o número dela e o que ela alcança — LGPD (13.709/2018), Marco Civil da
+  Internet (12.965/2014) e foro no Brasil. Abaixo entram sete certificações de `certificacoes` (índices
+  0,1,2,5,6,8,9), que é o que sustenta a promessa por auditoria de terceiro, e só depois as coordenadas dos
+  sites e o relógio de Brasília. Nada aqui é claim novo: os números de lei são públicos e a afirmação sobre
+  jurisdição já estava na promessa 02. **Ainda assim, as citações de lei entram na revisão jurídica pendente.**
 - **A seção "Soluções" da home é a grade de cartões** (`solucoes()` em `ui.mjs`, CSS 10c). Era uma `pilha` de
   `item`, com a descrição jogada na borda direita: o olho atravessava a tela para ligar nome e explicação, e
   nada dizia o que havia DENTRO de cada produto. Cada cartão agora traz a categoria (`produtos[i].tag`), o
@@ -202,6 +209,7 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
 
 - `form.endpoint` em `src/shared.mjs` (formulários em modo demonstração até lá).
 - Revisão jurídica da Política de Privacidade (marcada como minuta nas 3 línguas).
+- Revisão jurídica das citações de lei na dobra de soberania da home (`soberania.legal`).
 - Cases reais (`casesData.itens` nos i18n) e revisão nativa de EN/ES.
 - Fundir a branch `aberturas-e-ajustes` (8 modelos de abertura em `/aberturas/`, nenhum aplicado à home).
 - Suporte nos hyperscalers no duelo (AWS Business, Azure Standard…) — a OMID inclui NOC; os outros cobram à

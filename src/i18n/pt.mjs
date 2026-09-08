@@ -47,6 +47,13 @@ soberania: {
     ['Jurisdição brasileira, do começo ao fim.', 'LGPD e Marco Civil da Internet, com foro no Brasil. Sem exposição ao CLOUD Act norte-americano ou a pedidos de autoridade estrangeira.'],
     ['Infraestrutura, operação e suporte dentro do país.', 'O data center é nosso, o NOC é nosso e quem atende o seu chamado mora aqui. Não há repasse de camada para fora.']
   ],
+  legalEb: 'O que se aplica ao seu dado',
+  legal: [
+    ['LGPD', 'Lei nº 13.709/2018', 'Tratamento de dados pessoais com titular e operador sob lei brasileira.'],
+    ['Marco Civil da Internet', 'Lei nº 12.965/2014', 'Guarda de registros de acesso e foro brasileiro para litígios.'],
+    ['Foro no Brasil', 'Contrato em jurisdição nacional', 'Requisição de dados apenas por autoridade brasileira, na forma da lei.']
+  ],
+  certEb: 'As certificações que sustentam',
   coordEb: 'Onde o seu dado fica, exatamente',
   agora: 'Horário de Brasília',
   nota: 'Coordenadas aproximadas dos sites. Visitas técnicas podem ser agendadas com o time comercial.'
