@@ -78,7 +78,8 @@ comparar: {
   omidInclui: 'contrato en reales · NOC 24×7 · data center propio',
   vezes: '× OMID', maisCaro: 'más caro que OMID', maisBarato: 'más barato que OMID', referencia: 'referencia',
   aoVivo: 'cambio en vivo', consultado: 'precios consultados el', cambio: 'PTAX venta',
-  base: 'Precios de lista on-demand, sin compromiso, región São Paulo. Cómputo por la instancia equivalente donde el proveedor vende por instancia, o por vCPU y GiB donde vende por recurso; disco SSD de uso general; backup como snapshot u objeto; salida a internet en los tramos públicos. No incluye soporte, IPs, impuestos ni descuentos por compromiso. Las marcas pertenecen a sus dueños.',
+  base: 'Precios de lista on-demand, sin compromiso, región São Paulo. El cómputo usa la familia equivalente al nivel elegido — Eco ↔ instancias burstable (t3, Bsv2, E2); Pro ↔ uso general (m6i, Dsv5, N2); XPro ↔ optimizadas para cómputo (c6i, Fsv2, C2); UMax ↔ sin equivalente directo, cotizado en la familia de uso general y señalado en su línea. Donde el proveedor vende por instancia, entran tantas como hagan falta para cubrir vCPU y memoria; donde vende por recurso, por vCPU y GiB. Disco SSD de uso general; backup como snapshot u objeto; salida a internet en los tramos públicos. No incluye soporte, IPs, impuestos ni descuentos por compromiso. Las marcas citadas pertenecen a sus dueños.',
+  semEquivalente: 'sin equivalente directo: familia de uso general',
   fontes: 'Fuentes y método'
 },
 regua: {

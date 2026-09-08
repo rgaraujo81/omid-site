@@ -239,7 +239,7 @@
      data-vezes="× OMID" data-mais-caro="more than OMID" data-mais-barato="less than OMID"
      data-referencia="reference" data-ao-vivo="exchange rate live" data-consultado="prices retrieved on"
      data-cambio="PTAX sell rate" data-inclui="contract in BRL · 24×7 NOC · own data center"
-     data-eco-pos="Savings per month, same machine" data-eco-neg="Difference per month, same machine" data-a-menos="less" data-a-mais="more">
+     data-eco-pos="Savings per month, same machine" data-eco-neg="Difference per month, same machine" data-a-menos="less" data-a-mais="more" data-sem-equivalente="no direct equivalent: general-purpose family">
   <div class="duelo__cab">
     <p class="mono apaga">Live comparison<span class="duelo__vivo" data-duelo-vivo hidden></span></p>
     <h3 class="berro duelo__h t-16">The same machine, elsewhere.</h3>
@@ -300,7 +300,7 @@
   <p class="mono apaga duelo__linha" data-duelo-base></p>
   <details class="duelo__fontes">
     <summary class="mono">Sources and method</summary>
-    <p class="miudo apaga">Public on-demand list prices, no commitment, São Paulo region. Compute as the equivalent instance where the provider sells by instance, or per vCPU and GiB where it sells by resource; general-purpose SSD; backup as snapshot or object storage; internet egress at the public tiers. Excludes support, IPs, taxes and commitment discounts. Trademarks belong to their owners.</p>
+    <p class="miudo apaga">On-demand list prices, no commitment, São Paulo region. Compute uses the family matching the chosen tier — Eco ↔ burstable instances (t3, Bsv2, E2); Pro ↔ general purpose (m6i, Dsv5, N2); XPro ↔ compute-optimized (c6i, Fsv2, C2); UMax ↔ no direct equivalent, priced on the general-purpose family and flagged on its row. Where the provider sells by instance, as many instances as needed to cover vCPU and memory; where it sells by resource, per vCPU and GiB. General-purpose SSD disk; backup as snapshot or object storage; internet egress at public tiers. Excludes support, IPs, taxes and commitment discounts. Trademarks belong to their owners.</p>
     <ul data-duelo-fontes></ul>
   </details>
 </div></div>

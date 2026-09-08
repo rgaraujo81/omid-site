@@ -271,7 +271,7 @@ export const duelo = (ctx) => {
      data-vezes="${C.vezes}" data-mais-caro="${C.maisCaro}" data-mais-barato="${C.maisBarato}"
      data-referencia="${C.referencia}" data-ao-vivo="${C.aoVivo}" data-consultado="${C.consultado}"
      data-cambio="${C.cambio}" data-inclui="${C.omidInclui}"
-     data-eco-pos="${C.ecoRot}" data-eco-neg="${C.ecoRotNeg}" data-a-menos="${C.aMenos}" data-a-mais="${C.aMais}">
+     data-eco-pos="${C.ecoRot}" data-eco-neg="${C.ecoRotNeg}" data-a-menos="${C.aMenos}" data-a-mais="${C.aMais}" data-sem-equivalente="${C.semEquivalente}">
   <div class="duelo__cab">
     <p class="mono apaga">${C.rot}<span class="duelo__vivo" data-duelo-vivo hidden></span></p>
     <h3 class="berro duelo__h t-16">${C.h}</h3>

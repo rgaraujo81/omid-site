@@ -1,13 +1,13 @@
 {
   "versao": 1,
-  "consultadoEm": "2026-09-04",
+  "consultadoEm": "2026-09-08",
   "horasMes": 730,
   "base": "on-demand · sem compromisso · região São Paulo",
   "cambio": {
-    "usdBrl": 5.0962,
+    "usdBrl": 5.1253,
     "tipo": "PTAX venda",
-    "data": "2026-09-03",
-    "fonte": "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarPeriodo(dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@dataInicial='08-25-2026'&@dataFinalCotacao='09-04-2026'&$top=1&$orderby=dataHoraCotacao%20desc&$format=json",
+    "data": "2026-09-04",
+    "fonte": "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarPeriodo(dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@dataInicial='08-29-2026'&@dataFinalCotacao='09-08-2026'&$top=1&$orderby=dataHoraCotacao%20desc&$format=json",
     "aoVivo": true
   },
   "provedores": {
@@ -56,7 +56,68 @@
       },
       "fontes": [
         "https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonEC2/current/sa-east-1/index.json"
-      ]
+      ],
+      "familias": {
+        "eco": {
+          "instancia": "t3.2xlarge",
+          "unidade": {
+            "vcpu": 8,
+            "ram": 32
+          },
+          "usdHora": {
+            "linux": 0.5376,
+            "windows": 0.6848
+          }
+        },
+        "pro": {
+          "instancia": "m6i.2xlarge",
+          "unidade": {
+            "vcpu": 8,
+            "ram": 32
+          },
+          "usdHora": {
+            "linux": 0.612,
+            "windows": 0.98
+          }
+        },
+        "xpro": {
+          "instancia": "c6i.2xlarge",
+          "unidade": {
+            "vcpu": 8,
+            "ram": 16
+          },
+          "usdHora": {
+            "linux": 0.524,
+            "windows": 0.892
+          }
+        },
+        "umax": {
+          "instancia": "m6i.2xlarge",
+          "unidade": {
+            "vcpu": 8,
+            "ram": 32
+          },
+          "usdHora": {
+            "linux": 0.612,
+            "windows": 0.98
+          },
+          "semEquivalente": true
+        },
+        "dedicada": {
+          "instancia": "m6i.2xlarge",
+          "nome": "m6i.2xlarge (dedicada)",
+          "tenancy": "Dedicated",
+          "unidade": {
+            "vcpu": 8,
+            "ram": 32
+          },
+          "usdHora": {
+            "linux": 0.6732,
+            "windows": 1.0412
+          },
+          "nota": "coletada, não exibida: candidata a UMax se o degrau for de vCPU dedicada"
+        }
+      }
     },
     "azure": {
       "nome": "Microsoft Azure",
@@ -103,11 +164,62 @@
         ]
       },
       "fontes": [
-        "https://prices.azure.com/api/retail/prices?$filter=armRegionName eq 'brazilsouth' and armSkuName eq 'Standard_D8s_v5'",
+        "https://prices.azure.com/api/retail/prices?$filter=armRegionName eq 'brazilsouth' and priceType eq 'Consumption' and (armSkuName eq 'Standard_B8s_v2' or armSkuName eq 'Standard_D8s_v5' or armSkuName eq 'Standard_F8s_v2')",
         "https://prices.azure.com/api/retail/prices?$filter=armRegionName eq 'brazilsouth' and serviceName eq 'Storage' and contains(productName,'Premium SSD v2')",
         "https://prices.azure.com/api/retail/prices?$filter=armRegionName eq 'brazilsouth' and serviceName eq 'Bandwidth'",
         "https://prices.azure.com/api/retail/prices?$filter=armRegionName eq 'brazilsouth' and serviceName eq 'Backup'"
-      ]
+      ],
+      "familias": {
+        "eco": {
+          "instancia": "B8s v2",
+          "sku": "Standard_B8s_v2",
+          "unidade": {
+            "vcpu": 8,
+            "ram": 32
+          },
+          "usdHora": {
+            "linux": 0.538,
+            "windows": 0.574
+          }
+        },
+        "pro": {
+          "instancia": "D8s v5",
+          "sku": "Standard_D8s_v5",
+          "unidade": {
+            "vcpu": 8,
+            "ram": 32
+          },
+          "usdHora": {
+            "linux": 0.612,
+            "windows": 0.98
+          }
+        },
+        "xpro": {
+          "instancia": "F8s v2",
+          "sku": "Standard_F8s_v2",
+          "unidade": {
+            "vcpu": 8,
+            "ram": 16
+          },
+          "usdHora": {
+            "linux": 0.524,
+            "windows": 0.892
+          }
+        },
+        "umax": {
+          "instancia": "D8s v5",
+          "sku": "Standard_D8s_v5",
+          "unidade": {
+            "vcpu": 8,
+            "ram": 32
+          },
+          "usdHora": {
+            "linux": 0.612,
+            "windows": 0.98
+          },
+          "semEquivalente": true
+        }
+      }
     },
     "gcp": {
       "nome": "Google Cloud",
@@ -149,8 +261,50 @@
       "fontes": [
         "https://cloud.google.com/products/compute/pricing/general-purpose",
         "https://cloud.google.com/compute/disks-image-pricing",
-        "https://cloud.google.com/vpc/network-pricing"
-      ]
+        "https://cloud.google.com/vpc/network-pricing",
+        "https://cloud.google.com/products/compute/pricing/compute-optimized"
+      ],
+      "familias": {
+        "eco": {
+          "modo": "porInstancia",
+          "instancia": "e2-standard-8",
+          "unidade": {
+            "vcpu": 8,
+            "ram": 32
+          },
+          "usdHora": {
+            "linux": 0.4254816
+          }
+        },
+        "pro": {
+          "modo": "porRecurso",
+          "instancia": "N2 (predefinido)",
+          "usdHora": {
+            "vcpu": 0.05018,
+            "gb": 0.006725
+          }
+        },
+        "xpro": {
+          "modo": "porInstancia",
+          "instancia": "c2-standard-8",
+          "unidade": {
+            "vcpu": 8,
+            "ram": 32
+          },
+          "usdHora": {
+            "linux": 0.66288
+          }
+        },
+        "umax": {
+          "modo": "porRecurso",
+          "instancia": "N2 (predefinido)",
+          "usdHora": {
+            "vcpu": 0.05018,
+            "gb": 0.006725
+          },
+          "semEquivalente": true
+        }
+      }
     },
     "oci": {
       "nome": "Oracle Cloud",
@@ -198,5 +352,14 @@
       "aoVivo": true
     }
   },
-  "avisos": []
+  "avisos": [],
+  "dePara": {
+    "nota": "Degrau OMID → família do concorrente. Eco ↔ burstable, Pro ↔ uso geral, XPro ↔ otimizada para computação, UMax ↔ sem equivalente direto (uso geral, sinalizado). Proposta de 2026-09-08 por convenção de mercado; confirmar com o dono.",
+    "degraus": [
+      "eco",
+      "pro",
+      "xpro",
+      "umax"
+    ]
+  }
 }

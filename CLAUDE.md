@@ -75,11 +75,16 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
 - **Tipo de máquina no simulador:** quatro degraus da tabela pública, cada um com o SEU preço de vCPU E de
   memória (`tiposMaquina` em `shared.mjs`): Eco 32,42 + 11,60 · Pro 73,00 + 26,11 · XPro 110,00 + 29,00 ·
   UMax 356,56 + 29,00. Pro-G2 custa igual ao Pro e o Kubernetes segue a mesma tabela por degrau — por isso
-  não são opções à parte. Tabela lida em 2026-09-08, vigência publicada até 27/11/2027. O duelo cota a mesma
-  vCPU/GiB nas famílias de uso geral dos concorrentes (m6i, D8s v5, N2) qualquer que seja o degrau: em Pro e
-  XPro a OMID vence os três; em UMax os três ficam 2–20% mais baratos e o bloco mostra isso, em verde.
-  Se o dono disser o que cada degrau é tecnicamente (compartilhada? dedicada? alta frequência?), as famílias
-  comparadas devem mudar: Eco ↔ burstable (t3, B, e2); UMax ↔ dedicada/otimizada (c6i, F, c2). Pendente.
+  não são opções à parte. Tabela lida em 2026-09-08, vigência publicada até 27/11/2027.
+- **De/para de famílias no duelo** (pedido do dono em 2026-09-08): cada degrau puxa a família equivalente
+  em `provedores.<x>.familias.<degrau>` do JSON, com `modo`/`unidade`/`usdHora` próprios; o robô coleta todas.
+  Proposta atual, por convenção de mercado (a OMID não publica o que os degraus são tecnicamente):
+  Eco ↔ burstable (t3.2xlarge, B8s v2, e2-standard-8) · Pro ↔ uso geral (m6i.2xlarge, D8s v5, N2) ·
+  XPro ↔ otimizada para computação (c6i.2xlarge 8/16, F8s v2 8/16, c2-standard-8) · UMax ↔ SEM equivalente
+  direto: cotado em uso geral com `semEquivalente: true` (a linha avisa). Candidata se UMax for vCPU dedicada:
+  `aws.familias.dedicada` (m6i.2xlarge tenancy Dedicated, já coletada, não exibida); Azure/Google só vendem
+  host dedicado inteiro. Trocar o de/para = editar `familias` no JSON e o SKU/instância no robô; o JS não sabe
+  de família nenhuma. Sem preço na família, o JS cai na família-padrão do provedor (uso geral).
 - **Os três grupos de botões do simulador (cenário, tipo de máquina, sistema) são UMA trilha só**, `.troca`,
   com todos os botões da mesma largura (`--chip`, 116px; 104px até 1180px) — decisão do dono em 2026-09-08,
   "use o mesmo botão e tamanho para todos, padrão o da CPU". Quando a trilha não cabe na coluna ela rola de

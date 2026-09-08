@@ -416,15 +416,23 @@
       }
       return custo;
     }
+    /* o de/para: cada degrau da OMID (Eco, Pro, XPro, UMax) puxa a família
+       equivalente do concorrente (p.familias[tipo]). Sem família com preço,
+       cai na família-padrão do provedor (a de uso geral). */
+    function familia(p) {
+      var f = p.familias && p.familias[tipo], u = f && f.usdHora;
+      return (u && (u.linux > 0 || u.vcpu > 0)) ? f : p;
+    }
     /* devolve total e parcelas em R$, no câmbio atual */
     function calcProv(p, g, so) {
-      var H = D.horasMes, compute, lic = 0, n, k = fx();
-      if (p.modo === 'porInstancia') {
-        n = Math.max(g.vcpu / p.unidade.vcpu, g.ram / p.unidade.ram);
-        compute = n * p.usdHora.linux * H;
-        if (so) lic = n * (p.usdHora.windows - p.usdHora.linux) * H;
+      var H = D.horasMes, compute, lic = 0, n, k = fx(), f = familia(p), modo = f.modo || p.modo, un = f.unidade || p.unidade;
+      if (modo === 'porInstancia') {
+        n = Math.max(g.vcpu / un.vcpu, g.ram / un.ram);
+        compute = n * f.usdHora.linux * H;
+        // Windows: diferença de preço da mesma instância, ou licença por vCPU onde o provedor cobra assim
+        if (so) lic = f.usdHora.windows > 0 ? n * (f.usdHora.windows - f.usdHora.linux) * H : n * un.vcpu * (p.windowsVcpuHora || 0) * H;
       } else {
-        compute = (g.vcpu * p.usdHora.vcpu + g.ram * p.usdHora.gb) * H;
+        compute = (g.vcpu * f.usdHora.vcpu + g.ram * f.usdHora.gb) * H;
         if (so) lic = g.vcpu * p.windowsVcpuHora * H;
       }
       var pt = {
@@ -449,7 +457,10 @@
           if (seg) seg.style.width = (tot[k].partes[it] / max * 100).toFixed(2) + '%';
         });
         var inst = $('[data-duelo-inst]', li);
-        if (inst) inst.textContent = k === 'omid' ? ds.inclui : (D.provedores[k].instancia + ' · ' + D.provedores[k].regiao);
+        if (inst) {
+          if (k === 'omid') { var bt = $('.troca__b[data-tipo="' + tipo + '"]', cx); inst.textContent = (bt ? bt.textContent.trim() + ' · ' : '') + ds.inclui; }
+          else { var f = familia(D.provedores[k]); inst.textContent = (f.nome || f.instancia) + ' · ' + D.provedores[k].regiao + (f.semEquivalente ? ' · ' + ds.semEquivalente : ''); }
+        }
         var d = $('[data-duelo-delta]', li), r = tot[k].total / omid.total;
         if (k === 'omid') { d.textContent = ds.referencia; d.className = 'ref'; }
         else if (r >= 1.5) { d.textContent = r.toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + ds.vezes; d.className = ''; }

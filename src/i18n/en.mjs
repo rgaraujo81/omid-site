@@ -78,7 +78,8 @@ comparar: {
   omidInclui: 'contract in BRL · 24×7 NOC · own data center',
   vezes: '× OMID', maisCaro: 'more than OMID', maisBarato: 'less than OMID', referencia: 'reference',
   aoVivo: 'exchange rate live', consultado: 'prices retrieved on', cambio: 'PTAX sell rate',
-  base: 'Public on-demand list prices, no commitment, São Paulo region. Compute as the equivalent instance where the provider sells by instance, or per vCPU and GiB where it sells by resource; general-purpose SSD; backup as snapshot or object storage; internet egress at the public tiers. Excludes support, IPs, taxes and commitment discounts. Trademarks belong to their owners.',
+  base: 'On-demand list prices, no commitment, São Paulo region. Compute uses the family matching the chosen tier — Eco ↔ burstable instances (t3, Bsv2, E2); Pro ↔ general purpose (m6i, Dsv5, N2); XPro ↔ compute-optimized (c6i, Fsv2, C2); UMax ↔ no direct equivalent, priced on the general-purpose family and flagged on its row. Where the provider sells by instance, as many instances as needed to cover vCPU and memory; where it sells by resource, per vCPU and GiB. General-purpose SSD disk; backup as snapshot or object storage; internet egress at public tiers. Excludes support, IPs, taxes and commitment discounts. Trademarks belong to their owners.',
+  semEquivalente: 'no direct equivalent: general-purpose family',
   fontes: 'Sources and method'
 },
 regua: {

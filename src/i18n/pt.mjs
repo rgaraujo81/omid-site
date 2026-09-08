@@ -78,7 +78,8 @@ comparar: {
   omidInclui: 'contrato em reais · NOC 24×7 · data center próprio',
   vezes: '× a OMID', maisCaro: 'mais caro que a OMID', maisBarato: 'mais barato que a OMID', referencia: 'referência',
   aoVivo: 'câmbio ao vivo', consultado: 'preços consultados em', cambio: 'PTAX venda',
-  base: 'Preços de tabela on-demand, sem compromisso, região São Paulo. Computação pela instância equivalente onde o provedor vende por instância, ou por vCPU e GiB onde vende por recurso; disco SSD de uso geral; backup como snapshot ou objeto; saída para internet nas faixas públicas. Não inclui suporte, IPs, impostos nem descontos por compromisso. Marcas citadas pertencem aos seus donos.',
+  base: 'Preços de tabela on-demand, sem compromisso, região São Paulo. Computação pela família equivalente ao degrau escolhido — Eco ↔ instâncias burstable (t3, Bsv2, E2); Pro ↔ uso geral (m6i, Dsv5, N2); XPro ↔ otimizadas para computação (c6i, Fsv2, C2); UMax ↔ sem equivalente direto, cotado na família de uso geral e sinalizado na linha. Onde o provedor vende por instância, entram quantas forem precisas para cobrir vCPU e memória; onde vende por recurso, por vCPU e GiB. Disco SSD de uso geral; backup como snapshot ou objeto; saída para internet nas faixas públicas. Não inclui suporte, IPs, impostos nem descontos por compromisso. Marcas citadas pertencem aos seus donos.',
+  semEquivalente: 'sem equivalente direto: família de uso geral',
   fontes: 'Fontes e método'
 },
 regua: {

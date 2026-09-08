@@ -41,11 +41,17 @@ await tenta('câmbio (BCB PTAX)', async () => {
 await tenta('Azure (Retail Prices API)', async () => {
   const q = async (filtro) => (await json('https://prices.azure.com/api/retail/prices?$filter=' + encodeURIComponent(filtro))).Items || [];
   const az = novo.provedores.azure;
-  const vm = await q("armRegionName eq 'brazilsouth' and armSkuName eq 'Standard_D8s_v5' and priceType eq 'Consumption'");
-  const lin = vm.find((i) => i.productName === 'Virtual Machines Dsv5 Series' && !/Low Priority|Spot/.test(i.skuName));
-  const win = vm.find((i) => i.productName === 'Virtual Machines Dsv5 Series Windows' && !/Low Priority|Spot/.test(i.skuName));
-  if (!lin || !win) throw new Error('D8s v5 não encontrado');
-  az.usdHora = { linux: lin.unitPrice, windows: win.unitPrice };
+  // uma consulta para todas as famílias do de/para (cada degrau tem seu SKU)
+  const skus = [...new Set(Object.values(az.familias).map((f) => f.sku))];
+  const vm = await q(`armRegionName eq 'brazilsouth' and priceType eq 'Consumption' and (${skus.map((s) => `armSkuName eq '${s}'`).join(' or ')})`);
+  // só "Virtual Machines …" (fora HDInsight, Cloud Services, bancos), sem Spot/Low Priority
+  const preco = (sku, win) => { const i = vm.find((x) => x.armSkuName === sku && /^Virtual Machines /.test(x.productName) && /Windows/.test(x.productName) === win && !/Low Priority|Spot/.test(x.skuName)); return i ? i.unitPrice : null; };
+  for (const f of Object.values(az.familias)) {
+    const lin = preco(f.sku, false), win = preco(f.sku, true);
+    if (!(lin > 0) || !(win > 0)) throw new Error(`${f.sku} não encontrado`);
+    f.usdHora = { linux: lin, windows: win };
+  }
+  az.usdHora = { ...az.familias.pro.usdHora };
   const ssd = (await q("armRegionName eq 'brazilsouth' and serviceName eq 'Storage' and contains(productName,'Premium SSD v2')"))
     .find((i) => i.meterName === 'Premium LRS Provisioned Capacity');
   if (ssd) az.disco.usdGbMes = r6(ssd.unitPrice * novo.horasMes);
@@ -87,15 +93,20 @@ await tenta('Oracle Cloud (catálogo)', async () => {
 await tenta('AWS (Price List sa-east-1)', async () => {
   const aw = novo.provedores.aws;
   const REG = 'South America (Sao Paulo)';
-  const ec2 = await json(aw.fontes[0]);
+  // PRECOS_AWS_ARQ = arquivo já baixado, para rodar de novo sem esperar os 290 MB
+  const ec2 = process.env.PRECOS_AWS_ARQ ? JSON.parse(fs.readFileSync(process.env.PRECOS_AWS_ARQ, 'utf8')) : await json(aw.fontes[0]);
+  const fams = Object.values(aw.familias);
   const od = ec2.terms.OnDemand;
   const dims = (sku) => { const t = od[sku]; if (!t) return []; return Object.values(Object.values(t)[0].priceDimensions).map((d) => ({ de: +d.beginRange, ate: d.endRange === 'Inf' ? null : +d.endRange, usd: +d.pricePerUnit.USD })).sort((a, b) => a.de - b.de); };
   for (const [sku, p] of Object.entries(ec2.products)) {
     const a = p.attributes || {}; if (a.location !== REG) continue;
-    if (p.productFamily === 'Compute Instance' && a.instanceType === aw.instancia && a.tenancy === 'Shared' && a.preInstalledSw === 'NA' && a.capacitystatus === 'Used' && a.licenseModel === 'No License required') {
-      const d = dims(sku)[0]; if (!d) continue;
-      if (a.operatingSystem === 'Linux') aw.usdHora.linux = d.usd;
-      if (a.operatingSystem === 'Windows') aw.usdHora.windows = d.usd;
+    if (p.productFamily === 'Compute Instance' && a.preInstalledSw === 'NA' && a.capacitystatus === 'Used' && a.licenseModel === 'No License required') {
+      for (const f of fams) {
+        if (a.instanceType !== f.instancia || a.tenancy !== (f.tenancy || 'Shared')) continue;
+        const d = dims(sku)[0]; if (!d) continue;
+        if (a.operatingSystem === 'Linux') f.usdHora.linux = d.usd;
+        if (a.operatingSystem === 'Windows') f.usdHora.windows = d.usd;
+      }
     }
     if (p.productFamily === 'Storage' && a.volumeApiName === 'gp3') { const d = dims(sku)[0]; if (d) aw.disco.usdGbMes = d.usd; }
     if (p.productFamily === 'Storage Snapshot' && a.usagetype === 'SAE1-EBS:SnapshotUsage') { const d = dims(sku)[0]; if (d) aw.backup.usdGbMes = d.usd; }
@@ -104,6 +115,8 @@ await tenta('AWS (Price List sa-east-1)', async () => {
       if (pagas.length) { aw.egress.gratisGb = pagas[0].de; aw.egress.faixas = pagas.map((d) => [d.ate, d.usd]); }
     }
   }
+  for (const [k, f] of Object.entries(aw.familias)) if (!(f.usdHora.linux > 0) || !(f.usdHora.windows > 0)) throw new Error(`${k}: ${f.instancia} sem preço`);
+  aw.usdHora = { ...aw.familias.pro.usdHora };
 });
 
 /* ---------- Google Cloud: as páginas públicas embutem todas as regiões ---------- */
@@ -129,6 +142,19 @@ await tenta('Google Cloud (páginas de preço)', async () => {
   g.usdHora = { vcpu: r6(achou.v / 1.05), gb: r6(achou.mem / 1.05) };
   const oito = 8 * g.usdHora.vcpu + 32 * g.usdHora.gb;
   if (oito < 0.3 || oito > 1.2) throw new Error(`N2 8v/32g fora de faixa: ${oito}`);
+  g.familias.pro.usdHora = { ...g.usdHora }; g.familias.umax.usdHora = { ...g.usdHora };
+
+  // famílias por instância (E2 e C2): a linha "<tipo> , 8 , 32 GiB , $x / 1 hour"
+  // dentro de um bloco horário ([2]) de São Paulo; a primeira coluna é a on-demand
+  const hora = (html, tipo) => {
+    const re = new RegExp(tipo + '[\\s,]*8[\\s,]*32 GiB[\\s,]*\\$([0-9.]+) \\/ 1 hour'), SP2 = /Sao Paulo \(southamerica-east1\)",\[2\]\]/g;
+    let mm, v = null;
+    while ((mm = SP2.exec(html))) { const x = limpa(html.slice(mm.index, mm.index + 2600)).match(re); if (x) { v = +x[1]; break; } }
+    if (!(v > 0.1 && v < 2)) throw new Error(`${tipo} de São Paulo não encontrado`);
+    return v;
+  };
+  g.familias.eco.usdHora = { linux: hora(gp, 'e2-standard-8') };
+  g.familias.xpro.usdHora = { linux: hora(await texto(g.fontes[3]), 'c2-standard-8') };
 
   const dk = await texto(g.fontes[1]);
   // só os blocos mensais ([3]); janela curta, senão ela invade a tabela vizinha
