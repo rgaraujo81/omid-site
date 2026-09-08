@@ -45,6 +45,17 @@
   --t-num: clamp(2.4rem, 5vw, 4.2rem);        /* número grande */
   --t-cifra: clamp(4.8rem, 15vw, 14rem);      /* a cifra do 40% */
 
+  /* ---- escala de respiro ----
+     Como na tipografia, o vertical também é escala fechada: TODA separação
+     entre dobras sai destes três degraus (dono, 2026-09-08: "padronize a
+     separação entre as dobras"). Antes havia cinco medidas diferentes —
+     .bloco 19vh, #simular 17/15vh, .quieto 26vh, .bloco--curto 10vh e o
+     chapéu 8/4vh — e nenhuma dobra respirava igual à vizinha.
+     Nada de padding-block solto em seção: use um degrau. */
+  --dobra:   clamp(96px, 19vh, 240px);   /* separação padrão: 171px em tela de 900 */
+  --dobra-c: clamp(60px, 11vh, 140px);   /* meia dobra: página curta, chapéu */
+  --dobra-i: clamp(56px, 9vh, 116px);    /* salto grande DENTRO de uma dobra */
+
   --gut: clamp(18px, 4.6vw, 60px);
   --topo-h: 64px;
   --rd: 22px;           /* curva contínua dos objetos */
@@ -129,17 +140,16 @@ b, strong { font-weight: 600; }
 /* ---------- 4. Estrutura ---------- */
 .faixa-p { padding-inline: var(--gut); }
 .max { max-width: 1440px; margin-inline: auto; }
-/* o ar entre dobras é o que separa um assunto do outro — o dono pediu mais
-   em 2026-09-08. Em tela de 900px: 171px de cada lado, 342px entre seções. */
-.bloco { padding-block: clamp(96px, 19vh, 240px); position: relative; }
-.bloco--curto { padding-block: clamp(56px, 10vh, 128px); }
-/* salto grande dentro de uma seção: o 40% para o configurador */
-.t-dobra { margin-top: clamp(56px, 9vh, 116px); }
+/* o ar entre dobras: um degrau da escala, igual para todas — 342px entre
+   duas seções em tela de 900. */
+.bloco { padding-block: var(--dobra); position: relative; }
+/* o bloco curto abre a página logo abaixo do chapéu: por cima segue o ritmo
+   do cabeçalho, por baixo é uma dobra como qualquer outra */
+.bloco--curto { padding-block: var(--dobra-c) var(--dobra); }
+.t-dobra { margin-top: var(--dobra-i); }
 /* no celular a mesma proporção viraria meia tela de vazio entre seções */
 @media (max-width: 700px) {
-  .bloco { padding-block: clamp(76px, 13vh, 120px); }
-  .bloco--curto { padding-block: clamp(48px, 8vh, 80px); }
-  .t-dobra { margin-top: clamp(44px, 7vh, 64px); }
+  :root { --dobra: clamp(76px, 13vh, 120px); --dobra-c: clamp(48px, 9vh, 84px); --dobra-i: clamp(44px, 7vh, 64px); }
 }
 .regra { border-top: 1px solid var(--fio); }
 
@@ -350,7 +360,7 @@ body.aberto .gaveta__a { animation: gavIn .5s var(--ease) forwards; animation-de
 @keyframes desce { 0% { top: -12px; } 70%, 100% { top: 36px; } }
 
 /* chapéu das páginas internas */
-.chapeu { padding-block: clamp(40px, 8vh, 96px) clamp(26px, 4vh, 56px); }
+.chapeu { padding-block: var(--dobra-c) var(--dobra-i); }
 .chapeu h1 { font-weight: 600; font-stretch: 102%; font-size: var(--t-t1); line-height: 1.05; letter-spacing: -.03em; max-width: 22ch; text-wrap: balance; }
 .chapeu .lead { margin-top: 18px; }
 .trilha { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 18px; }
@@ -552,7 +562,7 @@ a.quadro:hover, .quadro--hov:hover { transform: translateY(-4px); box-shadow: va
 .tela iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
 /* ---------- 17. Rodapé ---------- */
-.rodape { background: #0C0C0E; color: #B9B6AD; padding-block: clamp(52px, 9vh, 110px) 30px; }
+.rodape { background: #0C0C0E; color: #B9B6AD; padding-block: var(--dobra-i) 30px; }
 .rodape a { transition: color .25s; }
 .rodape a:hover { color: #fff; }
 .rodape__g { font-weight: 600; font-stretch: 102%; font-size: var(--t-t1); line-height: 1.02; letter-spacing: -.03em; color: #EFEDE6; max-width: 16ch; }
@@ -690,16 +700,12 @@ html:not(.sdt) .inv.dobra--inverte { background: var(--papel); }
 .preco__n .mes { font-family: var(--mono); font-size: .17em; letter-spacing: .16em; color: var(--cinza); }
 
 /* ---------- 22. O bloco quieto ---------- */
-.quieto { padding-block: clamp(110px, 26vh, 280px); }
+.quieto { padding-block: var(--dobra); }
 .quieto .faixa-p { display: grid; justify-items: center; }
 .quieto p { font-weight: 400; font-size: var(--t-t3); line-height: 1.5; letter-spacing: -.014em; max-width: 30ch; color: var(--cinza); text-align: center; text-wrap: balance; }
 .quieto b { color: var(--tinta); font-weight: 500; }
 
 /* ---------- 23. Cifra e prova ---------- */
-/* a faixa de certificações fica colada em cima desta dobra e já faz a
-   separação: 200px de respiro no topo abriam um buraco */
-#simular { padding-top: clamp(88px, 17vh, 215px); padding-bottom: clamp(80px, 15vh, 190px); }
-@media (max-width: 700px) { #simular { padding-top: clamp(76px, 13vh, 120px); padding-bottom: clamp(64px, 11vh, 100px); } }
 #simular .cifra { margin-top: 10px; }
 .sdt .dobra--colapso .cifra { opacity: 0; transform: translateY(26px) scale(.98); }
 .sdt .dobra--colapso.viu .cifra { opacity: 1; transform: none; transition: opacity 1s var(--ease) .1s, transform 1.2s var(--ease) .1s; }

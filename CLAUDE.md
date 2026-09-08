@@ -107,10 +107,19 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
   reduced-motion. Refeita duas vezes a pedido do dono em 2026-09-08 ("deixe lindo" → "mais bonito"): a versão
   de cartões empilhados foi rejeitada. `item`/`pilha` seguem sendo o componente das listas de produtos e
   soberania — não misturar.
-- **O ar entre dobras é regra, não sobra** (dono, 2026-09-08: "deixe mais espaços entre as dobras"):
-  `.bloco` tem `padding-block: clamp(96px, 19vh, 240px)` — 171px de cada lado em tela de 900, 342px entre
-  seções — e `#simular`, que estava com metade disso, acompanha. O salto do bloco do 40% para o configurador
-  é `.t-dobra`. Abaixo de 700px tudo cai para ~13vh, senão o celular vira meia tela de vazio.
+- **O respiro vertical é escala fechada, como a tipografia** (dono, 2026-09-08: "deixe mais espaços entre as
+  dobras" e depois "padronize a separação entre as dobras"). Três degraus no `:root` e **nenhum
+  `padding-block` solto em seção**:
+  `--dobra` (171px em tela de 900 → **342px entre duas dobras, em todo o site**) para `.bloco`, `#simular` e
+  `.quieto`; `--dobra-c` (99px) para o chapéu das páginas internas e o topo do `.bloco--curto`; `--dobra-i`
+  (81px) para o salto dentro de uma dobra (`.t-dobra`, o 40% → configurador), a base do chapéu e o topo do
+  rodapé. `.bloco--curto` é assimétrico de propósito: `--dobra-c` em cima (segue o ritmo do cabeçalho, 180px
+  do chapéu) e `--dobra` embaixo (dobra normal). Abaixo de 700px os três degraus caem juntos (212px entre
+  dobras), senão o celular vira meia tela de vazio. Antes havia cinco medidas concorrentes — `.bloco` 19vh,
+  `#simular` 17/15vh, `.quieto` 26vh, `.bloco--curto` 10vh, chapéu 8/4vh — e nenhuma dobra respirava igual à
+  vizinha. Única exceção: `.abertura`, que é `min-height: 100svh` centrada — o padding dela é folga interna
+  da primeira tela, não separação. Quando a distância medida passa de 342px há uma FAIXA de conteúdo no meio
+  (as certificações na home, o letreiro em Sobre), não ar sobrando.
 - **O duelo é um painel institucional numa dobra só** (pedidos do dono em 2026-09-08: "tudo visível de uma
   vez", "um fundo lindo e moderno", e depois "não quero preto, tom de empresa séria e grande" — a versão
   escura foi REJEITADA). Painel claro levantado como folha de relatório: gradiente de papel, fio de 3px em
