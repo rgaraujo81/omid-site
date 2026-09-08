@@ -177,7 +177,7 @@ export const regua = (ctx) => {
     <div class="regua-c t-32">
       <div class="ctl">
         <div class="ctl__cab"><span class="mono apaga" id="rot-cen">${ctx.L.comparar.cenarios.rot}</span></div>
-        <div class="troca troca--cen" role="group" aria-labelledby="rot-cen">
+        <div class="cenarios" role="group" aria-labelledby="rot-cen">
           ${Object.entries(CENARIOS).map(([k, v]) =>
             `<button type="button" class="troca__b" data-cen='${JSON.stringify(v)}' aria-pressed="false">${ctx.L.comparar.cenarios.itens[k]}</button>`).join('')}
           <button type="button" class="troca__b abre" data-cen="" aria-pressed="true">${ctx.L.comparar.cenarios.custom}</button>
