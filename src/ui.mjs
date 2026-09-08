@@ -65,6 +65,24 @@ export const item = ({ n, t, d, href, cor, etiquetas }) => {
 
 export const pilha = (itens) => `<div class="pilha">${itens.join('')}</div>`;
 
+/* --- as camadas: quatro lajes empilhadas, do concreto (01, embaixo, a mais
+   escura) ao time que atende (04, em cima, a mais clara). O DOM vai de cima
+   para baixo; a revelação sobe de baixo para cima (--d cresce para o topo).
+   As etiquetas viram uma linha mono quieta, separada por pontos na cor da
+   camada — o contrário dos chips, que faziam ruído. --- */
+export const camadas = (lista) => `
+<ol class="lajes" role="list">
+  ${lista.map((c, i, a) => `
+  <li class="laje" data-ver style="--pt:${c.dot}; --z:${a.length - i}; --d:${a.length - 1 - i}">
+    <span class="laje__n mono">${c.n}</span>
+    <div class="laje__c">
+      <h3 class="grita">${c.t}</h3>
+      <p class="laje__d">${c.d}</p>
+      ${c.itens ? `<p class="laje__tags mono">${c.itens.map((e) => `<span>${e}</span>`).join('<i aria-hidden="true">·</i>')}</p>` : ''}
+    </div>
+  </li>`).join('')}
+</ol>`;
+
 /* --- quadro --- */
 export const quadro = ({ t, d, href, cor, pe, i = 0, tag = 'h3' }) => {
   const dentro = `

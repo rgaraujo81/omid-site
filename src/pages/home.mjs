@@ -1,6 +1,6 @@
 import { prodMeta, numeroValores, certDots, enderecos } from '../shared.mjs';
 import {
-  ver, rotulo, botao, botaoSim, varre, cabeca, item, pilha,
+  ver, rotulo, botao, botaoSim, varre, cabeca, camadas, item, pilha,
   letreiro, credenciais, defs, chamada, linhas, lume, regua
 } from '../ui.mjs';
 
@@ -66,9 +66,9 @@ ${credenciais(ctx, faixa1)}
 <!-- INTEGRAÇÃO VERTICAL -->
 <section class="bloco dobra dobra--fio dobra--corte">
   <div class="faixa-p max">
-    ${cabeca({ rot: H.vertical.eb, h: lume(H.vertical.h), p: H.vertical.p })}
-    <div class="t-56">
-      ${pilha(L.camadas.map((c) => item({ n: c.n, t: c.t, d: c.d, cor: c.dot, etiquetas: c.itens })))}
+    <div class="camadas">
+      ${cabeca({ rot: H.vertical.eb, h: lume(H.vertical.h), p: H.vertical.p })}
+      ${camadas(L.camadas)}
     </div>
   </div>
 </section>

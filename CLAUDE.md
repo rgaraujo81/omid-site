@@ -91,6 +91,12 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
   foi escolhida porque o critério é preço da família premium, não geração). Trocar o de/para = editar
   `familias` no JSON e o SKU/instância no robô; o JS não sabe de família nenhuma. Sem preço na família, o JS
   cai na família-padrão do provedor (uso geral) e `semEquivalente: true` põe o aviso na linha.
+- **A seção "Integração vertical" da home é a pilha de lajes** (`camadas()` em `ui.mjs`, CSS 10b): quatro
+  cartões sobrepostos 16px, do concreto (01, embaixo, `--papel-3`) ao time (04, em cima, quase branco), com
+  veio e banho discreto na cor da camada, cabeça fixa à esquerda e revelação subindo de baixo para cima. O
+  levantar no hover usa `translate` (o `transform` é da revelação). Refeita a pedido do dono em 2026-09-08
+  ("deixe lindo"); as etiquetas em chips viraram uma linha mono com pontos. `item`/`pilha` seguem sendo o
+  componente das listas de produtos e soberania — não misturar.
 - **Os três grupos de botões do simulador (cenário, tipo de máquina, sistema) são UMA trilha só**, `.troca`,
   com todos os botões da mesma largura (`--chip`, 116px; 104px até 1180px) — decisão do dono em 2026-09-08,
   "use o mesmo botão e tamanho para todos, padrão o da CPU". Quando a trilha não cabe na coluna ela rola de
