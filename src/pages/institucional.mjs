@@ -37,7 +37,7 @@ ${chapeu(ctx, { trilha: [{ t: L.nav.paraQuem }], rot: P.eb, h: P.h, p: P.p,
   <div class="faixa-p max">
     ${cabeca({ rot: P.setorEb, h: P.setorH })}
     <ul class="etiquetas t-32" style="gap:8px"${ver()}>
-      ${P.setores.map((s) => `<li style="font-size:.72rem;padding:9px 14px">${s}</li>`).join('')}
+      ${P.setores.map((s) => `<li class="etiquetas--g">${s}</li>`).join('')}
     </ul>
   </div>
 </section>
@@ -104,7 +104,7 @@ ${chapeu(ctx, { trilha: [{ t: P.eb }], rot: P.eb, h: P.h, p: P.p,
       <div class="tabela t-16">
         <table>
           <thead><tr><th scope="col">${P.colItem}</th><th scope="col" class="dir">${P.colValor}</th></tr></thead>
-          <tbody>${precoValores[i].linhas.map(([item, valor]) => `<tr><th scope="row" style="font-weight:400">${item}</th><td class="dir destaca" style="font-family:var(--mono);font-size:.85rem">${valor}</td></tr>`).join('')}</tbody>
+          <tbody>${precoValores[i].linhas.map(([item, valor]) => `<tr><th scope="row" style="font-weight:400">${item}</th><td class="dir destaca valor-mono">${valor}</td></tr>`).join('')}</tbody>
         </table>
       </div>
     </div>`).join('')}
@@ -185,7 +185,7 @@ ${letreiro(certs)}
   <div class="faixa-p max">
     ${cabeca({ rot: S.certEb, h: S.certH, p: S.certP })}
     <ul class="etiquetas t-32" style="gap:8px"${ver()}>
-      ${L.certificacoes.map(([t]) => `<li style="font-size:.72rem;padding:9px 14px">${t}</li>`).join('')}
+      ${L.certificacoes.map(([t]) => `<li class="etiquetas--g">${t}</li>`).join('')}
     </ul>
   </div>
 </section>
@@ -265,7 +265,7 @@ ${chapeu(ctx, { trilha: [{ t: L.nav.partner }], rot: P.eb, h: P.h, p: P.p,
     <div class="tabela t-32"${ver()}>
       <table>
         <thead><tr><th scope="col">${P.tierCol[0]}</th><th scope="col" class="dir">${P.tierCol[1]}</th></tr></thead>
-        <tbody>${tiers.map(([t, v], i) => `<tr><th scope="row"><span style="display:inline-flex;align-items:center;gap:12px"><i style="width:18px;height:5px;background:${modalidadeDots[i]};display:block"></i>${t}</span></th><td class="dir" style="font-family:var(--mono);font-size:.82rem">${v}</td></tr>`).join('')}</tbody>
+        <tbody>${tiers.map(([t, v], i) => `<tr><th scope="row"><span style="display:inline-flex;align-items:center;gap:12px"><i style="width:18px;height:5px;background:${modalidadeDots[i]};display:block"></i>${t}</span></th><td class="dir valor-mono">${v}</td></tr>`).join('')}</tbody>
       </table>
     </div>
   </div>

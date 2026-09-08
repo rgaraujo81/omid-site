@@ -38,14 +38,25 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
    recebe o espectro sólido (a aurora e a cifra 40% são as exceções aprovadas). As barras do duelo
    usam as cores da marca ISOLADAS, uma por item — nunca o espectro.
 3. **Paleta**: hex extraídos do `LogoOMID.svg` oficial (teal #40ADB7 … âmbar #F8B241). Não aproximar.
-3b. **Tipografia é escala fechada.** Duas famílias (Archivo para texto, IBM Plex Mono para rótulo) e SÓ os
-   degraus `--t-*` do `:root` (mono, mono-g, xs, s, m, l, t4, t3, t2, t1, num, cifra), quatro pesos
-   (400/500/600/700) e uma largura óptica (102%). **Nenhum `font-size` solto no CSS** — se faltar um tamanho,
-   use o degrau vizinho. Antes desta regra havia 48 tamanhos e 14 pesos; o dono pediu em 2026-09-08 "padrão
-   no tipo e no tamanho das fontes, tudo harmonioso". As únicas exceções são medidas relativas ao pai
-   (`.26em`, `.32em`, `.38em`, `.17em` em expoentes e sufixos), o `11px` do rótulo dentro do SVG das camadas
-   e o `17px` do `body`. **Sobriedade, profissionalismo e minimalismo** são o filtro de qualquer decisão
-   visual (dono, 2026-09-08): na dúvida, tirar — cor mais baixa, textura mais discreta, menos peso.
+3b. **Tipografia é escala fechada.** Duas famílias (Archivo para texto, IBM Plex Mono para rótulo), **três
+   pesos** (400/500/600 — o 700 saiu) e **dez degraus** `--t-*` no `:root`: mono, xs, s, m, l, t4, t3, t2,
+   t1, cifra. **Nenhum `font-size` solto no CSS nem em `style=""`** — se faltar um tamanho, use o degrau
+   vizinho. Auditado nas 13 páginas pt em 2026-09-08: 2 famílias, 3 pesos, 10 degraus. As únicas exceções
+   são quatro expoentes em `em` relativos ao pai (`.26em` da cifra, `.38em` do placar, `.32em` do `R$`,
+   `.17em` do `/mês`) e o `11px` do rótulo dentro do SVG das camadas.
+   Histórico: o dono pediu "padrão no tipo e no tamanho" (havia 48 tamanhos e 14 pesos), depois **"ainda
+   acho que temos muitas fontes e tamanhos diferentes"** — nessa segunda rodada caíram três pares quase
+   idênticos (corpo 17 vs 15,4 · manchete 73,6 vs número 67,2 · mono 11,2 vs 9,9) e os últimos `font-size`
+   inline, que viviam no rodapé (endereços) e em `institucional.mjs` (pílulas e tabelas).
+   Há um **reset `h1..h6 { font-size: inherit; font-weight: inherit }`**: sem ele um título sem regra entra
+   com o padrão do navegador (1.17em) e cria um degrau fantasma — aconteceu com o `h3` da sanfona; o
+   `th` do `thead` entrava em 700 pelo mesmo motivo.
+   **Sobriedade, profissionalismo e minimalismo** são o filtro de qualquer decisão visual: na dúvida, tirar.
+3c. **A marca abre a home.** `logoMarca()` em `src/logo.mjs` recorta o símbolo oficial (viewBox
+   `0 0 80.403 61.695` sobre um `<use>` em tamanho natural) e mostra SÓ as lajes, sem o wordmark — repeti-lo
+   embaixo do cabeçalho seria eco. Fica acima da manchete, ~104px, com flutuação lenta de 7s. Pedido do dono
+   em 2026-09-08: "na primeira página coloque o logo da OMID de forma estilizada". O gradiente aqui é o do
+   próprio arquivo do logo, não uma aplicação decorativa do espectro (regra 2 continua valendo).
 4. **Movimento é classe `.viu` + transição via IntersectionObserver.** NUNCA usar
    `animation-timeline`/scroll-timelines para estados de entrada — travou no Safari do dono
    deixando conteúdo invisível (lição cara). Nada pode ficar oculto sem a classe `.sdt`

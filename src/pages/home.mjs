@@ -1,4 +1,5 @@
 import { prodMeta, numeroValores, certDots, enderecos } from '../shared.mjs';
+import { logoMarca } from '../logo.mjs';
 import {
   ver, rotulo, botao, botaoSim, varre, cabeca, camadas, item, pilha,
   letreiro, credenciais, defs, chamada, linhas, lume, regua
@@ -21,6 +22,7 @@ export const home = (ctx) => {
 <section class="abertura abertura--ive faixa-p max">
   <canvas class="aurora" aria-hidden="true"></canvas>
   <div class="sereno">
+    <div class="sereno__marca ent" style="--e:0">${logoMarca()}</div>
     <h1 class="sereno__h ent" style="--e:0">${H.h1a.replace('<br>', ' ')}<b>${H.h1b}</b>.</h1>
     <p class="sereno__p ent" style="--e:1">${H.lead}</p>
     <div class="sereno__acao ent" style="--e:2">

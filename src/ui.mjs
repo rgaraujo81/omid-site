@@ -115,7 +115,7 @@ export const camadas = (lista, cabecalho = '') => {
 export const quadro = ({ t, d, href, cor, pe, i = 0, tag = 'h3' }) => {
   const dentro = `
     <i></i>
-    <${tag} class="grita" style="font-size:clamp(1.2rem,2.4vw,1.7rem)">${t}</${tag}>
+    <${tag} class="grita">${t}</${tag}>
     ${d ? `<p>${d}</p>` : ''}
     ${pe ? `<div class="quadro__pe">${pe}</div>` : ''}`;
   const st = ` style="--pt:${cor || 'var(--tinta)'};--d:${i}"`;
@@ -184,7 +184,7 @@ export const tela = ({ id, titulo, meta, poster = '/assets/img/dc-video-poster.j
   <img src="${poster}" alt="${esc(titulo)}" loading="lazy" decoding="async" width="1280" height="720">
   <span class="tela__play">${play}</span>
   <span class="tela__leg">
-    <${hTag} class="grita" style="font-size:clamp(1.1rem,2.2vw,1.7rem);color:inherit">${titulo}</${hTag}>
+    <${hTag} class="grita tela__t">${titulo}</${hTag}>
     ${meta ? `<p>${meta}</p>` : ''}
   </span>
 </button>`;
