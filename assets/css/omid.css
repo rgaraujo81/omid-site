@@ -129,8 +129,18 @@ b, strong { font-weight: 600; }
 /* ---------- 4. Estrutura ---------- */
 .faixa-p { padding-inline: var(--gut); }
 .max { max-width: 1440px; margin-inline: auto; }
-.bloco { padding-block: clamp(72px, 15vh, 200px); position: relative; }
-.bloco--curto { padding-block: clamp(44px, 8vh, 100px); }
+/* o ar entre dobras é o que separa um assunto do outro — o dono pediu mais
+   em 2026-09-08. Em tela de 900px: 171px de cada lado, 342px entre seções. */
+.bloco { padding-block: clamp(96px, 19vh, 240px); position: relative; }
+.bloco--curto { padding-block: clamp(56px, 10vh, 128px); }
+/* salto grande dentro de uma seção: o 40% para o configurador */
+.t-dobra { margin-top: clamp(56px, 9vh, 116px); }
+/* no celular a mesma proporção viraria meia tela de vazio entre seções */
+@media (max-width: 700px) {
+  .bloco { padding-block: clamp(76px, 13vh, 120px); }
+  .bloco--curto { padding-block: clamp(48px, 8vh, 80px); }
+  .t-dobra { margin-top: clamp(44px, 7vh, 64px); }
+}
 .regra { border-top: 1px solid var(--fio); }
 
 /* O COMPARATIVO — composição centrada: rótulo, número, manchete, apoio,
@@ -688,7 +698,8 @@ html:not(.sdt) .inv.dobra--inverte { background: var(--papel); }
 /* ---------- 23. Cifra e prova ---------- */
 /* a faixa de certificações fica colada em cima desta dobra e já faz a
    separação: 200px de respiro no topo abriam um buraco */
-#simular { padding-top: clamp(48px, 8vh, 110px); padding-bottom: clamp(48px, 7vh, 88px); }
+#simular { padding-top: clamp(88px, 17vh, 215px); padding-bottom: clamp(80px, 15vh, 190px); }
+@media (max-width: 700px) { #simular { padding-top: clamp(76px, 13vh, 120px); padding-bottom: clamp(64px, 11vh, 100px); } }
 #simular .cifra { margin-top: 10px; }
 .sdt .dobra--colapso .cifra { opacity: 0; transform: translateY(26px) scale(.98); }
 .sdt .dobra--colapso.viu .cifra { opacity: 1; transform: none; transition: opacity 1s var(--ease) .1s, transform 1.2s var(--ease) .1s; }

@@ -107,6 +107,10 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
   reduced-motion. Refeita duas vezes a pedido do dono em 2026-09-08 ("deixe lindo" → "mais bonito"): a versão
   de cartões empilhados foi rejeitada. `item`/`pilha` seguem sendo o componente das listas de produtos e
   soberania — não misturar.
+- **O ar entre dobras é regra, não sobra** (dono, 2026-09-08: "deixe mais espaços entre as dobras"):
+  `.bloco` tem `padding-block: clamp(96px, 19vh, 240px)` — 171px de cada lado em tela de 900, 342px entre
+  seções — e `#simular`, que estava com metade disso, acompanha. O salto do bloco do 40% para o configurador
+  é `.t-dobra`. Abaixo de 700px tudo cai para ~13vh, senão o celular vira meia tela de vazio.
 - **O duelo é um painel institucional numa dobra só** (pedidos do dono em 2026-09-08: "tudo visível de uma
   vez", "um fundo lindo e moderno", e depois "não quero preto, tom de empresa séria e grande" — a versão
   escura foi REJEITADA). Painel claro levantado como folha de relatório: gradiente de papel, fio de 3px em

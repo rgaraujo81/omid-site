@@ -59,7 +59,7 @@ ${credenciais(ctx, faixa1)}
     </ul>
     <!-- o 40% ligado ao número real do duelo: preenchido pelo JS, escondido sem dado -->
     <p class="mono apaga cmp__vivo" data-cmp-vivo data-molde="${H.cmp.vivo}" hidden></p>
-    <div class="t-56">${regua(ctx)}</div>
+    <div class="t-dobra">${regua(ctx)}</div>
   </div>
 </section>
 
