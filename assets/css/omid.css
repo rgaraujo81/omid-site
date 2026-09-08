@@ -539,6 +539,30 @@ a.quadro:hover, .quadro--hov:hover { transform: translateY(-4px); box-shadow: va
 .tabela .destaca { font-weight: 600; }
 .tabela .fraca { color: var(--cinza); }
 
+/* ---------- 21b. Celular: a tabela deixa de rolar de lado ----------
+   `min-width: 620px` obrigava rolagem horizontal dentro da tabela numa tela
+   de 390 — a pagina mais importante do site (precos) so era legivel arrastando.
+   No celular a tabela vira lista: cabecalho some, cada linha e um bloco. */
+@media (max-width: 700px) {
+  .tabela { border-radius: var(--rd); overflow: visible; }
+  .tabela table { min-width: 0; width: 100%; }
+  .tabela thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .tabela tbody tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px;
+    padding: 14px clamp(14px, 4vw, 20px); border-bottom: 1px solid var(--fio-2); }
+  .tabela tbody tr:last-child { border-bottom: 0; }
+  .tabela th, .tabela td { padding: 0; border: 0; }
+  .tabela tbody th { width: auto; }
+  .tabela td.dir { text-align: right; }
+  /* a de tres colunas empilha: criterio em cima, cada valor com o seu rotulo */
+  .tabela--3 tbody tr { grid-template-columns: 1fr; gap: 10px; padding-block: 18px; }
+  .tabela--3 tbody th { font-weight: 600; font-size: var(--t-t4); letter-spacing: -.02em; }
+  .tabela--3 tbody td { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: baseline; }
+  .tabela--3 tbody td::before { content: attr(data-rot); font-family: var(--mono); font-size: var(--t-mono);
+    letter-spacing: .14em; text-transform: uppercase; color: var(--cinza); white-space: nowrap; }
+}
+
+
+
 /* ---------- 13. Sanfona ---------- */
 .sanfona { border-top: 1px solid var(--fio); }
 .sanfona__i { border-bottom: 1px solid var(--fio); }
@@ -1062,4 +1086,45 @@ html.portal-vivo .portal__fio { background: #23232A; }
   .duelo__li { grid-template-columns: 1fr auto; grid-template-areas: "nome preco" "barra barra" "delta delta"; gap: 8px 14px; }
   .duelo__nome { grid-area: nome; } .duelo__preco { grid-area: preco; }
   .duelo__barra { grid-area: barra; } .duelo__delta { grid-area: delta; text-align: left; }
+}
+
+/* ---------- 21c. Celular: alvo de toque ----------
+   Referencia de plataforma e 44px. Estavam em 17px (migalha), 26px (logo),
+   29px (link de rodape), 33px (campo de formulario). */
+@media (max-width: 860px) {
+  .rodape__nav a, .trilha a, .mega__a, .menu__a { min-height: 44px; display: inline-flex; align-items: center; }
+  .rodape__nav { gap: 2px; }
+  .varre { min-height: 44px; }
+  .campo input, .campo select, .campo textarea { min-height: 48px; }
+  .campo textarea { min-height: 120px; }
+  .troca__b { min-height: 44px; }
+  .idioma__b { min-height: 44px; }
+  .topo .marca, .rodape .marca { min-height: 44px; display: inline-flex; align-items: center; }
+  .duelo__fontes a, .duelo__fontes summary { min-height: 40px; display: inline-flex; align-items: center; }
+  .sol__ir { min-height: 44px; align-items: center; }
+  /* rotulo em caixa alta a 10,6px e pequeno demais no celular */
+  :root { --t-mono: .72rem; }
+  .rodape__canal a { min-height: 44px; display: inline-flex; align-items: center; }
+  .social a { width: 44px; height: 44px; }
+  .marca-cx { min-height: 44px; align-items: center; }
+  .marca-cx input[type="checkbox"] { width: 24px; height: 24px; flex: none; }
+  /* o deslizador do simulador tinha 24px de altura de toque */
+  .ctl input[type="range"] { height: 44px; }
+  .ctl input[type="range"]::-webkit-slider-runnable-track { height: 44px; }
+  .ctl input[type="range"]::-webkit-slider-thumb { width: 30px; height: 30px; margin-top: 7px; }
+  .ctl input[type="range"]::-moz-range-thumb { width: 30px; height: 30px; }
+  .rodape__pe a { min-height: 44px; display: inline-flex; align-items: center; }
+  .duelo__copiar { min-height: 44px; }
+  .hamb { width: 44px; height: 44px; }
+}
+
+/* a linha do comparativo no celular: nome e preco em cima, barra inteira
+   embaixo, delta na terceira linha. Antes a grade de 4 colunas do desktop
+   se acomodava sozinha e o delta caia alinhado a direita, solto. */
+@media (max-width: 700px) {
+  .duelo__li { grid-template-columns: minmax(0, 1fr) auto; gap: 10px 14px; padding-block: 16px; align-items: baseline; }
+  .duelo__nome { grid-column: 1; }
+  .duelo__preco { grid-column: 2; text-align: right; }
+  .duelo__barra { grid-column: 1 / -1; }
+  .duelo__delta { grid-column: 1 / -1; text-align: left; }
 }

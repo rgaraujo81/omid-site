@@ -228,6 +228,26 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
 - O ponto final da manchete funde-se à palavra anterior no split de letras (não "consertar").
 - Portal roda 1×/sessão via `sessionStorage.omidV` — para rever, aba anônima.
 
+## Celular
+
+O dono pediu experiência "outstanding" no celular em 2026-09-08. O que está garantido, medido nas 12 páginas
+a 390×844 — **refazer esta medição a cada mudança grande de layout**:
+
+- **Zero alvo de toque abaixo de 40px** (referência de plataforma: 44). Estavam em 17px (migalha), 24px (o
+  deslizador do simulador!), 26px (logo), 29px (link do rodapé), 33px (campo de formulário). O bloco que
+  garante isso é o **21c, e ele fica no FIM da folha de propósito** — antes das regras base ele perdia por
+  ordem de cascata e não valia nada. A única exceção é o `input[type=checkbox]` em 24px, cujo rótulo
+  (`.marca-cx`) tem 44px e é clicável.
+- **Nenhuma tabela rola de lado.** `table { min-width: 620px }` obrigava arrastar dentro da tabela numa tela
+  de 390 — justamente na página de preços. No celular o `thead` some (escondido de forma acessível) e cada
+  linha vira um bloco. A tabela de 3 colunas (`.tabela--3`) empilha com o rótulo de cada valor vindo de
+  `data-rot`, gerado em `institucional.mjs`.
+- **A descrição das listas `.item` não é mais escondida** no celular (era `display: none`); ela desce para
+  baixo do título.
+- **As linhas do comparativo** têm layout próprio no celular: nome e preço em cima, barra inteira embaixo,
+  delta na terceira linha.
+- O rótulo mono sobe para `.72rem` abaixo de 860px (a 10,6px era pequeno demais numa tela de celular).
+
 ## Pendências que dependem do dono
 
 - `form.endpoint` em `src/shared.mjs` (formulários em modo demonstração até lá).

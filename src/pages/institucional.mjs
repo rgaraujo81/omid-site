@@ -115,10 +115,10 @@ ${chapeu(ctx, { trilha: [{ t: P.eb }], rot: P.eb, h: P.h, p: P.p,
 <section class="bloco">
   <div class="faixa-p max">
     ${cabeca({ rot: L.home.cmp.eb, h: L.home.cmp.h })}
-    <div class="tabela t-32"${ver()}>
+    <div class="tabela tabela--3 t-32"${ver()}>
       <table>
         <thead><tr>${L.comparativo.cols.map((c) => `<th scope="col">${c || `<span class="sr">${L.c.criterio}</span>`}</th>`).join('')}</tr></thead>
-        <tbody>${L.comparativo.rows.map((r) => `<tr><th scope="row">${r[0]}</th><td class="destaca">${r[1]}</td><td class="fraca">${r[2]}</td></tr>`).join('')}</tbody>
+        <tbody>${L.comparativo.rows.map((r) => `<tr><th scope="row">${r[0]}</th><td class="destaca" data-rot="${L.comparativo.cols[1]}">${r[1]}</td><td class="fraca" data-rot="${L.comparativo.cols[2]}">${r[2]}</td></tr>`).join('')}</tbody>
       </table>
     </div>
     <p class="miudo apaga t-16">${L.home.cmp.nota}</p>
