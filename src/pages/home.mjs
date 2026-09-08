@@ -33,7 +33,7 @@ export const home = (ctx) => {
     <div class="procedencia__dcs">
       <span class="procedencia__rot">${L.c.datacenters}</span>
       ${enderecos.filter((e) => e.papel === 'dc').sort((a, b) => (a.uf === 'RJ' ? -1 : 1) - (b.uf === 'RJ' ? -1 : 1))
-        .map((e) => `<span class="procedencia__dc" style="--pt:${e.dot}">${e.cidade}, ${e.uf} · ${e.coord}</span>`).join('')}
+        .map((e) => `<span class="procedencia__dc" style="--pt:${e.dot}">${e.cidade}, ${e.uf}<i class="procedencia__co"> · ${e.coord}</i></span>`).join('')}
     </div>
     <i aria-hidden="true"></i>
   </div>
