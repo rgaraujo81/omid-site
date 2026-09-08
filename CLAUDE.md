@@ -78,13 +78,19 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
   não são opções à parte. Tabela lida em 2026-09-08, vigência publicada até 27/11/2027.
 - **De/para de famílias no duelo** (pedido do dono em 2026-09-08): cada degrau puxa a família equivalente
   em `provedores.<x>.familias.<degrau>` do JSON, com `modo`/`unidade`/`usdHora` próprios; o robô coleta todas.
-  Proposta atual, por convenção de mercado (a OMID não publica o que os degraus são tecnicamente):
+  Mapa (a OMID não publica o que os degraus são tecnicamente; Eco/Pro/XPro por convenção de mercado, UMax
+  por regra do dono em 2026-09-08 — "a máquina mais forte deles"):
   Eco ↔ burstable (t3.2xlarge, B8s v2, e2-standard-8) · Pro ↔ uso geral (m6i.2xlarge, D8s v5, N2) ·
-  XPro ↔ otimizada para computação (c6i.2xlarge 8/16, F8s v2 8/16, c2-standard-8) · UMax ↔ SEM equivalente
-  direto: cotado em uso geral com `semEquivalente: true` (a linha avisa). Candidata se UMax for vCPU dedicada:
-  `aws.familias.dedicada` (m6i.2xlarge tenancy Dedicated, já coletada, não exibida); Azure/Google só vendem
-  host dedicado inteiro. Trocar o de/para = editar `familias` no JSON e o SKU/instância no robô; o JS não sabe
-  de família nenhuma. Sem preço na família, o JS cai na família-padrão do provedor (uso geral).
+  XPro ↔ otimizada para computação (c6i.2xlarge 8/16, F8s v2 8/16, c2-standard-8) · UMax ↔ a família PREMIUM
+  MAIS CARA de 8 vCPU de cada provedor em São Paulo, fora GPU, storage-optimized, bare metal e host dedicado,
+  com a memória que ela traz: m5zn.2xlarge (4,5 GHz, 8/32), E8bds v5 (8/64), c3-highmem-8 (8/64). É escolha
+  de escopo declarada no método e no nome da instância em cada linha — como a saída da Oracle (regra 10) —
+  e cada preço continua vindo da fonte oficial. Levantamento que embasou a escolha: entre as 8 vCPU de até
+  64 GiB, a mais cara da AWS fora GPU/storage é a r4 (geração antiga, excluída) e depois a m5zn; na Azure,
+  L8s v3 (storage, excluída) e depois Ebdsv5; no Google, C3 highmem (a C4, mais nova, é mais barata — não
+  foi escolhida porque o critério é preço da família premium, não geração). Trocar o de/para = editar
+  `familias` no JSON e o SKU/instância no robô; o JS não sabe de família nenhuma. Sem preço na família, o JS
+  cai na família-padrão do provedor (uso geral) e `semEquivalente: true` põe o aviso na linha.
 - **Os três grupos de botões do simulador (cenário, tipo de máquina, sistema) são UMA trilha só**, `.troca`,
   com todos os botões da mesma largura (`--chip`, 116px; 104px até 1180px) — decisão do dono em 2026-09-08,
   "use o mesmo botão e tamanho para todos, padrão o da CPU". Quando a trilha não cabe na coluna ela rola de

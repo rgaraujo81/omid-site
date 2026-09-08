@@ -142,19 +142,20 @@ await tenta('Google Cloud (páginas de preço)', async () => {
   g.usdHora = { vcpu: r6(achou.v / 1.05), gb: r6(achou.mem / 1.05) };
   const oito = 8 * g.usdHora.vcpu + 32 * g.usdHora.gb;
   if (oito < 0.3 || oito > 1.2) throw new Error(`N2 8v/32g fora de faixa: ${oito}`);
-  g.familias.pro.usdHora = { ...g.usdHora }; g.familias.umax.usdHora = { ...g.usdHora };
+  g.familias.pro.usdHora = { ...g.usdHora };
 
   // famílias por instância (E2 e C2): a linha "<tipo> , 8 , 32 GiB , $x / 1 hour"
   // dentro de um bloco horário ([2]) de São Paulo; a primeira coluna é a on-demand
-  const hora = (html, tipo) => {
-    const re = new RegExp(tipo + '[\\s,]*8[\\s,]*32 GiB[\\s,]*\\$([0-9.]+) \\/ 1 hour'), SP2 = /Sao Paulo \(southamerica-east1\)",\[2\]\]/g;
+  const hora = (html, tipo, gib) => {
+    const re = new RegExp(tipo + '[\\s,]*8[\\s,]*' + gib + ' GiB[\\s,]*\\$([0-9.]+) \\/ 1 hour'), SP2 = /Sao Paulo \(southamerica-east1\)",\[2\]\]/g;
     let mm, v = null;
     while ((mm = SP2.exec(html))) { const x = limpa(html.slice(mm.index, mm.index + 2600)).match(re); if (x) { v = +x[1]; break; } }
     if (!(v > 0.1 && v < 2)) throw new Error(`${tipo} de São Paulo não encontrado`);
     return v;
   };
-  g.familias.eco.usdHora = { linux: hora(gp, 'e2-standard-8') };
-  g.familias.xpro.usdHora = { linux: hora(await texto(g.fontes[3]), 'c2-standard-8') };
+  g.familias.eco.usdHora = { linux: hora(gp, 'e2-standard-8', 32) };
+  g.familias.umax.usdHora = { linux: hora(gp, 'c3-highmem-8', 64) };
+  g.familias.xpro.usdHora = { linux: hora(await texto(g.fontes[3]), 'c2-standard-8', 32) };
 
   const dk = await texto(g.fontes[1]);
   // só os blocos mensais ([3]); janela curta, senão ela invade a tabela vizinha

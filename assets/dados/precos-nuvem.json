@@ -92,30 +92,16 @@
           }
         },
         "umax": {
-          "instancia": "m6i.2xlarge",
+          "instancia": "m5zn.2xlarge",
+          "nome": "m5zn.2xlarge · 4,5 GHz · 8 vCPU/32 GiB",
           "unidade": {
             "vcpu": 8,
             "ram": 32
           },
           "usdHora": {
-            "linux": 0.612,
-            "windows": 0.98
-          },
-          "semEquivalente": true
-        },
-        "dedicada": {
-          "instancia": "m6i.2xlarge",
-          "nome": "m6i.2xlarge (dedicada)",
-          "tenancy": "Dedicated",
-          "unidade": {
-            "vcpu": 8,
-            "ram": 32
-          },
-          "usdHora": {
-            "linux": 0.6732,
-            "windows": 1.0412
-          },
-          "nota": "coletada, não exibida: candidata a UMax se o degrau for de vCPU dedicada"
+            "linux": 1.053,
+            "windows": 1.421
+          }
         }
       }
     },
@@ -164,7 +150,7 @@
         ]
       },
       "fontes": [
-        "https://prices.azure.com/api/retail/prices?$filter=armRegionName eq 'brazilsouth' and priceType eq 'Consumption' and (armSkuName eq 'Standard_B8s_v2' or armSkuName eq 'Standard_D8s_v5' or armSkuName eq 'Standard_F8s_v2')",
+        "https://prices.azure.com/api/retail/prices?$filter=armRegionName eq 'brazilsouth' and priceType eq 'Consumption' and (armSkuName eq 'Standard_B8s_v2' or armSkuName eq 'Standard_D8s_v5' or armSkuName eq 'Standard_F8s_v2' or armSkuName eq 'Standard_E8bds_v5')",
         "https://prices.azure.com/api/retail/prices?$filter=armRegionName eq 'brazilsouth' and serviceName eq 'Storage' and contains(productName,'Premium SSD v2')",
         "https://prices.azure.com/api/retail/prices?$filter=armRegionName eq 'brazilsouth' and serviceName eq 'Bandwidth'",
         "https://prices.azure.com/api/retail/prices?$filter=armRegionName eq 'brazilsouth' and serviceName eq 'Backup'"
@@ -207,17 +193,17 @@
           }
         },
         "umax": {
-          "instancia": "D8s v5",
-          "sku": "Standard_D8s_v5",
+          "instancia": "E8bds v5",
+          "sku": "Standard_E8bds_v5",
+          "nome": "E8bds v5 · 8 vCPU/64 GiB",
           "unidade": {
             "vcpu": 8,
-            "ram": 32
+            "ram": 64
           },
           "usdHora": {
-            "linux": 0.612,
-            "windows": 0.98
-          },
-          "semEquivalente": true
+            "linux": 1.066,
+            "windows": 1.434
+          }
         }
       }
     },
@@ -296,13 +282,16 @@
           }
         },
         "umax": {
-          "modo": "porRecurso",
-          "instancia": "N2 (predefinido)",
-          "usdHora": {
-            "vcpu": 0.05018,
-            "gb": 0.006725
+          "modo": "porInstancia",
+          "instancia": "c3-highmem-8",
+          "nome": "c3-highmem-8 · 8 vCPU/64 GiB",
+          "unidade": {
+            "vcpu": 8,
+            "ram": 64
           },
-          "semEquivalente": true
+          "usdHora": {
+            "linux": 0.84036752
+          }
         }
       }
     },
@@ -354,7 +343,7 @@
   },
   "avisos": [],
   "dePara": {
-    "nota": "Degrau OMID → família do concorrente. Eco ↔ burstable, Pro ↔ uso geral, XPro ↔ otimizada para computação, UMax ↔ sem equivalente direto (uso geral, sinalizado). Proposta de 2026-09-08 por convenção de mercado; confirmar com o dono.",
+    "nota": "Degrau OMID → família do concorrente. Eco ↔ burstable, Pro ↔ uso geral, XPro ↔ otimizada para computação, UMax ↔ a família premium mais cara de 8 vCPU de cada provedor (fora GPU, storage e bare metal), com a memória que ela traz. Definido com o dono em 2026-09-08.",
     "degraus": [
       "eco",
       "pro",
