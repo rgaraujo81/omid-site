@@ -810,34 +810,27 @@ html.portal-vivo .portal__fio { background: #23232A; }
    e coluna da direita (legenda, as quatro barras, fontes). Pedido do dono
    em 2026-09-08: tudo visível de uma vez na tela. */
 .duelo { position: relative; isolation: isolate; overflow: hidden; margin-top: clamp(56px, 8vh, 96px);
-  padding: clamp(40px, 5.5vh, 60px) clamp(26px, 3.6vw, 56px) clamp(40px, 5vh, 56px); border-radius: var(--rd-g);
-  background: var(--papel); color: var(--tinta); box-shadow: 0 60px 120px -70px rgba(18, 18, 20, .55);
+  padding: clamp(42px, 5.5vh, 62px) clamp(28px, 3.6vw, 58px) clamp(40px, 5vh, 56px); border-radius: var(--rd-g);
+  border: 1px solid var(--fio); background: linear-gradient(168deg, #FCFBF8 0%, #F6F4EF 54%, #EFEDE5 100%);
+  box-shadow: 0 50px 100px -68px rgba(18, 18, 20, .42);
   display: grid; grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr); gap: clamp(28px, 4vw, 64px); align-items: start; }
-/* o fundo do capítulo escuro (pedido do dono em 2026-09-08): dois brilhos nos
-   cantos — teal e índigo, cores ISOLADAS da marca, não o espectro — e uma malha
-   de pontos que só existe nas bordas e se dissolve para o centro. */
+/* fundo institucional — o dono recusou o painel preto em 2026-09-08 e pediu
+   "tom de empresa séria e grande": papel claro levantado como uma folha de
+   relatório, assinatura em índigo no alto, malha de planta baixa que só
+   existe nas bordas e dois véus de cor bem baixos nos cantos. Sem espectro:
+   a regra 2 continua valendo. */
 .duelo::before { content: ""; position: absolute; inset: 0; z-index: -2; pointer-events: none;
-  background: radial-gradient(58% 60% at 6% 0%, rgba(64, 173, 183, .26), transparent 62%),
-              radial-gradient(52% 55% at 100% 100%, rgba(84, 94, 160, .30), transparent 62%),
-              radial-gradient(36% 40% at 78% 8%, rgba(127, 36, 131, .16), transparent 60%); }
-.duelo::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .8;
-  background-image: radial-gradient(rgba(255, 255, 255, .11) 1px, transparent 1.4px); background-size: 22px 22px;
-  -webkit-mask-image: radial-gradient(75% 70% at 45% 45%, transparent 28%, #000 100%);
-  mask-image: radial-gradient(75% 70% at 45% 45%, transparent 28%, #000 100%); }
-/* à noite, o que era tinta-sobre-papel vira luz-sobre-noite */
-.duelo.inv .duelo__vivo { color: #7FD8E0; }
-.duelo.inv .duelo__eco { position: static; background: rgba(255, 255, 255, .045); border-color: rgba(255, 255, 255, .12);
-  box-shadow: 0 30px 60px -40px rgba(0, 0, 0, .8), 0 1px 0 rgba(255, 255, 255, .06) inset;
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
-.duelo.inv .duelo__conta > div { border-top-color: rgba(255, 255, 255, .1); }
-.duelo.inv .duelo__barra { background: rgba(255, 255, 255, .09); }
-.duelo.inv .duelo__li { border-bottom-color: rgba(255, 255, 255, .08); }
-.duelo.inv .duelo__delta span { background: rgba(231, 53, 135, .2); color: #FFA6CB; }
-.duelo.inv .duelo__delta span.menor { background: rgba(64, 173, 183, .2); color: #8FE6EC; }
-.duelo.inv .duelo__delta span.ref { background: rgba(255, 255, 255, .1); color: var(--tinta); }
-.duelo.inv .duelo__fontes a { border-bottom-color: rgba(255, 255, 255, .14); }
-.duelo.inv .duelo__hoje { border-color: rgba(255, 255, 255, .2); }
-.duelo.inv .ctl input[type="range"] { background-image: linear-gradient(rgba(255, 255, 255, .22), rgba(255, 255, 255, .22)); }
+  background: linear-gradient(90deg, var(--c-blue), var(--c-blue)) top left / 100% 3px no-repeat,
+              radial-gradient(48% 54% at 3% 0%, rgba(84, 94, 160, .11), transparent 64%),
+              radial-gradient(44% 50% at 100% 98%, rgba(64, 173, 183, .10), transparent 64%); }
+.duelo::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: linear-gradient(rgba(18, 18, 20, .055) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(18, 18, 20, .055) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(74% 70% at 46% 44%, transparent 24%, #000 100%);
+  mask-image: radial-gradient(74% 70% at 46% 44%, transparent 24%, #000 100%); }
+/* o cartão da conta é a folha branca sobre a folha: o número mora nele */
+.duelo .duelo__eco { background: #FFFEFB; border-color: rgba(18, 18, 20, .1); box-shadow: 0 26px 52px -36px rgba(18, 18, 20, .32); }
 .duelo__cab { max-width: 46ch; }
 .duelo__cab .lead { font-size: .95rem; }
 .duelo__h { font-size: clamp(1.6rem, 2.5vw, 2.3rem); }

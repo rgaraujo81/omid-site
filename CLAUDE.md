@@ -99,12 +99,13 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
   reduced-motion. Refeita duas vezes a pedido do dono em 2026-09-08 ("deixe lindo" → "mais bonito"): a versão
   de cartões empilhados foi rejeitada. `item`/`pilha` seguem sendo o componente das listas de produtos e
   soberania — não misturar.
-- **O duelo é um capítulo escuro numa dobra só** (pedidos do dono em 2026-09-08: "tudo visível de uma vez" e
-  "um fundo lindo e moderno"): painel `.duelo.inv` arredondado, quase preto, com dois brilhos nos cantos (teal
-  e índigo — cores ISOLADAS, não o espectro; a regra 2 segue valendo) e malha de pontos nas bordas, tudo em
-  pseudo-elementos. Duas colunas — esquerda com título, cartão da conta (vidro) e régua do dólar; direita com
-  legenda, as quatro barras, linha de base e fontes. Em 1440×900 o painel mede ~680px. Abaixo de 1000px vira
-  uma coluna. Pílulas, trilhas das barras e régua têm versão noturna em `.duelo.inv …`.
+- **O duelo é um painel institucional numa dobra só** (pedidos do dono em 2026-09-08: "tudo visível de uma
+  vez", "um fundo lindo e moderno", e depois "não quero preto, tom de empresa séria e grande" — a versão
+  escura foi REJEITADA). Painel claro levantado como folha de relatório: gradiente de papel, fio de 3px em
+  índigo no alto como assinatura, malha de planta baixa (48px) só nas bordas e dois véus de índigo/teal nos
+  cantos, tudo em pseudo-elementos; o cartão da conta é uma folha branca sobre ele. Duas colunas — esquerda
+  com título, cartão da conta e régua do dólar; direita com legenda, as quatro barras, linha de base e
+  fontes. Em 1440×900 o painel mede ~680px. Abaixo de 1000px vira uma coluna.
 - **Os três grupos de botões do simulador (cenário, tipo de máquina, sistema) são UMA trilha só**, `.troca`,
   com todos os botões da mesma largura (`--chip`, 116px; 104px até 1180px) — decisão do dono em 2026-09-08,
   "use o mesmo botão e tamanho para todos, padrão o da CPU". Quando a trilha não cabe na coluna ela rola de

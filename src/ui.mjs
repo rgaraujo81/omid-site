@@ -310,7 +310,7 @@ export const duelo = (ctx) => {
   const C = ctx.L.comparar, R = ctx.L.regua;
   const ordem = ['omid', 'aws', 'azure', 'gcp'];   // Oracle retirada por decisão do dono (2026-09-08)
   return `
-<div class="duelo inv" data-duelo hidden
+<div class="duelo" data-duelo hidden
      data-vezes="${C.vezes}" data-mais-caro="${C.maisCaro}" data-mais-barato="${C.maisBarato}"
      data-referencia="${C.referencia}" data-ao-vivo="${C.aoVivo}" data-consultado="${C.consultado}"
      data-cambio="${C.cambio}" data-inclui="${C.omidInclui}"
