@@ -1,4 +1,5 @@
 import { prodMeta, numeroValores, certDots, enderecos } from '../shared.mjs';
+import { logoMarca } from '../logo.mjs';
 import {
   ver, rotulo, botao, botaoSim, varre, cabeca, camadas, item, pilha, nuvens, solucoes,
   letreiro, credenciais, defs, chamada, linhas, lume, regua
@@ -22,14 +23,15 @@ export const home = (ctx) => {
   <canvas class="aurora" aria-hidden="true"></canvas>
   ${nuvens()}
   <div class="sereno">
-    <h1 class="sereno__h ent" style="--e:0">${H.h1a.replace('<br>', ' ')}<b>${H.h1b}</b>.</h1>
-    <p class="sereno__p ent" style="--e:1">${H.lead}</p>
-    <div class="sereno__acao ent" style="--e:2">
+    <div class="sereno__marca ent" style="--e:0">${logoMarca()}</div>
+    <h1 class="sereno__h ent" style="--e:1">${H.h1a.replace('<br>', ' ')}<b>${H.h1b}</b>.</h1>
+    <p class="sereno__p ent" style="--e:2">${H.lead}</p>
+    <div class="sereno__acao ent" style="--e:3">
       ${botaoSim(ctx, L.c.simularAmbiente, true)}
       ${varre(L.c.especialista, u('contato'))}
     </div>
   </div>
-  <div class="procedencia ent" style="--e:3">
+  <div class="procedencia ent" style="--e:4">
     <div class="procedencia__dcs">
       <span class="procedencia__rot">${L.c.datacenters}</span>
       ${enderecos.filter((e) => e.papel === 'dc').sort((a, b) => (a.uf === 'RJ' ? -1 : 1) - (b.uf === 'RJ' ? -1 : 1))

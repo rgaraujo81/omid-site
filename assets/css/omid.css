@@ -341,6 +341,13 @@ body.aberto .gaveta__a { animation: gavIn .5s var(--ease) forwards; animation-de
 .abertura { min-height: calc(100svh - var(--topo-h)); display: flex; flex-direction: column; justify-content: center; padding-block: clamp(30px, 6vh, 70px) clamp(24px, 4vh, 48px); }
 .abertura--ive { justify-content: center; position: relative; text-align: center; }
 .sereno { display: grid; justify-items: center; }
+/* a marca abre a dobra: so o simbolo do arquivo oficial, acima da manchete.
+   O wordmark fica no cabecalho — repeti-lo aqui seria eco. */
+.sereno__marca { width: clamp(74px, 8vw, 112px); margin-bottom: clamp(18px, 2.8vh, 34px); }
+.sereno__marca .marca { display: block; width: 100%; height: auto;
+  filter: drop-shadow(0 12px 28px rgba(84, 94, 160, .2));
+  animation: marcaFlutua 7s var(--ease-io) infinite alternate; }
+@keyframes marcaFlutua { from { transform: translateY(-4px); } to { transform: translateY(5px); } }
 /* ---------- 5b. A abertura: um campo de nuvens ----------
    Só nuvem. O dono tirou o símbolo da primeira dobra em 2026-09-08. Duas
    profundidades: as de trás largas e lentas, as da frente densas e mais

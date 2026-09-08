@@ -58,7 +58,13 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
    com o padrão do navegador (1.17em) e cria um degrau fantasma — aconteceu com o `h3` da sanfona; o
    `th` do `thead` entrava em 700 pelo mesmo motivo.
    **Sobriedade, profissionalismo e minimalismo** são o filtro de qualquer decisão visual: na dúvida, tirar.
-3c. **A abertura é céu e nuvem — SEM o logo.** `nuvens()` em `ui.mjs`, CSS 5b: aurora roxa ao fundo e dois
+3c. **A abertura é céu, nuvem e a MARCA acima da manchete.** `logoMarca()` em `src/logo.mjs` recorta o
+   símbolo do arquivo oficial (viewBox `0 0 80.403 61.695` sobre um `<use>` em tamanho natural) e mostra só
+   as lajes, sem o wordmark — repeti-lo embaixo do cabeçalho seria eco. ~112px no desktop, 74px no celular,
+   com flutuação lenta de 7s. O dono pediu de volta em 2026-09-08 ("coloque o logo da OMID na parte
+   superior") depois de ter cancelado a tentativa de logo GIGANTE — são coisas diferentes: a marca discreta
+   acima do título está aprovada; a superestrutura entre as nuvens, não.
+   O fundo continua sendo só céu e nuvem: `nuvens()` em `ui.mjs`, CSS 5b: aurora roxa ao fundo e dois
    planos de nuvem (as de trás largas e lentas, as da frente densas e mais borradas), com o texto na frente.
    Nada de 3D aqui, então `filter: blur()` é seguro.
    **Histórico, para ninguém repetir:** o dono pediu o símbolo gigante voando entre as nuvens e depois
