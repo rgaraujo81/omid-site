@@ -363,7 +363,7 @@ ${chapeu(ctx, { trilha: [{ t: L.nav.contato }], rot: C.eb, h: C.h, p: C.p })}
         ${rotulo(C.formEb)}
         <h2 class="berro t-16 respira">${linhas(C.formH)}</h2>
         <p class="lead apaga t-24">${C.formP}</p>
-        <div class="t-32">${defs(enderecos.map((e) => [`${e.cidade} — ${e.uf}`, `${e.linha}<br>${e.coord}`]))}</div>
+        <div class="t-32">${defs(enderecos.map((e) => [`${e.cidade} — ${e.uf} · ${e.papel === 'dc' ? ctx.L.c.dc : ctx.L.c.escritorio}`, `${e.linha}<br>${e.coord}`]))}</div>
       </div>
       ${formAbre(ctx, { assunto: 'Contato' })}
         <div class="grade-form">

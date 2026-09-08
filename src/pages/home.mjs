@@ -91,7 +91,7 @@ ${letreiro(faixa1)}
       })))}
     </div>
     <div class="defs t-56" style="max-width:640px"${ver()}>
-      ${enderecos.map((e) => `<div><dt>${e.cidade} — ${e.uf}</dt><dd>${e.coord}</dd></div>`).join('')}
+      ${enderecos.filter((e) => e.papel === 'dc').map((e) => `<div><dt>${e.cidade} — ${e.uf}</dt><dd>${e.coord}</dd></div>`).join('')}
       <div><dt>${L.soberania.agora}</dt><dd><span data-relogio>--:--:--</span></dd></div>
     </div>
     <p class="miudo apaga t-16">${L.soberania.nota}</p>

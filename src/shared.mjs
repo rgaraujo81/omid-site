@@ -80,9 +80,12 @@ export const social = {
   yt: 'https://www.youtube.com/@Omidcloud'
 };
 
+/* papel: 'dc' entra na lista de data centers da home; 'escritorio' só em contato e rodapé.
+   Coordenadas em minutos (a do Rio é o centroide do CEP 22780-085 — mesma precisão das outras). */
 export const enderecos = [
-  { uf: 'SP', cidade: 'Barueri', linha: 'Av. Aruanã, 452 — Tamboré', cep: '06460-010', dot: 'var(--c-teal)', coord: '23°30′S · 46°51′W' },
-  { uf: 'RJ', cidade: 'Rio de Janeiro', linha: 'Av. Presidente Vargas, 3131 — Cidade Nova', cep: '20210-030', dot: 'var(--c-magenta)', coord: '22°54′S · 43°12′W' }
+  { uf: 'SP', cidade: 'Barueri', linha: 'Av. Aruanã, 452 — Tamboré', cep: '06460-010', dot: 'var(--c-teal)', coord: '23°30′S · 46°51′W', papel: 'dc', sede: true },
+  { uf: 'RJ', cidade: 'Rio de Janeiro', linha: 'Estrada dos Bandeirantes, 7431 — Jacarepaguá', cep: '22780-085', dot: 'var(--c-magenta)', coord: '22°58′S · 43°25′W', papel: 'dc' },
+  { uf: 'RJ', cidade: 'Rio de Janeiro', linha: 'Av. Presidente Vargas, 3131 — Cidade Nova', cep: '20210-030', dot: 'var(--c-amber)', coord: '22°54′S · 43°12′W', papel: 'escritorio' }
 ];
 
 /* Ordem e identidade dos produtos (nome comercial é marca registrada: não traduz) */

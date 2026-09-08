@@ -19,7 +19,8 @@ export const contato = {
 
 export const enderecos = [
   { uf: 'SP', cidade: 'Barueri', linha: 'Av. Aruanã, 452 — Tamboré', cep: '06460-010', rotulo: 'Sede e Data Center SP' },
-  { uf: 'RJ', cidade: 'Rio de Janeiro', linha: 'Av. Presidente Vargas, 3131 — Cidade Nova', cep: '20210-030', rotulo: 'Data Center RJ' }
+  { uf: 'RJ', cidade: 'Rio de Janeiro', linha: 'Estrada dos Bandeirantes, 7431 — Jacarepaguá', cep: '22780-085', rotulo: 'Data Center RJ' },
+  { uf: 'RJ', cidade: 'Rio de Janeiro', linha: 'Av. Presidente Vargas, 3131 — Cidade Nova', cep: '20210-030', rotulo: 'Escritório RJ' }
 ];
 
 export const produtos = [

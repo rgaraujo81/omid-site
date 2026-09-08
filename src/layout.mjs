@@ -127,7 +127,7 @@ const rodape = (ctx) => `
       <div>
         <h5>${ctx.L.contato.endEb}</h5>
         <div class="rodape__nav apaga" style="font-size:.84rem;line-height:1.5">
-          ${enderecos.map((e) => `<p><b style="color:var(--papel);font-weight:700">${e.cidade} — ${e.uf}</b><br>${e.linha}<br>${e.coord}</p>`).join('')}
+          ${enderecos.map((e) => `<p><b style="color:var(--papel);font-weight:700">${e.cidade} — ${e.uf}</b> <span style="font-size:.72rem;letter-spacing:.08em;text-transform:uppercase">· ${e.papel === 'dc' ? ctx.L.c.dc : ctx.L.c.escritorio}</span><br>${e.linha}<br>${e.coord}</p>`).join('')}
         </div>
       </div>
     </div>
