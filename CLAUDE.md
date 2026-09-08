@@ -38,6 +38,14 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
    recebe o espectro sólido (a aurora e a cifra 40% são as exceções aprovadas). As barras do duelo
    usam as cores da marca ISOLADAS, uma por item — nunca o espectro.
 3. **Paleta**: hex extraídos do `LogoOMID.svg` oficial (teal #40ADB7 … âmbar #F8B241). Não aproximar.
+3b. **Tipografia é escala fechada.** Duas famílias (Archivo para texto, IBM Plex Mono para rótulo) e SÓ os
+   degraus `--t-*` do `:root` (mono, mono-g, xs, s, m, l, t4, t3, t2, t1, num, cifra), quatro pesos
+   (400/500/600/700) e uma largura óptica (102%). **Nenhum `font-size` solto no CSS** — se faltar um tamanho,
+   use o degrau vizinho. Antes desta regra havia 48 tamanhos e 14 pesos; o dono pediu em 2026-09-08 "padrão
+   no tipo e no tamanho das fontes, tudo harmonioso". As únicas exceções são medidas relativas ao pai
+   (`.26em`, `.32em`, `.38em`, `.17em` em expoentes e sufixos), o `11px` do rótulo dentro do SVG das camadas
+   e o `17px` do `body`. **Sobriedade, profissionalismo e minimalismo** são o filtro de qualquer decisão
+   visual (dono, 2026-09-08): na dúvida, tirar — cor mais baixa, textura mais discreta, menos peso.
 4. **Movimento é classe `.viu` + transição via IntersectionObserver.** NUNCA usar
    `animation-timeline`/scroll-timelines para estados de entrada — travou no Safari do dono
    deixando conteúdo invisível (lição cara). Nada pode ficar oculto sem a classe `.sdt`
