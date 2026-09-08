@@ -376,17 +376,21 @@
       parte('trafego', tr); parte('licenca', lic);
       var totalOmid = compute + disco + bk + tr + lic;
       if (out) out.textContent = fmt0.format(Math.round(totalOmid));
-      duelo(totalOmid, g, so);
+      duelo({ total: totalOmid, partes: { compute: compute, licenca: lic, disco: disco, backup: bk, trafego: tr } }, g, so);
     }
 
     /* ---------- o duelo ----------
        Mesma configuração, cotada nos preços públicos on-demand dos quatro
-       hyperscalers (São Paulo) e convertida pelo câmbio do dia. Os preços
-       vêm do snapshot diário em /assets/dados/precos-nuvem.json; câmbio
-       (BCB) e Oracle liberam CORS, então esses dois são refinados ao vivo.
-       Nada disto é inventado: cada número tem fonte listada no próprio bloco. */
+       hyperscalers (São Paulo) e convertida pelo câmbio. Os preços vêm do
+       snapshot diário em /assets/dados/precos-nuvem.json; câmbio (BCB) e
+       Oracle liberam CORS, então esses dois são refinados ao vivo.
+       Nada disto é inventado: cada número tem fonte listada no próprio bloco.
+       O câmbio é uma alavanca: o visitante move o dólar e vê os outros
+       mudarem enquanto a OMID fica parada — que é o argumento inteiro. */
     var D = null, duel = $('[data-duelo]'), ult = null, vivo = { cambio: false, oci: false };
-    var ORDEM = ['omid', 'aws', 'azure', 'gcp', 'oci'];
+    var ORDEM = ['omid', 'aws', 'azure', 'gcp', 'oci'], ITENS = ['compute', 'licenca', 'disco', 'backup', 'trafego'];
+    var fxUser = null;                                  /* câmbio escolhido na régua, ou null = PTAX */
+    var fx = function () { return fxUser || (D && D.cambio.usdBrl) || 0; };
 
     /* faixas cumulativas: [teto, preço], depois da franquia grátis */
     function faixas(gb, e) {
@@ -401,11 +405,10 @@
       }
       return custo;
     }
+    /* devolve total e parcelas em R$, no câmbio atual */
     function calcProv(p, g, so) {
-      var H = D.horasMes, compute, lic = 0, n;
+      var H = D.horasMes, compute, lic = 0, n, k = fx();
       if (p.modo === 'porInstancia') {
-        /* instância de referência com proporção fixa vCPU:GiB — cobra-se
-           o que for maior, como quem precisa de máquinas suficientes */
         n = Math.max(g.vcpu / p.unidade.vcpu, g.ram / p.unidade.ram);
         compute = n * p.usdHora.linux * H;
         if (so) lic = n * (p.usdHora.windows - p.usdHora.linux) * H;
@@ -413,49 +416,82 @@
         compute = (g.vcpu * p.usdHora.vcpu + g.ram * p.usdHora.gb) * H;
         if (so) lic = g.vcpu * p.windowsVcpuHora * H;
       }
-      var disco = g.ssd * p.disco.usdGbMes;
-      var bk = Math.max(0, g.backup - (p.backup.gratisGb || 0)) * p.backup.usdGbMes + (g.backup > 0 ? (p.backup.usdFixoMes || 0) : 0);
-      var tr = faixas(g.egress, p.egress);
-      return (compute + lic + disco + bk + tr) * D.cambio.usdBrl;
+      var pt = {
+        compute: compute * k, licenca: lic * k, disco: g.ssd * p.disco.usdGbMes * k,
+        backup: (Math.max(0, g.backup - (p.backup.gratisGb || 0)) * p.backup.usdGbMes + (g.backup > 0 ? (p.backup.usdFixoMes || 0) : 0)) * k,
+        trafego: faixas(g.egress, p.egress) * k
+      };
+      return { total: pt.compute + pt.licenca + pt.disco + pt.backup + pt.trafego, partes: pt };
     }
-    function duelo(totalOmid, g, so) {
-      ult = { t: totalOmid, g: g, so: so };
+    function duelo(omid, g, so) {
+      ult = { o: omid, g: g, so: so };
       if (!D || !duel) return;
-      var ds = duel.dataset, tot = { omid: totalOmid }, k, i;
+      var ds = duel.dataset, tot = { omid: omid }, k, i, max = 0;
       for (i = 1; i < ORDEM.length; i++) tot[ORDEM[i]] = calcProv(D.provedores[ORDEM[i]], g, so);
-      var max = 0; for (k in tot) if (tot[k] > max) max = tot[k];
+      for (k in tot) if (tot[k].total > max) max = tot[k].total;
+
       ORDEM.forEach(function (k) {
         var li = $('[data-prov="' + k + '"]', duel); if (!li) return;
-        $('[data-duelo-valor]', li).textContent = fmt0.format(Math.round(tot[k]));
-        $('[data-duelo-barra]', li).style.width = (tot[k] / max * 100).toFixed(1) + '%';
+        $('[data-duelo-valor]', li).textContent = fmt0.format(Math.round(tot[k].total));
+        ITENS.forEach(function (it) {
+          var seg = $('[data-seg="' + it + '"]', li);
+          if (seg) seg.style.width = (tot[k].partes[it] / max * 100).toFixed(2) + '%';
+        });
         var inst = $('[data-duelo-inst]', li);
         if (inst) inst.textContent = k === 'omid' ? ds.inclui : (D.provedores[k].instancia + ' · ' + D.provedores[k].regiao);
-        var d = $('[data-duelo-delta]', li), r = tot[k] / totalOmid;
+        var d = $('[data-duelo-delta]', li), r = tot[k].total / omid.total;
         if (k === 'omid') { d.textContent = ds.referencia; d.className = 'ref'; }
         else if (r >= 1.5) { d.textContent = r.toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + ds.vezes; d.className = ''; }
         else if (r >= 1) { d.textContent = '+' + Math.round((r - 1) * 100) + '% ' + ds.maisCaro; d.className = ''; }
         else { d.textContent = '−' + Math.round((1 - r) * 100) + '% ' + ds.maisBarato; d.className = 'menor'; }
       });
+
+      /* economia anual contra a MAIS BARATA das três grandes — o cenário
+         menos favorável à OMID, que é o único que vale a pena anunciar */
+      var grandes = ['aws', 'azure', 'gcp'], menor = grandes[0];
+      grandes.forEach(function (k) { if (tot[k].total < tot[menor].total) menor = k; });
+      var dif = tot[menor].total - omid.total, eco = $('[data-duelo-eco]', duel), ecoRot = $('[data-duelo-eco-rot]', duel);
+      if (eco) eco.textContent = fmt0.format(Math.round(Math.abs(dif) * 12));
+      if (ecoRot) ecoRot.textContent = dif >= 0 ? ds.ecoPos : ds.ecoNeg;
+
+      /* a frase: qual item explica a maior parte da diferença */
+      var fr = $('[data-duelo-frase]', duel);
+      if (fr) {
+        if (dif > 0) {
+          var melhor = null, mv = 0;
+          ITENS.forEach(function (it) { var v = tot[menor].partes[it] - omid.partes[it]; if (v > mv) { mv = v; melhor = it; } });
+          var nomeItem = melhor ? ($('[data-item="' + melhor + '"]', duel) || {}).textContent : '';
+          var nomeProv = ($('[data-prov="' + menor + '"] .duelo__nome b', duel) || {}).textContent;
+          fr.textContent = melhor ? ds.frase.replace('{item}', (nomeItem || '').trim().toLowerCase()).replace('{pct}', Math.round(mv / dif * 100)).replace('{prov}', nomeProv) : '';
+        } else fr.textContent = '';
+      }
+      var no = $('[data-duelo-oci]', duel); if (no) no.hidden = !(tot.oci.total < omid.total);
     }
     function pinta() {
       if (!D || !duel) return;
       var ds = duel.dataset, base = $('[data-duelo-base]', duel), pill = $('[data-duelo-vivo]', duel), ul = $('[data-duelo-fontes]', duel);
-      if (base) base.textContent = ds.consultado + ' ' + D.consultadoEm + ' · ' + ds.cambio + ' R$ ' +
-        D.cambio.usdBrl.toLocaleString('pt-BR', { minimumFractionDigits: 4, maximumFractionDigits: 4 }) + ' (' + D.cambio.data + ')';
+      var f4 = function (v) { return v.toLocaleString('pt-BR', { minimumFractionDigits: 4, maximumFractionDigits: 4 }); };
+      var f2 = function (v) { return v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+      if (base) base.textContent = ds.consultado + ' ' + D.consultadoEm + ' · ' + ds.cambio + ' R$ ' + f4(D.cambio.usdBrl) + ' (' + D.cambio.data + ')';
       if (pill) { pill.hidden = !(vivo.cambio || vivo.oci); pill.textContent = ' · ' + ds.aoVivo; }
+      var rg = $('[data-duelo-fx]', duel), val = $('[data-duelo-fx-val]', duel), hoje = $('[data-duelo-fx-hoje]', duel);
+      if (rg && !fxUser) rg.value = Math.round(D.cambio.usdBrl * 100);
+      if (val) val.textContent = f2(fx());
+      if (hoje) hoje.hidden = !fxUser;
       if (ul && !ul.childNodes.length) {
         var urls = [D.cambio.fonte], k, j;
         for (k in D.provedores) for (j = 0; j < D.provedores[k].fontes.length; j++) if (urls.indexOf(D.provedores[k].fontes[j]) < 0) urls.push(D.provedores[k].fontes[j]);
         urls.forEach(function (u) { var li = document.createElement('li'), a = document.createElement('a'); a.href = u; a.rel = 'noopener'; a.target = '_blank'; a.textContent = u.replace(/^https?:\/\//, '').slice(0, 96); li.appendChild(a); ul.appendChild(li); });
       }
     }
+    function refaz() { if (ult) duelo(ult.o, ult.g, ult.so); }
     function aoVivo() {
       var f = function (d) { return ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2) + '-' + d.getFullYear(); };
       var fim = new Date(), ini = new Date(Date.now() - 10 * 864e5);
       var u = "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarPeriodo(dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@dataInicial='" + f(ini) + "'&@dataFinalCotacao='" + f(fim) + "'&$top=1&$orderby=dataHoraCotacao%20desc&$format=json";
       fetch(u).then(function (r) { return r.json(); }).then(function (j) {
         var v = j.value && j.value[0];
-        if (v && v.cotacaoVenda > 0) { D.cambio.usdBrl = v.cotacaoVenda; D.cambio.data = v.dataHoraCotacao.slice(0, 10); vivo.cambio = true; pinta(); if (ult) duelo(ult.t, ult.g, ult.so); }
+        if (v && v.cotacaoVenda > 0) { D.cambio.usdBrl = v.cotacaoVenda; D.cambio.data = v.dataHoraCotacao.slice(0, 10); vivo.cambio = true; pinta(); refaz(); }
       }).catch(function () {});
       fetch('https://apexapps.oracle.com/pls/apex/cetools/api/v1/products/?currencyCode=USD').then(function (r) { return r.json(); }).then(function (j) {
         var oc = D.provedores.oci, P = oc.partes, it = j.items || [];
@@ -465,23 +501,85 @@
         oc.usdHora = { vcpu: ocpu / 2, gb: mem }; oc.windowsVcpuHora = win / 2; oc.disco.usdGbMes = blo;
         oc.backup.usdGbMes = obj[obj.length - 1].value; oc.backup.gratisGb = obj[0].value === 0 ? obj[0].rangeMax : 0;
         oc.egress.faixas = [[null, sai[sai.length - 1].value]]; oc.egress.gratisGb = sai[0].value === 0 ? sai[0].rangeMax : 0;
-        vivo.oci = true; pinta(); if (ult) duelo(ult.t, ult.g, ult.so);
+        vivo.oci = true; pinta(); refaz();
       }).catch(function () {});
     }
+
+    /* a régua do câmbio */
+    var rgFx = $('[data-duelo-fx]'), btHoje = $('[data-duelo-fx-hoje]');
+    if (rgFx) rgFx.addEventListener('input', function () { fxUser = +rgFx.value / 100; pinta(); refaz(); }, { passive: true });
+    if (btHoje) btHoje.addEventListener('click', function () { fxUser = null; pinta(); refaz(); });
+
+    /* cenários: um clique põe as réguas no lugar; arrastar volta a "personalizado" */
+    var cens = $$('.troca__b[data-cen]', cx);
+    function cenario(b) {
+      cens.forEach(function (o) { var on = b ? o === b : o.dataset.cen === ''; o.classList.toggle('abre', on); o.setAttribute('aria-pressed', String(on)); });
+    }
+    function aplica(c) {
+      ['vcpu', 'ram', 'ssd', 'backup', 'egress'].forEach(function (k) { var i = $('input[data-rg="' + k + '"]', cx); if (i && c[k] != null) i.value = c[k]; });
+      if (c.so != null) { so = +c.so; $$('.troca__b[data-so]', cx).forEach(function (o) { var on = +o.dataset.so === so; o.classList.toggle('abre', on); o.setAttribute('aria-pressed', String(on)); }); }
+    }
+    cens.forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (!b.dataset.cen) { cenario(b); return; }
+        try { aplica(JSON.parse(b.dataset.cen)); } catch (e) { return; }
+        cenario(b); calc();
+      });
+    });
+
+    /* link compartilhável: a configuração inteira vive no hash */
+    var btCopiar = $('[data-copiar]');
+    if (btCopiar) btCopiar.addEventListener('click', function () {
+      var q = [], g = {};
+      $$('input[data-rg]', cx).forEach(function (i) { g[i.dataset.rg] = i.value; });
+      ['vcpu', 'ram', 'ssd', 'backup', 'egress'].forEach(function (k) { q.push(k + '=' + g[k]); });
+      q.push('so=' + so); if (fxUser) q.push('fx=' + fxUser.toFixed(2));
+      var url = location.origin + location.pathname + '#simular?' + q.join('&');
+      var ok = function () { var t = btCopiar.textContent; btCopiar.textContent = btCopiar.dataset.copiado; setTimeout(function () { btCopiar.textContent = t; }, 1800); };
+      if (navigator.clipboard) navigator.clipboard.writeText(url).then(ok, function () { prompt('', url); });
+      else prompt('', url);
+    });
+    function deHash() {
+      var m = /^#simular\?(.+)$/.exec(location.hash || ''); if (!m) return;
+      var c = {}; m[1].split('&').forEach(function (par) { var kv = par.split('='); if (kv.length === 2) c[kv[0]] = +kv[1]; });
+      aplica(c); cenario(null);
+      if (c.fx > 3 && c.fx < 9) fxUser = c.fx;
+      // Três coisas engoliam este scroll: o scroll-behavior suave do html, a
+      // restauração de rolagem do navegador e a navegação por fragmento no
+      // load (que não acha "#simular?…" e volta ao topo). Então: rolagem
+      // instantânea, restauração manual, e só depois do load.
+      var sec = document.getElementById('simular');
+      if (!sec) return;
+      try { history.scrollRestoration = 'manual'; } catch (e) {}
+      var rola = function () {
+        var se = document.scrollingElement || document.documentElement, antes = se.style.scrollBehavior;
+        se.style.scrollBehavior = 'auto';
+        se.scrollTop = sec.offsetTop - 72;
+        se.style.scrollBehavior = antes;
+      };
+      if (document.readyState === 'complete') setTimeout(rola, 120);
+      else addEventListener('load', function () { setTimeout(rola, 120); });
+    }
+    deHash();
+    /* link colado com a página já aberta: o hash muda sem recarregar */
+    addEventListener('hashchange', function () { deHash(); calc(); });
+
     if (duel && window.fetch) {
       fetch('/assets/dados/precos-nuvem.json', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (j) {
-        D = j; duel.hidden = false; pinta(); if (ult) duelo(ult.t, ult.g, ult.so); aoVivo();
+        D = j; duel.hidden = false; pinta(); refaz(); aoVivo();
       }).catch(function () {});
     }
-    $$('input[data-rg]', cx).forEach(function (i) { i.addEventListener('input', calc, { passive: true }); });
-    $$('.troca__b', cx).forEach(function (b) {
+
+    $$('input[data-rg]', cx).forEach(function (i) { i.addEventListener('input', function () { cenario(null); calc(); }, { passive: true }); });
+    $$('.troca__b[data-so]', cx).forEach(function (b) {
       b.addEventListener('click', function () {
         so = +b.dataset.so;
-        $$('.troca__b', cx).forEach(function (o) {
+        $$('.troca__b[data-so]', cx).forEach(function (o) {
           var on = o === b;
           o.classList.toggle('abre', on);
           o.setAttribute('aria-pressed', String(on));
         });
+        cenario(null);
         calc();
       });
     });

@@ -35,7 +35,8 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
    CONCRETO gritado) foram **rejeitadas**; os 3 conceitos que originaram a direção estão em
    `/conceitos/` como referência histórica.
 2. **O gradiente cheio da marca é EXCLUSIVO do botão do simulador.** Nenhum outro elemento
-   recebe o espectro sólido (a aurora e a cifra 40% são as exceções aprovadas).
+   recebe o espectro sólido (a aurora e a cifra 40% são as exceções aprovadas). As barras do duelo
+   usam as cores da marca ISOLADAS, uma por item — nunca o espectro.
 3. **Paleta**: hex extraídos do `LogoOMID.svg` oficial (teal #40ADB7 … âmbar #F8B241). Não aproximar.
 4. **Movimento é classe `.viu` + transição via IntersectionObserver.** NUNCA usar
    `animation-timeline`/scroll-timelines para estados de entrada — travou no Safari do dono
@@ -70,6 +71,11 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
 - `translate:` (propriedade) + `transform: translate()` no keyframe SOMAM — o elemento anda o dobro. Aconteceu
   três vezes nesta base. Use um ou outro.
 - `filter: blur()` dentro de `preserve-3d` é rasterizado à parte e o borrão escapa do elemento. Use `box-shadow`.
+- **O simulador tem quatro alavancas além das réguas:** cenários de um clique (`CENARIOS` em `ui.mjs`;
+  os números têm que cair nos passos das réguas), a régua do câmbio (move os concorrentes, a OMID não),
+  a frase gerada (`fraseItem`: qual item explica a maior parte da diferença para a mais barata das três
+  grandes) e o link compartilhável — a configuração inteira vive em `#simular?vcpu=…&so=…&fx=…`, lida no
+  load e no `hashchange`. A economia anual é sempre contra a MAIS BARATA de AWS/Azure/Google, nunca a média.
 - **Como o duelo é "ao vivo" sem servidor:** a página lê `assets/dados/precos-nuvem.json` (snapshot diário do
   GitHub Actions) e, no navegador, refina o que libera CORS — câmbio (BCB) e Oracle. AWS (arquivo de 290 MB),
   Azure (sem CORS) e Google (páginas) só pelo robô. Se o JSON não carregar, o bloco fica escondido.

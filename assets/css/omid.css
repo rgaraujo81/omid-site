@@ -710,9 +710,10 @@ html.portal-vivo .portal__fio { background: #23232A; }
 
 
 /* ═══ O DUELO — a mesma máquina, nos hyperscalers ═══
-   Cinco barras, uma por provedor. A da OMID leva o espectro da marca — é o
-   botão do simulador estendido, mesma regra, mesmo dono. As outras são tinta
-   a 26%. A largura é proporcional ao preço e anima ao arrastar as réguas. */
+   Cinco barras EMPILHADAS por item (computação, licença, disco, backup,
+   saída), cada item numa cor isolada da marca — nunca o espectro cheio,
+   que continua exclusivo do botão do simulador. A largura é proporcional
+   ao preço e anima ao arrastar réguas ou o câmbio. */
 .duelo { margin-top: clamp(40px, 6vw, 72px); padding-top: clamp(28px, 4vw, 44px); border-top: 1px solid var(--fio); }
 .duelo__cab { max-width: 62ch; }
 .duelo__h { font-size: clamp(1.5rem, 2.7vw, 2.3rem); }
@@ -720,15 +721,36 @@ html.portal-vivo .portal__fio { background: #23232A; }
 .duelo__vivo::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #40ADB7; margin: 0 6px 1px 0;
   animation: duelo-pisca 2.6s ease-out infinite; }
 @keyframes duelo-pisca { 0% { box-shadow: 0 0 0 0 rgba(64,173,183,.45); } 70%, 100% { box-shadow: 0 0 0 9px rgba(64,173,183,0); } }
-.duelo__lista { list-style: none; padding: 0; margin: clamp(24px, 3vw, 36px) 0 0; display: grid; gap: 4px; }
+
+/* cenários: a mesma peça do Linux/Windows, mas cabendo cinco */
+.troca--cen { flex-wrap: wrap; }
+
+/* economia anual + alavanca do câmbio, lado a lado */
+.duelo__topo { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(20px, 3vw, 40px); align-items: start; }
+.duelo__eco { padding: clamp(20px, 2.6vw, 30px); }
+.duelo__eco .preco__n { margin-top: 10px; }
+.duelo__eco-n { font-size: clamp(2.4rem, 4.6vw, 4rem); }
+.duelo__frase { margin-top: 12px; font-size: .95rem; max-width: 40ch; }
+.duelo__frase:empty { display: none; }
+.duelo__fx { padding-top: 6px; }
+.duelo__fx .ctl__cab b { font-weight: 640; }
+.duelo__hoje { background: none; border: 0; padding: 0; font: inherit; color: var(--tinta); cursor: pointer;
+  border-bottom: 1px solid var(--fio); margin-left: 6px; }
+.duelo__hoje:hover { border-color: var(--tinta); }
+@media (max-width: 860px) { .duelo__topo { grid-template-columns: 1fr; } }
+
+.duelo__legenda { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.duelo__legenda li { display: inline-flex; align-items: center; gap: 8px; font-size: .8rem; color: var(--cinza); }
+.duelo__legenda i { width: 10px; height: 10px; border-radius: 3px; background: var(--c); }
+
+.duelo__lista { list-style: none; padding: 0; margin: clamp(18px, 2.4vw, 28px) 0 0; display: grid; gap: 4px; }
 .duelo__li { display: grid; grid-template-columns: minmax(150px, .95fr) minmax(0, 3fr) auto minmax(120px, auto);
   gap: clamp(12px, 2vw, 28px); align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(18,18,20,.07); }
 .duelo__nome b { display: block; font-weight: 600; letter-spacing: -.01em; }
 .duelo__nome span { display: block; font-size: .58rem; letter-spacing: .14em; margin-top: 3px; text-transform: none; }
-.duelo__barra { height: 14px; border-radius: 999px; background: rgba(18,18,20,.06); overflow: hidden; }
-.duelo__barra i { display: block; height: 100%; width: 0; border-radius: inherit; background: rgba(18,18,20,.26);
-  transition: width .9s var(--ease); }
-.duelo__li--omid .duelo__barra i { background: var(--espectro); }
+.duelo__barra { display: flex; gap: 2px; height: 14px; border-radius: 999px; background: rgba(18,18,20,.06); overflow: hidden; }
+.duelo__barra i { display: block; height: 100%; width: 0; background: var(--c); transition: width .9s var(--ease); }
+.duelo__li--omid .duelo__barra { height: 18px; }
 .duelo__li--omid .duelo__nome b { font-weight: 700; }
 .duelo__preco { text-align: right; }
 .duelo__preco b { font-weight: 640; font-size: clamp(1.05rem, 1.5vw, 1.4rem); letter-spacing: -.025em; white-space: nowrap; }
@@ -738,12 +760,16 @@ html.portal-vivo .portal__fio { background: #23232A; }
   letter-spacing: .01em; white-space: nowrap; background: rgba(231,53,135,.11); color: #9B1F5A; }
 .duelo__delta span.menor { background: rgba(64,173,183,.14); color: #1E6F78; }
 .duelo__delta span.ref { background: rgba(18,18,20,.06); color: var(--tinta); }
+.duelo__oci { margin-top: 14px; max-width: 78ch; }
 .duelo__linha { margin-top: 18px; font-size: .6rem; }
 .duelo__fontes { margin-top: 10px; }
 .duelo__fontes summary { cursor: pointer; }
 .duelo__fontes p { margin-top: 10px; max-width: 90ch; }
 .duelo__fontes ul { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 4px; }
 .duelo__fontes a { font-size: .7rem; color: var(--cinza); word-break: break-all; border-bottom: 1px solid var(--fio); }
+.duelo__copiar { display: block; margin-top: 14px; background: none; border: 0; padding: 0 0 3px; cursor: pointer;
+  color: var(--cinza); border-bottom: 1px solid var(--fio); letter-spacing: .12em; }
+.duelo__copiar:hover { color: var(--tinta); border-color: var(--tinta); }
 @media (max-width: 760px) {
   .duelo__li { grid-template-columns: 1fr auto; grid-template-areas: "nome preco" "barra barra" "delta delta"; gap: 8px 14px; }
   .duelo__nome { grid-area: nome; } .duelo__preco { grid-area: preco; }

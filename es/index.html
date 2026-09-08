@@ -164,6 +164,13 @@
     <p class="lead apaga t-24">Arrastra y mira la factura recalcularse al instante, con los precios públicos de la tabla OMID. Nada sale de esta página hasta que decidas contratar.</p>
     <div class="regua-c t-32">
       <div class="ctl">
+        <div class="ctl__cab"><span class="mono apaga" id="rot-cen">Empieza por un escenario</span></div>
+        <div class="troca troca--cen" role="group" aria-labelledby="rot-cen">
+          <button type="button" class="troca__b" data-cen='{"vcpu":4,"ram":8,"ssd":100,"backup":250,"egress":500,"so":0}' aria-pressed="false">Sitio y API</button><button type="button" class="troca__b" data-cen='{"vcpu":8,"ram":32,"ssd":500,"backup":500,"egress":1000,"so":1}' aria-pressed="false">ERP</button><button type="button" class="troca__b" data-cen='{"vcpu":16,"ram":64,"ssd":1000,"backup":2000,"egress":500,"so":0}' aria-pressed="false">Base de datos</button><button type="button" class="troca__b" data-cen='{"vcpu":32,"ram":128,"ssd":1000,"backup":500,"egress":5000,"so":0}' aria-pressed="false">Kubernetes</button>
+          <button type="button" class="troca__b abre" data-cen="" aria-pressed="true">Personalizado</button>
+        </div>
+      </div>
+      <div class="ctl">
         <div class="ctl__cab"><span class="mono apaga" id="rot-so">Sistema operativo</span></div>
         <div class="troca" role="group" aria-labelledby="rot-so">
           <button type="button" class="troca__b abre" data-so="0" aria-pressed="true">Linux</button>
@@ -209,51 +216,75 @@
       <a class="botao botao--vazio" href="/es/contacto/"><span>Hablar con un experto</span><svg class="seta" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7"/></svg></a>
     </div>
     <p class="miudo apaga">La contratación abre el portal OMID para aprovisionar un perfil como este.</p>
+    <button type="button" class="duelo__copiar mono" data-copiar data-copiado="Enlace copiado">Copiar enlace de esta simulación</button>
   </div>
 </div>
 
 <div class="duelo" data-duelo hidden
      data-vezes="× OMID" data-mais-caro="más caro que OMID" data-mais-barato="más barato que OMID"
      data-referencia="referencia" data-ao-vivo="cambio y Oracle en vivo" data-consultado="precios consultados el"
-     data-cambio="PTAX venta" data-inclui="contrato en reales · NOC 24×7 · data center propio">
+     data-cambio="PTAX venta" data-inclui="contrato en reales · NOC 24×7 · data center propio"
+     data-eco-pos="al año menos que la más barata entre AWS, Azure y Google" data-eco-neg="al año más que la más barata entre AWS, Azure y Google" data-frase="En esta configuración, {item} explica el {pct}% de la diferencia con {prov}.">
   <div class="duelo__cab">
     <p class="mono apaga">Comparativo en vivo<span class="duelo__vivo" data-duelo-vivo hidden></span></p>
     <h3 class="berro duelo__h t-16">La misma máquina, en los otros.</h3>
     <p class="lead apaga t-16">Lo que armaste arriba, cotizado con los precios públicos on-demand de AWS, Azure, Google Cloud y Oracle para la región de São Paulo, convertidos al cambio del día.</p>
   </div>
+
+  <div class="duelo__topo t-32">
+    <div class="duelo__eco nota-f">
+      <p class="mono apaga" data-duelo-eco-rot>al año menos que la más barata entre AWS, Azure y Google</p>
+      <p class="preco__n duelo__eco-n"><small>R$</small><span data-duelo-eco>—</span><span class="mes">/ano</span></p>
+      <p class="lead apaga duelo__frase" data-duelo-frase></p>
+    </div>
+    <div class="duelo__fx">
+      <div class="ctl">
+        <div class="ctl__cab"><label class="mono apaga" for="rg-fx">Y si el dólar estuviera a</label><b>R$ <span data-duelo-fx-val>—</span></b></div>
+        <input id="rg-fx" type="range" min="400" max="700" step="5" value="500" data-duelo-fx>
+      </div>
+      <p class="miudo apaga">OMID cobra en reales. Mueve el dólar: los otros cambian, el contrato de OMID no. <button type="button" class="duelo__hoje" data-duelo-fx-hoje hidden>volver al cambio de hoy</button></p>
+    </div>
+  </div>
+
+  <p class="mono apaga t-32">Cada barra muestra de dónde viene el precio</p>
+  <ul class="duelo__legenda">
+    <li data-item="compute"><i style="--c:#40ADB7"></i>Cómputo</li><li data-item="licenca"><i style="--c:#E73587"></i>Licenciamiento</li><li data-item="disco"><i style="--c:#2D93BB"></i>Almacenamiento</li><li data-item="backup"><i style="--c:#545EA0"></i>Backup</li><li data-item="trafego"><i style="--c:#7F2483"></i>Tráfico de salida</li>
+  </ul>
+
   <ol class="duelo__lista">
     
     <li class="duelo__li duelo__li--omid" data-prov="omid">
       <div class="duelo__nome"><b>OMID</b><span class="mono apaga" data-duelo-inst></span></div>
-      <div class="duelo__barra"><i data-duelo-barra></i></div>
+      <div class="duelo__barra"><i data-seg="compute" style="--c:#40ADB7"></i><i data-seg="licenca" style="--c:#E73587"></i><i data-seg="disco" style="--c:#2D93BB"></i><i data-seg="backup" style="--c:#545EA0"></i><i data-seg="trafego" style="--c:#7F2483"></i></div>
       <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span class="mono apaga">/mes</span></div>
       <div class="duelo__delta"><span data-duelo-delta></span></div>
     </li>
     <li class="duelo__li duelo__li--aws" data-prov="aws">
       <div class="duelo__nome"><b>AWS</b><span class="mono apaga" data-duelo-inst></span></div>
-      <div class="duelo__barra"><i data-duelo-barra></i></div>
+      <div class="duelo__barra"><i data-seg="compute" style="--c:#40ADB7"></i><i data-seg="licenca" style="--c:#E73587"></i><i data-seg="disco" style="--c:#2D93BB"></i><i data-seg="backup" style="--c:#545EA0"></i><i data-seg="trafego" style="--c:#7F2483"></i></div>
       <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span class="mono apaga">/mes</span></div>
       <div class="duelo__delta"><span data-duelo-delta></span></div>
     </li>
     <li class="duelo__li duelo__li--azure" data-prov="azure">
       <div class="duelo__nome"><b>Microsoft Azure</b><span class="mono apaga" data-duelo-inst></span></div>
-      <div class="duelo__barra"><i data-duelo-barra></i></div>
+      <div class="duelo__barra"><i data-seg="compute" style="--c:#40ADB7"></i><i data-seg="licenca" style="--c:#E73587"></i><i data-seg="disco" style="--c:#2D93BB"></i><i data-seg="backup" style="--c:#545EA0"></i><i data-seg="trafego" style="--c:#7F2483"></i></div>
       <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span class="mono apaga">/mes</span></div>
       <div class="duelo__delta"><span data-duelo-delta></span></div>
     </li>
     <li class="duelo__li duelo__li--gcp" data-prov="gcp">
       <div class="duelo__nome"><b>Google Cloud</b><span class="mono apaga" data-duelo-inst></span></div>
-      <div class="duelo__barra"><i data-duelo-barra></i></div>
+      <div class="duelo__barra"><i data-seg="compute" style="--c:#40ADB7"></i><i data-seg="licenca" style="--c:#E73587"></i><i data-seg="disco" style="--c:#2D93BB"></i><i data-seg="backup" style="--c:#545EA0"></i><i data-seg="trafego" style="--c:#7F2483"></i></div>
       <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span class="mono apaga">/mes</span></div>
       <div class="duelo__delta"><span data-duelo-delta></span></div>
     </li>
     <li class="duelo__li duelo__li--oci" data-prov="oci">
       <div class="duelo__nome"><b>Oracle Cloud</b><span class="mono apaga" data-duelo-inst></span></div>
-      <div class="duelo__barra"><i data-duelo-barra></i></div>
+      <div class="duelo__barra"><i data-seg="compute" style="--c:#40ADB7"></i><i data-seg="licenca" style="--c:#E73587"></i><i data-seg="disco" style="--c:#2D93BB"></i><i data-seg="backup" style="--c:#545EA0"></i><i data-seg="trafego" style="--c:#7F2483"></i></div>
       <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span class="mono apaga">/mes</span></div>
       <div class="duelo__delta"><span data-duelo-delta></span></div>
     </li>
   </ol>
+  <p class="miudo apaga duelo__oci" data-duelo-oci hidden>Oracle cobra menos por cómputo y no cobra salida hasta 10 TB. El precio de OMID incluye NOC 24×7, contrato en reales y data center propio.</p>
   <p class="mono apaga duelo__linha" data-duelo-base></p>
   <details class="duelo__fontes">
     <summary class="mono">Fuentes y método</summary>

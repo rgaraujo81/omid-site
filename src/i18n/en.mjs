@@ -63,6 +63,16 @@ video: {
 },
 
 comparar: {
+  cenarios: { rot: 'Start from a scenario', custom: 'Custom',
+    itens: { site: 'Website and API', erp: 'ERP', banco: 'Database', k8s: 'Kubernetes' } },
+  economiaAno: 'per year less than the cheapest of AWS, Azure and Google',
+  economiaAnoNeg: 'per year more than the cheapest of AWS, Azure and Google',
+  fraseItem: 'In this configuration, {item} accounts for {pct}% of the gap to {prov}.',
+  cambioRot: 'What if the dollar were', cambioHoje: 'back to today\'s rate',
+  cambioNota: 'OMID bills in reais. Move the dollar: the others change, OMID\'s contract does not.',
+  legenda: 'Each bar shows where the price comes from',
+  oracleNota: 'Oracle charges less for compute and nothing for egress up to 10 TB. OMID\'s price includes a 24×7 NOC, a contract in reais and its own data center.',
+  copiar: 'Copy a link to this simulation', copiado: 'Link copied',
   rot: 'Live comparison',
   h: 'The same machine, elsewhere.',
   p: 'What you built above, priced at the public on-demand rates of AWS, Azure, Google Cloud and Oracle for the São Paulo region, converted at today\'s exchange rate.',

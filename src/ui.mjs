@@ -176,6 +176,14 @@ export const regua = (ctx) => {
     <p class="lead apaga t-24">${R.p}</p>
     <div class="regua-c t-32">
       <div class="ctl">
+        <div class="ctl__cab"><span class="mono apaga" id="rot-cen">${ctx.L.comparar.cenarios.rot}</span></div>
+        <div class="troca troca--cen" role="group" aria-labelledby="rot-cen">
+          ${Object.entries(CENARIOS).map(([k, v]) =>
+            `<button type="button" class="troca__b" data-cen='${JSON.stringify(v)}' aria-pressed="false">${ctx.L.comparar.cenarios.itens[k]}</button>`).join('')}
+          <button type="button" class="troca__b abre" data-cen="" aria-pressed="true">${ctx.L.comparar.cenarios.custom}</button>
+        </div>
+      </div>
+      <div class="ctl">
         <div class="ctl__cab"><span class="mono apaga" id="rot-so">${R.so}</span></div>
         <div class="troca" role="group" aria-labelledby="rot-so">
           <button type="button" class="troca__b abre" data-so="0" aria-pressed="true">${R.linux}</button>
@@ -202,15 +210,28 @@ export const regua = (ctx) => {
       <a class="botao botao--vazio" href="${ctx.u('contato')}"><span>${R.btn2}</span>${seta}</a>
     </div>
     <p class="miudo apaga">${R.btnNota}</p>
+    <button type="button" class="duelo__copiar mono" data-copiar data-copiado="${ctx.L.comparar.copiado}">${ctx.L.comparar.copiar}</button>
   </div>
 </div>
 ${duelo(ctx)}`;
 };
 
+/* cenários de um clique: números nos passos das réguas (backup 250, saída 500) */
+const CENARIOS = {
+  site:  { vcpu: 4,  ram: 8,   ssd: 100,  backup: 250,  egress: 500,  so: 0 },
+  erp:   { vcpu: 8,  ram: 32,  ssd: 500,  backup: 500,  egress: 1000, so: 1 },
+  banco: { vcpu: 16, ram: 64,  ssd: 1000, backup: 2000, egress: 500,  so: 0 },
+  k8s:   { vcpu: 32, ram: 128, ssd: 1000, backup: 500,  egress: 5000, so: 0 }
+};
+
 /* --- o duelo: a mesma máquina cotada nos hyperscalers ---
    Só a marcação vive aqui. Os preços vêm de assets/dados/precos-nuvem.json
    (snapshot diário) e o JS refina ao vivo o que tem CORS: câmbio e Oracle.
-   Começa escondido e só aparece quando o JSON chega — sem dado, sem duelo. */
+   Começa escondido e só aparece quando o JSON chega — sem dado, sem duelo.
+   Cada barra é EMPILHADA por item (computação, licença, disco, backup,
+   saída): é assim que se vê DE ONDE vem a diferença, não só o tamanho dela. */
+export const ITENS_DUELO = ['compute', 'licenca', 'disco', 'backup', 'trafego'];
+export const COR_ITEM = { compute: '#40ADB7', licenca: '#E73587', disco: '#2D93BB', backup: '#545EA0', trafego: '#7F2483' };
 export const duelo = (ctx) => {
   const C = ctx.L.comparar, R = ctx.L.regua;
   const ordem = ['omid', 'aws', 'azure', 'gcp', 'oci'];
@@ -218,21 +239,44 @@ export const duelo = (ctx) => {
 <div class="duelo" data-duelo hidden
      data-vezes="${C.vezes}" data-mais-caro="${C.maisCaro}" data-mais-barato="${C.maisBarato}"
      data-referencia="${C.referencia}" data-ao-vivo="${C.aoVivo}" data-consultado="${C.consultado}"
-     data-cambio="${C.cambio}" data-inclui="${C.omidInclui}">
+     data-cambio="${C.cambio}" data-inclui="${C.omidInclui}"
+     data-eco-pos="${C.economiaAno}" data-eco-neg="${C.economiaAnoNeg}" data-frase="${C.fraseItem}">
   <div class="duelo__cab">
     <p class="mono apaga">${C.rot}<span class="duelo__vivo" data-duelo-vivo hidden></span></p>
     <h3 class="berro duelo__h t-16">${C.h}</h3>
     <p class="lead apaga t-16">${C.p}</p>
   </div>
+
+  <div class="duelo__topo t-32">
+    <div class="duelo__eco nota-f">
+      <p class="mono apaga" data-duelo-eco-rot>${C.economiaAno}</p>
+      <p class="preco__n duelo__eco-n"><small>R$</small><span data-duelo-eco>—</span><span class="mes">/${ctx.loc === 'en' ? 'year' : 'ano'}</span></p>
+      <p class="lead apaga duelo__frase" data-duelo-frase></p>
+    </div>
+    <div class="duelo__fx">
+      <div class="ctl">
+        <div class="ctl__cab"><label class="mono apaga" for="rg-fx">${C.cambioRot}</label><b>R$ <span data-duelo-fx-val>—</span></b></div>
+        <input id="rg-fx" type="range" min="400" max="700" step="5" value="500" data-duelo-fx>
+      </div>
+      <p class="miudo apaga">${C.cambioNota} <button type="button" class="duelo__hoje" data-duelo-fx-hoje hidden>${C.cambioHoje}</button></p>
+    </div>
+  </div>
+
+  <p class="mono apaga t-32">${C.legenda}</p>
+  <ul class="duelo__legenda">
+    ${ITENS_DUELO.map((k) => `<li data-item="${k}"><i style="--c:${COR_ITEM[k]}"></i>${R.partes[k]}</li>`).join('')}
+  </ul>
+
   <ol class="duelo__lista">
     ${ordem.map((k) => `
     <li class="duelo__li duelo__li--${k}" data-prov="${k}">
       <div class="duelo__nome"><b>${C.provedores[k]}</b><span class="mono apaga" data-duelo-inst></span></div>
-      <div class="duelo__barra"><i data-duelo-barra></i></div>
+      <div class="duelo__barra">${ITENS_DUELO.map((i) => `<i data-seg="${i}" style="--c:${COR_ITEM[i]}"></i>`).join('')}</div>
       <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span class="mono apaga">${R.mes}</span></div>
       <div class="duelo__delta"><span data-duelo-delta></span></div>
     </li>`).join('')}
   </ol>
+  <p class="miudo apaga duelo__oci" data-duelo-oci hidden>${C.oracleNota}</p>
   <p class="mono apaga duelo__linha" data-duelo-base></p>
   <details class="duelo__fontes">
     <summary class="mono">${C.fontes}</summary>

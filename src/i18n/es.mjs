@@ -63,6 +63,16 @@ video: {
 },
 
 comparar: {
+  cenarios: { rot: 'Empieza por un escenario', custom: 'Personalizado',
+    itens: { site: 'Sitio y API', erp: 'ERP', banco: 'Base de datos', k8s: 'Kubernetes' } },
+  economiaAno: 'al año menos que la más barata entre AWS, Azure y Google',
+  economiaAnoNeg: 'al año más que la más barata entre AWS, Azure y Google',
+  fraseItem: 'En esta configuración, {item} explica el {pct}% de la diferencia con {prov}.',
+  cambioRot: 'Y si el dólar estuviera a', cambioHoje: 'volver al cambio de hoy',
+  cambioNota: 'OMID cobra en reales. Mueve el dólar: los otros cambian, el contrato de OMID no.',
+  legenda: 'Cada barra muestra de dónde viene el precio',
+  oracleNota: 'Oracle cobra menos por cómputo y no cobra salida hasta 10 TB. El precio de OMID incluye NOC 24×7, contrato en reales y data center propio.',
+  copiar: 'Copiar enlace de esta simulación', copiado: 'Enlace copiado',
   rot: 'Comparativo en vivo',
   h: 'La misma máquina, en los otros.',
   p: 'Lo que armaste arriba, cotizado con los precios públicos on-demand de AWS, Azure, Google Cloud y Oracle para la región de São Paulo, convertidos al cambio del día.',
