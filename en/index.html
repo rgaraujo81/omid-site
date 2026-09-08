@@ -225,13 +225,13 @@
 
 <div class="duelo" data-duelo hidden
      data-vezes="× OMID" data-mais-caro="more than OMID" data-mais-barato="less than OMID"
-     data-referencia="reference" data-ao-vivo="exchange rate and Oracle live" data-consultado="prices retrieved on"
+     data-referencia="reference" data-ao-vivo="exchange rate live" data-consultado="prices retrieved on"
      data-cambio="PTAX sell rate" data-inclui="contract in BRL · 24×7 NOC · own data center"
      data-eco-pos="per year less than the cheapest of AWS, Azure and Google" data-eco-neg="per year more than the cheapest of AWS, Azure and Google" data-frase="In this configuration, {item} accounts for {pct}% of the gap to {prov}.">
   <div class="duelo__cab">
     <p class="mono apaga">Live comparison<span class="duelo__vivo" data-duelo-vivo hidden></span></p>
     <h3 class="berro duelo__h t-16">The same machine, elsewhere.</h3>
-    <p class="lead apaga t-16">What you built above, priced at the public on-demand rates of AWS, Azure, Google Cloud and Oracle for the São Paulo region, converted at today's exchange rate.</p>
+    <p class="lead apaga t-16">What you built above, priced at the public on-demand rates of AWS, Azure, Google Cloud for the São Paulo region, converted at today's exchange rate.</p>
   </div>
 
   <div class="duelo__topo t-32">
@@ -280,18 +280,11 @@
       <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span class="mono apaga">/month</span></div>
       <div class="duelo__delta"><span data-duelo-delta></span></div>
     </li>
-    <li class="duelo__li duelo__li--oci" data-prov="oci">
-      <div class="duelo__nome"><b>Oracle Cloud</b><span class="mono apaga" data-duelo-inst></span></div>
-      <div class="duelo__barra"><i data-seg="compute" style="--c:#40ADB7"></i><i data-seg="licenca" style="--c:#E73587"></i><i data-seg="disco" style="--c:#2D93BB"></i><i data-seg="backup" style="--c:#545EA0"></i><i data-seg="trafego" style="--c:#7F2483"></i></div>
-      <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span class="mono apaga">/month</span></div>
-      <div class="duelo__delta"><span data-duelo-delta></span></div>
-    </li>
   </ol>
-  <p class="miudo apaga duelo__oci" data-duelo-oci hidden>Oracle charges less for compute and nothing for egress up to 10 TB. OMID's price includes a 24×7 NOC, a contract in reais and its own data center.</p>
   <p class="mono apaga duelo__linha" data-duelo-base></p>
   <details class="duelo__fontes">
     <summary class="mono">Sources and method</summary>
-    <p class="miudo apaga">Public on-demand list prices, no commitment, São Paulo region. Compute as the equivalent instance (AWS, Azure) or per vCPU and GiB (Google, Oracle); general-purpose SSD; backup as snapshot or object storage; internet egress at the public tiers. Excludes support, IPs, taxes and commitment discounts. Trademarks belong to their owners.</p>
+    <p class="miudo apaga">Public on-demand list prices, no commitment, São Paulo region. Compute as the equivalent instance (AWS, Azure) or per vCPU and GiB (Google); general-purpose SSD; backup as snapshot or object storage; internet egress at the public tiers. Excludes support, IPs, taxes and commitment discounts. Trademarks belong to their owners.</p>
     <ul data-duelo-fontes></ul>
   </details>
 </div></div>

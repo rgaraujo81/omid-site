@@ -234,7 +234,7 @@ export const ITENS_DUELO = ['compute', 'licenca', 'disco', 'backup', 'trafego'];
 export const COR_ITEM = { compute: '#40ADB7', licenca: '#E73587', disco: '#2D93BB', backup: '#545EA0', trafego: '#7F2483' };
 export const duelo = (ctx) => {
   const C = ctx.L.comparar, R = ctx.L.regua;
-  const ordem = ['omid', 'aws', 'azure', 'gcp', 'oci'];
+  const ordem = ['omid', 'aws', 'azure', 'gcp'];   // Oracle retirada por decisão do dono (2026-09-08)
   return `
 <div class="duelo" data-duelo hidden
      data-vezes="${C.vezes}" data-mais-caro="${C.maisCaro}" data-mais-barato="${C.maisBarato}"
@@ -276,7 +276,6 @@ export const duelo = (ctx) => {
       <div class="duelo__delta"><span data-duelo-delta></span></div>
     </li>`).join('')}
   </ol>
-  <p class="miudo apaga duelo__oci" data-duelo-oci hidden>${C.oracleNota}</p>
   <p class="mono apaga duelo__linha" data-duelo-base></p>
   <details class="duelo__fontes">
     <summary class="mono">${C.fontes}</summary>

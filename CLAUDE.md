@@ -56,10 +56,11 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
    preço do Google e PTAX do BCB. Base: on-demand, sem compromisso, região São Paulo, câmbio PTAX venda.
    Cada número tem a URL de origem listada no próprio bloco ("Fontes e método"). Isto é publicidade
    comparativa — se um dia não der para provar, o bloco sai, não se ajusta.
-10. **O duelo é honesto nos dois sentidos.** Na configuração-padrão em Linux a Oracle sai ~31% MAIS BARATA que
-    a OMID (E4.Flex a US$ 0,025/OCPU·h e saída grátis até 10 TB) — e o bloco diz isso, em verde, sem
-    esconder. Com Windows a OMID vence os quatro. Quem pedir para "sumir" com a Oracle está pedindo para
-    quebrar a regra 9.
+10. **O duelo compara com AWS, Azure e Google — a Oracle foi retirada por decisão do dono em 2026-09-08.**
+    Isso é escolha de escopo, não maquiagem: o bloco diz com quem compara e cada número continua sourceado.
+    Para registro, a Oracle sai ~31% mais barata que a OMID em Linux (E4.Flex a US$ 0,025/OCPU·h e saída
+    grátis até 10 TB) e +45% mais cara com Windows. O robô continua coletando os preços dela no JSON
+    (`provedores.oci`); reincluir é acrescentar `'oci'` a `ORDEM` em `ui.mjs` e `omid.js`.
 
 ## Armadilhas conhecidas
 
@@ -77,8 +78,8 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
   grandes) e o link compartilhável — a configuração inteira vive em `#simular?vcpu=…&so=…&fx=…`, lida no
   load e no `hashchange`. A economia anual é sempre contra a MAIS BARATA de AWS/Azure/Google, nunca a média.
 - **Como o duelo é "ao vivo" sem servidor:** a página lê `assets/dados/precos-nuvem.json` (snapshot diário do
-  GitHub Actions) e, no navegador, refina o que libera CORS — câmbio (BCB) e Oracle. AWS (arquivo de 290 MB),
-  Azure (sem CORS) e Google (páginas) só pelo robô. Se o JSON não carregar, o bloco fica escondido.
+  GitHub Actions) e, no navegador, refina o que libera CORS — o câmbio (BCB). AWS (arquivo de 290 MB), Azure (sem CORS) e
+  Google (páginas) só pelo robô. Se o JSON não carregar, o bloco fica escondido.
 - O robô lê as páginas do Google por parse do HTML (elas embutem todas as regiões). É a parte mais frágil:
   se o Google mudar a página, o Google para de atualizar e o valor anterior fica, com o erro em `avisos`.
   O caminho robusto é a Cloud Billing Catalog API com chave gratuita (`GCP_API_KEY`) — ainda não implementado.
