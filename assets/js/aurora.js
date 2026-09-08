@@ -23,12 +23,15 @@
     ' return mix(mix(hash(i),hash(i+vec2(1.,0.)),f.x),mix(hash(i+vec2(0.,1.)),hash(i+vec2(1.,1.)),f.x),f.y);}',
     'float fbm(vec2 p){float v=0.;float a=.5;',
     ' for(int i=0;i<5;i++){v+=a*ruido(p);p=p*2.03+vec2(1.7,9.2);a*=.52;}return v;}',
-    /* campo azul da marca: teal → ciano → índigo, em ciclo sem emenda */
+    /* campo ROXO da marca: índigo → roxo → magenta, em ciclo sem emenda.
+       O dono tirou o azul da abertura em 2026-09-08: "azul é o padrão visual
+       da Microsoft". O teal e o ciano continuam na paleta do site — só não
+       lideram mais o céu. */
     'vec3 paleta(float t){',
     ' t=fract(t);',
-    ' vec3 c0=vec3(.251,.678,.718);', /* 40ADB7 teal */
-    ' vec3 c1=vec3(.176,.576,.733);', /* 2D93BB ciano */
-    ' vec3 c2=vec3(.329,.369,.627);', /* 545EA0 índigo */
+    ' vec3 c0=vec3(.329,.369,.627);', /* 545EA0 índigo */
+    ' vec3 c1=vec3(.498,.141,.514);', /* 7F2483 roxo */
+    ' vec3 c2=vec3(.906,.208,.529);', /* E73587 magenta */
     ' if(t<.34)return mix(c0,c1,t/.34);',
     ' if(t<.67)return mix(c1,c2,(t-.34)/.33);',
     ' return mix(c2,c0,(t-.67)/.33);}',

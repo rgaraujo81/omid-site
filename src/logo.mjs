@@ -13,5 +13,28 @@ export const LOGO_SYMBOL = `<svg width="0" height="0" style="position:absolute" 
 export const logoMarca = (cls = '') =>
   `<svg class="marca${cls ? ' ' + cls : ''}" viewBox="0 0 80.403 61.695" aria-hidden="true" focusable="false"><use href="#omid-logo" width="184.906" height="61.695"/></svg>`;
 
+/* As DUAS camadas do losango, recortadas do próprio arquivo oficial: o grupo
+   de cima (Grupo_6-2) e o de baixo (Grupo_7). Servem para separar o símbolo em
+   profundidade e deixar a nuvem passar entre elas. Os gradientes continuam nos
+   <defs> do símbolo principal, que já está na página — por isso aqui só vão os
+   <path>. Nada é redesenhado. */
+const recorta = (id) => {
+  const i = LOGO_SYMBOL.indexOf(`<g id="${id}"`);
+  if (i < 0) return '';
+  let n = 0, j = i;
+  for (;;) {
+    const abre = LOGO_SYMBOL.indexOf('<g', j + 1), fecha = LOGO_SYMBOL.indexOf('</g>', j + 1);
+    if (fecha < 0) return '';
+    if (abre >= 0 && abre < fecha) { n++; j = abre; continue; }
+    if (n === 0) return LOGO_SYMBOL.slice(i, fecha + 4);
+    n--; j = fecha;
+  }
+};
+
+export const LOGO_CAMADAS = { alta: recorta('Grupo_6-2'), baixa: recorta('Grupo_7') };
+
+export const logoCamada = (qual) =>
+  `<svg class="camada-logo" viewBox="0 0 80.403 61.695" aria-hidden="true" focusable="false">${LOGO_CAMADAS[qual]}</svg>`;
+
 export const logoSvg = () =>
   `<svg class="logo__svg" viewBox="0 0 184.906 61.695" role="img" aria-label="OMID"><use href="#omid-logo"/></svg>`;

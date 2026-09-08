@@ -1,3 +1,4 @@
+import { logoCamada } from './logo.mjs';
 import { tiposMaquina, form as FORM, site, precoUnit } from './shared.mjs';
 
 /* =========================================================================
@@ -64,6 +65,28 @@ export const item = ({ n, t, d, href, cor, etiquetas }) => {
 };
 
 export const pilha = (itens) => `<div class="pilha">${itens.join('')}</div>`;
+
+/* --- a abertura: o logo gigante voando entre as nuvens ---
+   As cinco lajes do símbolo viram planos 3D de verdade e a névoa entra
+   INTERCALADA entre elas: a nuvem atravessa a estrutura porque vive no mesmo
+   espaço 3D, num Z entre duas lajes. A cena inclina e volta, como um avião
+   fazendo curva. Nada de `filter: blur()` aqui dentro — em `preserve-3d` o
+   borrão escapa do elemento (armadilha conhecida desta base); a maciez vem de
+   gradiente radial. As nuvens da FRENTE ficam fora do 3D, e essas podem borrar.
+   Pedido do dono em 2026-09-08. --- */
+export const voo = () => {
+  /* --z em px: a nevoa nos valores INTERMEDIARIOS passa entre as duas camadas */
+  const NEVOAS = [-150, -30, 34, 128];
+  return `
+<div class="voo" aria-hidden="true">
+  <div class="voo__cena">
+    <span class="voo__camada" style="--z:-78px">${logoCamada('baixa')}</span>
+    ${NEVOAS.map((z, n) => `<span class="voo__nevoa" style="--z:${z}px;--n:${n}"><i></i></span>`).join('')}
+    <span class="voo__camada" style="--z:78px">${logoCamada('alta')}</span>
+  </div>
+  <div class="voo__frente">${[0, 1, 2, 3, 4].map((n) => `<i style="--n:${n}"></i>`).join('')}</div>
+</div>`;
+};
 
 /* --- as camadas: figura isométrica + linhas ---
    À esquerda, as quatro lajes desenhadas em SVG (topo, face esquerda, face

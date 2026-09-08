@@ -52,11 +52,31 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
    com o padrão do navegador (1.17em) e cria um degrau fantasma — aconteceu com o `h3` da sanfona; o
    `th` do `thead` entrava em 700 pelo mesmo motivo.
    **Sobriedade, profissionalismo e minimalismo** são o filtro de qualquer decisão visual: na dúvida, tirar.
-3c. **A marca abre a home.** `logoMarca()` em `src/logo.mjs` recorta o símbolo oficial (viewBox
-   `0 0 80.403 61.695` sobre um `<use>` em tamanho natural) e mostra SÓ as lajes, sem o wordmark — repeti-lo
-   embaixo do cabeçalho seria eco. Fica acima da manchete, ~104px, com flutuação lenta de 7s. Pedido do dono
-   em 2026-09-08: "na primeira página coloque o logo da OMID de forma estilizada". O gradiente aqui é o do
-   próprio arquivo do logo, não uma aplicação decorativa do espectro (regra 2 continua valendo).
+3c. **A abertura é o VOO: o símbolo como superestrutura entre nuvens** (`voo()` em `ui.mjs`, CSS 5b).
+   Pedido do dono em 2026-09-08, em três correções: "o logo gigante voando e as nuvens envolta, mudando de
+   ângulo" → "o texto na frente, ao fundo o logo como superestrutura e nuvens entre eles" → "apenas um
+   pedaço dele". Como funciona:
+   - **O símbolo é o arquivo oficial, não um desenho novo.** `logoCamada('alta'|'baixa')` em `logo.mjs`
+     recorta os dois grupos do próprio SVG (`Grupo_6-2` e `Grupo_7`) por varredura de tags; os gradientes
+     continuam nos `<defs>` do símbolo principal, que já está na página. Uma tentativa anterior desenhou
+     placas genéricas em CSS e o dono cortou na hora: "o que você usou não é o logo da OMID".
+   - **Profundidade real**: as duas camadas ficam em `translateZ` opostos dentro de um `preserve-3d`, e as
+     quatro névoas em Z intermediários — é por isso que a nuvem passa ENTRE as camadas, e não por cima.
+   - **Escala**: `--l: max(96vw, 104vh)`, maior que a tela de propósito. Quem esconde o resto é a nuvem, não
+     o corte. Muito maior (128vw) e o pedaço vira barra solta sem identidade; inteiro na tela e perde a ideia
+     de superestrutura.
+   - **A cena só inclina de leve** (±13°): o símbolo já é um desenho isométrico e uma rotação forte briga com
+     a projeção dele.
+   - **Armadilhas que custaram tempo aqui**: (a) `filter: blur()` dentro de `preserve-3d` escapa do elemento —
+     a maciez das névoas internas vem de gradiente radial, e só as nuvens da frente, fora do 3D, borram;
+     (b) `mask-image` PINTA mas não CORTA — sem `overflow: clip` no `.voo` a página ganhava 7.500px de rolagem
+     lateral; (c) `width: 100vw` conta a barra de rolagem e sobra 19px, por isso a cena usa `inset: 0`;
+     (d) `translate` (lugar fixo da névoa) + `transform` do keyframe (deriva) somam DE PROPÓSITO aqui — é a
+     única soma intencional desta base.
+   - **A aurora virou roxa** (`paleta()` em `aurora.js`: índigo → roxo → magenta, no lugar de teal → ciano →
+     índigo). Razão do dono: "azul é o padrão visual da Microsoft". Teal e ciano seguem na paleta do site,
+     só não lideram mais o céu. O gradiente do logo é o do próprio arquivo, não uma aplicação decorativa do
+     espectro — a regra 2 continua valendo.
 4. **Movimento é classe `.viu` + transição via IntersectionObserver.** NUNCA usar
    `animation-timeline`/scroll-timelines para estados de entrada — travou no Safari do dono
    deixando conteúdo invisível (lição cara). Nada pode ficar oculto sem a classe `.sdt`
