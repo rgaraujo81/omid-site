@@ -375,40 +375,49 @@ a.item:hover, .item--hov:hover { background: var(--papel-2); border-radius: var(
 .etiquetas { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
 .etiquetas li { font-family: var(--mono); font-size: .58rem; letter-spacing: .12em; text-transform: uppercase; padding: 6px 12px; border: 1px solid var(--fio); border-radius: 999px; color: var(--cinza); }
 
-/* ---------- 10b. As camadas: lajes empilhadas ----------
-   Cabeça fixa à esquerda, pilha à direita. Cada laje cobre 16px da de baixo
-   (z cresce para cima), e o tom clareia do concreto ao time. O levantar no
-   hover usa `translate`, não `transform`: o transform é da revelação. */
-.camadas { display: grid; grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr); gap: clamp(32px, 6vw, 110px); align-items: start; }
-.camadas .cabeca { position: sticky; top: 116px; }
-.lajes { list-style: none; margin: 0; padding: 0; display: grid; }
-.laje {
-  --sobe: 16px;
-  position: relative; z-index: var(--z, 1); display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: clamp(12px, 1.8vw, 24px); align-items: start;
-  padding: clamp(22px, 2.6vw, 32px) clamp(22px, 3vw, 40px) clamp(24px, 2.8vw, 36px);
-  border: 1px solid var(--fio); border-radius: var(--rd-g);
-  /* um banho discreto da cor da camada no canto, sobre o tom da laje */
-  background: radial-gradient(70% 140% at 0% 0%, color-mix(in srgb, var(--pt) 9%, transparent), transparent 62%), var(--laje-bg, var(--papel));
-  box-shadow: 0 34px 60px -44px rgba(18, 18, 20, .38), 0 1px 0 rgba(255, 255, 255, .55) inset;
-  transition: translate .6s var(--ease), box-shadow .6s var(--ease);
-}
-.laje + .laje { margin-top: calc(var(--sobe) * -1); padding-top: calc(clamp(22px, 2.6vw, 32px) + var(--sobe)); }
-.laje:nth-child(1) { --laje-bg: color-mix(in srgb, var(--papel) 40%, #fff); }
-.laje:nth-child(2) { --laje-bg: var(--papel); }
-.laje:nth-child(3) { --laje-bg: var(--papel-2); }
-.laje:nth-child(4) { --laje-bg: var(--papel-3); }
-.laje::before { content: ""; position: absolute; left: -1px; top: calc(var(--sobe) + 14px); bottom: 20px; width: 3px; border-radius: 0 3px 3px 0; background: var(--pt); }
-.laje:first-child::before { top: 20px; }
-.laje:hover { translate: 0 -4px; box-shadow: 0 44px 72px -44px rgba(18, 18, 20, .5), 0 1px 0 rgba(255, 255, 255, .55) inset; }
-.laje__n { color: var(--pt); font-weight: 600; font-size: .74rem; letter-spacing: .14em; padding-top: .42em; }
-.laje .grita { font-size: clamp(1.15rem, 1.55vw, 1.45rem); }
-.laje__d { margin-top: 8px; color: var(--cinza); font-size: .94rem; line-height: 1.55; max-width: 52ch; }
-.laje__tags { margin-top: 14px; display: flex; flex-wrap: wrap; align-items: baseline; row-gap: 4px; font-size: .58rem; letter-spacing: .16em; color: var(--cinza); }
-.laje__tags i { font-style: normal; margin: 0 9px; color: var(--pt); }
-/* a revelação stagger só nos canais dela; o levantar responde na hora */
-.sdt .laje[data-ver].viu { transition: opacity .9s var(--ease), transform 1s var(--ease), translate .6s var(--ease), box-shadow .6s var(--ease); transition-delay: calc(var(--d, 0) * 90ms), calc(var(--d, 0) * 90ms), 0s, 0s; }
-@media (max-width: 1000px) { .camadas { grid-template-columns: 1fr; gap: 36px; } .camadas .cabeca { position: static; } }
-@media (max-width: 560px) { .laje { grid-template-columns: 1fr; gap: 6px; } .laje__n { padding-top: 0; } }
+/* ---------- 10b. As camadas: figura isométrica + linhas ----------
+   A figura é o drama da seção: quatro lajes em SVG, do concreto (k=0, com
+   grão) ao time (k=3). Cada laje sobe 48px por k via `transform`; o levantar
+   da laje ativa usa `translate` (canal à parte, os dois somam de propósito).
+   A revelação sobe laje a laje. Sem hover, o JS percorre as camadas. */
+.camadas { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: clamp(32px, 6vw, 120px); align-items: start; }
+.camadas__fig { position: sticky; top: 118px; margin: 0; }
+.camadas__fig svg { display: block; width: 100%; max-width: 560px; height: auto; overflow: visible; }
+.laje { --lift: 0px; translate: 0 var(--lift); transform: translateY(calc(var(--k) * -48px)); opacity: 1;
+  filter: drop-shadow(0 18px 22px rgba(18, 18, 20, .13)); transition: translate .7s var(--ease), filter .7s var(--ease), opacity .6s var(--ease); }
+.laje path { stroke: color-mix(in srgb, var(--tinta) 9%, transparent); stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.laje__topo { fill: color-mix(in srgb, var(--pt) 12%, var(--papel)); transition: fill .6s var(--ease); }
+.laje__esq { fill: color-mix(in srgb, var(--pt) 28%, var(--papel-3)); }
+.laje__dir { fill: color-mix(in srgb, var(--pt) 16%, var(--papel-2)); }
+.laje__fio { fill: none; stroke: var(--pt); stroke-width: 1.5; opacity: .85; }
+.laje__rot { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; fill: var(--pt); font-weight: 500; }
+#lajes-grao circle { fill: color-mix(in srgb, var(--tinta) 12%, transparent); }
+.camadas__fig[data-ativa] .laje { opacity: .72; }
+.camadas__fig[data-ativa] .laje.ativa { opacity: 1; --lift: -14px; filter: drop-shadow(0 30px 30px rgba(18, 18, 20, .2)); }
+.camadas__fig[data-ativa] .laje.ativa .laje__topo { fill: color-mix(in srgb, var(--pt) 26%, var(--papel)); }
+
+.camadas__lista { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--fio); }
+.camada { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: clamp(12px, 1.6vw, 22px); align-items: start;
+  padding: clamp(22px, 2.6vw, 32px) clamp(6px, 1vw, 14px); border-bottom: 1px solid var(--fio); border-radius: 0;
+  transition: background .5s var(--ease), border-radius .5s var(--ease), padding .5s var(--ease); }
+.camada::before { content: ""; position: absolute; left: 0; top: 24px; bottom: 24px; width: 3px; border-radius: 2px; background: var(--pt);
+  transform: scaleY(0); transform-origin: 50% 100%; transition: transform .5s var(--ease), left .5s var(--ease); }
+.camada.abre { background: var(--papel-2); border-radius: var(--rd); border-bottom-color: transparent; padding-inline: clamp(18px, 2vw, 28px); }
+.camada.abre::before { transform: scaleY(1); left: 8px; }
+.camada__n { color: var(--pt); font-weight: 600; font-size: .74rem; letter-spacing: .14em; padding-top: .42em; }
+.camada .grita { font-size: clamp(1.15rem, 1.55vw, 1.45rem); }
+.camada__d { margin-top: 8px; color: var(--cinza); font-size: .94rem; line-height: 1.55; max-width: 52ch; }
+.camada__tags { margin-top: 12px; display: flex; flex-wrap: wrap; align-items: baseline; row-gap: 4px; font-size: .58rem; letter-spacing: .16em; color: var(--cinza); }
+.camada__tags i { font-style: normal; margin: 0 9px; color: var(--pt); }
+/* revelação: a figura sobe laje a laje (transform), sem tocar no translate do levantar */
+.sdt [data-lajes] .laje { opacity: 0; transform: translateY(calc(var(--k) * -48px + 40px)); }
+.sdt [data-lajes].viu .laje { opacity: 1; transform: translateY(calc(var(--k) * -48px));
+  transition: opacity .9s var(--ease), transform 1.1s var(--ease), translate .7s var(--ease), filter .7s var(--ease);
+  transition-delay: calc(var(--k) * 140ms + .1s), calc(var(--k) * 140ms + .1s), 0s, 0s; }
+.sdt [data-lajes].viu[data-ativa] .laje { opacity: .72; transition-delay: 0s; }
+.sdt [data-lajes].viu[data-ativa] .laje.ativa { opacity: 1; }
+@media (max-width: 1000px) { .camadas { grid-template-columns: 1fr; gap: 28px; } .camadas__fig { position: static; max-width: 440px; margin-inline: auto; } }
+@media (max-width: 560px) { .camada { grid-template-columns: 1fr; gap: 6px; } .camada__n { padding-top: 0; } }
 
 .checa { display: grid; gap: 12px; }
 .checa li { display: grid; grid-template-columns: auto 1fr; gap: 12px; font-size: .95rem; line-height: 1.5; }
@@ -661,7 +670,7 @@ html:not(.sdt) .inv.dobra--inverte { background: var(--papel); }
 /* ---------- 23. Cifra e prova ---------- */
 /* a faixa de certificações fica colada em cima desta dobra e já faz a
    separação: 200px de respiro no topo abriam um buraco */
-#simular { padding-top: clamp(48px, 8vh, 110px); }
+#simular { padding-top: clamp(48px, 8vh, 110px); padding-bottom: clamp(48px, 7vh, 88px); }
 #simular .cifra { margin-top: 10px; }
 .sdt .dobra--colapso .cifra { opacity: 0; transform: translateY(26px) scale(.98); }
 .sdt .dobra--colapso.viu .cifra { opacity: 1; transform: none; transition: opacity 1s var(--ease) .1s, transform 1.2s var(--ease) .1s; }
@@ -797,9 +806,41 @@ html.portal-vivo .portal__fio { background: #23232A; }
    saída), cada item numa cor isolada da marca — nunca o espectro cheio,
    que continua exclusivo do botão do simulador. A largura é proporcional
    ao preço e anima ao arrastar réguas ou o câmbio. */
-.duelo { margin-top: clamp(40px, 6vw, 72px); padding-top: clamp(28px, 4vw, 44px); border-top: 1px solid var(--fio); }
-.duelo__cab { max-width: 62ch; }
-.duelo__h { font-size: clamp(1.5rem, 2.7vw, 2.3rem); }
+/* uma dobra só: coluna da esquerda (título, cartão da conta, régua do dólar)
+   e coluna da direita (legenda, as quatro barras, fontes). Pedido do dono
+   em 2026-09-08: tudo visível de uma vez na tela. */
+.duelo { position: relative; isolation: isolate; overflow: hidden; margin-top: clamp(56px, 8vh, 96px);
+  padding: clamp(40px, 5.5vh, 60px) clamp(26px, 3.6vw, 56px) clamp(40px, 5vh, 56px); border-radius: var(--rd-g);
+  background: var(--papel); color: var(--tinta); box-shadow: 0 60px 120px -70px rgba(18, 18, 20, .55);
+  display: grid; grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr); gap: clamp(28px, 4vw, 64px); align-items: start; }
+/* o fundo do capítulo escuro (pedido do dono em 2026-09-08): dois brilhos nos
+   cantos — teal e índigo, cores ISOLADAS da marca, não o espectro — e uma malha
+   de pontos que só existe nas bordas e se dissolve para o centro. */
+.duelo::before { content: ""; position: absolute; inset: 0; z-index: -2; pointer-events: none;
+  background: radial-gradient(58% 60% at 6% 0%, rgba(64, 173, 183, .26), transparent 62%),
+              radial-gradient(52% 55% at 100% 100%, rgba(84, 94, 160, .30), transparent 62%),
+              radial-gradient(36% 40% at 78% 8%, rgba(127, 36, 131, .16), transparent 60%); }
+.duelo::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .8;
+  background-image: radial-gradient(rgba(255, 255, 255, .11) 1px, transparent 1.4px); background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(75% 70% at 45% 45%, transparent 28%, #000 100%);
+  mask-image: radial-gradient(75% 70% at 45% 45%, transparent 28%, #000 100%); }
+/* à noite, o que era tinta-sobre-papel vira luz-sobre-noite */
+.duelo.inv .duelo__vivo { color: #7FD8E0; }
+.duelo.inv .duelo__eco { position: static; background: rgba(255, 255, 255, .045); border-color: rgba(255, 255, 255, .12);
+  box-shadow: 0 30px 60px -40px rgba(0, 0, 0, .8), 0 1px 0 rgba(255, 255, 255, .06) inset;
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+.duelo.inv .duelo__conta > div { border-top-color: rgba(255, 255, 255, .1); }
+.duelo.inv .duelo__barra { background: rgba(255, 255, 255, .09); }
+.duelo.inv .duelo__li { border-bottom-color: rgba(255, 255, 255, .08); }
+.duelo.inv .duelo__delta span { background: rgba(231, 53, 135, .2); color: #FFA6CB; }
+.duelo.inv .duelo__delta span.menor { background: rgba(64, 173, 183, .2); color: #8FE6EC; }
+.duelo.inv .duelo__delta span.ref { background: rgba(255, 255, 255, .1); color: var(--tinta); }
+.duelo.inv .duelo__fontes a { border-bottom-color: rgba(255, 255, 255, .14); }
+.duelo.inv .duelo__hoje { border-color: rgba(255, 255, 255, .2); }
+.duelo.inv .ctl input[type="range"] { background-image: linear-gradient(rgba(255, 255, 255, .22), rgba(255, 255, 255, .22)); }
+.duelo__cab { max-width: 46ch; }
+.duelo__cab .lead { font-size: .95rem; }
+.duelo__h { font-size: clamp(1.6rem, 2.5vw, 2.3rem); }
 .duelo__vivo { color: #1E7F8C; }
 .duelo__vivo::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #40ADB7; margin: 0 6px 1px 0;
   animation: duelo-pisca 2.6s ease-out infinite; }
@@ -807,37 +848,39 @@ html.portal-vivo .portal__fio { background: #23232A; }
 
 
 /* economia anual + alavanca do câmbio, lado a lado */
-.duelo__topo { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(20px, 3vw, 40px); align-items: start; }
-.duelo__eco { padding: clamp(20px, 2.6vw, 30px); }
-.duelo__eco .preco__n { margin-top: 10px; }
-.duelo__eco-n { font-size: clamp(2.4rem, 4.6vw, 4rem); }
+.duelo__eco { margin-top: 26px; padding: clamp(20px, 2.2vw, 28px); }
+.duelo__eco .preco__n { margin-top: 8px; }
+.duelo__eco-n { font-size: clamp(2.3rem, 3.8vw, 3.4rem); }
 /* a conta visível: três linhas que fecham (outro − OMID = diferença) */
-.duelo__conta { margin: 16px 0 0; display: grid; }
-.duelo__conta > div { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 8px 0; border-top: 1px solid var(--fio); font-size: .9rem; }
+.duelo__conta { margin: 12px 0 0; display: grid; }
+.duelo__conta > div { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 6px 0; border-top: 1px solid var(--fio); font-size: .86rem; }
 .duelo__conta dt { color: var(--cinza); }
 .duelo__conta dd { margin: 0; font-family: var(--mono); font-size: .85rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .duelo__conta-dif { font-weight: 600; }
 .duelo__conta-dif dt { color: var(--tinta); }
 .duelo__conta-dif dd em { font-style: normal; font-weight: 500; font-size: .7rem; letter-spacing: .04em; color: var(--cinza); margin-left: 8px; }
-.duelo__fx { padding-top: 6px; }
+.duelo__fx { margin-top: 18px; }
 .duelo__fx .ctl__cab b { font-weight: 640; }
 .duelo__hoje { background: none; border: 0; padding: 0; font: inherit; color: var(--tinta); cursor: pointer;
   border-bottom: 1px solid var(--fio); margin-left: 6px; }
 .duelo__hoje:hover { border-color: var(--tinta); }
 @media (max-width: 860px) { .duelo__topo { grid-template-columns: 1fr; } }
 
-.duelo__legenda { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.duelo__legenda { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 8px 18px; }
 .duelo__legenda li { display: inline-flex; align-items: center; gap: 8px; font-size: .8rem; color: var(--cinza); }
 .duelo__legenda i { width: 10px; height: 10px; border-radius: 3px; background: var(--c); }
 
-.duelo__lista { list-style: none; padding: 0; margin: clamp(18px, 2.4vw, 28px) 0 0; display: grid; gap: 4px; }
+.duelo__lista { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 2px; }
 .duelo__li { display: grid; grid-template-columns: minmax(150px, .95fr) minmax(0, 3fr) auto minmax(120px, auto);
   gap: clamp(12px, 2vw, 28px); align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(18,18,20,.07); }
+.duelo__li { padding-block: 19px; gap: clamp(10px, 1.4vw, 20px); grid-template-columns: minmax(180px, 1.1fr) minmax(0, 3fr) auto minmax(104px, auto); }
+.duelo__nome span { font-size: .55rem; }
+@media (max-width: 1000px) { .duelo { grid-template-columns: 1fr; gap: 28px; } .duelo__cab { max-width: 62ch; } }
 .duelo__nome b { display: block; font-weight: 600; letter-spacing: -.01em; }
 .duelo__nome span { display: block; font-size: .58rem; letter-spacing: .14em; margin-top: 3px; text-transform: none; }
-.duelo__barra { display: flex; gap: 2px; height: 14px; border-radius: 999px; background: rgba(18,18,20,.06); overflow: hidden; }
+.duelo__barra { display: flex; gap: 2px; height: 16px; border-radius: 999px; background: rgba(18,18,20,.06); overflow: hidden; }
 .duelo__barra i { display: block; height: 100%; width: 0; background: var(--c); transition: width .9s var(--ease); }
-.duelo__li--omid .duelo__barra { height: 18px; }
+.duelo__li--omid .duelo__barra { height: 20px; }
 .duelo__li--omid .duelo__nome b { font-weight: 700; }
 .duelo__preco { text-align: right; }
 .duelo__preco b { font-weight: 640; font-size: clamp(1.05rem, 1.5vw, 1.4rem); letter-spacing: -.025em; white-space: nowrap; }
@@ -849,7 +892,7 @@ html.portal-vivo .portal__fio { background: #23232A; }
 .duelo__delta span.ref { background: rgba(18,18,20,.06); color: var(--tinta); }
 .duelo__oci { margin-top: 14px; max-width: 78ch; }
 .duelo__linha { margin-top: 18px; font-size: .6rem; }
-.duelo__fontes { margin-top: 10px; }
+.duelo__fontes { margin-top: 8px; }
 .duelo__fontes summary { cursor: pointer; }
 .duelo__fontes p { margin-top: 10px; max-width: 90ch; }
 .duelo__fontes ul { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 4px; }

@@ -91,12 +91,20 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
   foi escolhida porque o critério é preço da família premium, não geração). Trocar o de/para = editar
   `familias` no JSON e o SKU/instância no robô; o JS não sabe de família nenhuma. Sem preço na família, o JS
   cai na família-padrão do provedor (uso geral) e `semEquivalente: true` põe o aviso na linha.
-- **A seção "Integração vertical" da home é a pilha de lajes** (`camadas()` em `ui.mjs`, CSS 10b): quatro
-  cartões sobrepostos 16px, do concreto (01, embaixo, `--papel-3`) ao time (04, em cima, quase branco), com
-  veio e banho discreto na cor da camada, cabeça fixa à esquerda e revelação subindo de baixo para cima. O
-  levantar no hover usa `translate` (o `transform` é da revelação). Refeita a pedido do dono em 2026-09-08
-  ("deixe lindo"); as etiquetas em chips viraram uma linha mono com pontos. `item`/`pilha` seguem sendo o
-  componente das listas de produtos e soberania — não misturar.
+- **A seção "Integração vertical" da home é a figura isométrica das camadas** (`camadas()` em `ui.mjs`,
+  CSS 10b, JS `lajes()`): quatro lajes em SVG (topo + duas faces, tingidas na cor da camada, grão de concreto
+  na base) à esquerda, fixas na rolagem, e uma linha por camada à direita. Cada laje sobe 48px por `--k` via
+  `transform`; a laje ativa levanta via `translate` (os dois canais somam de propósito). Passar o mouse numa
+  linha ativa a laje; sem ninguém, o JS percorre as camadas a cada 2,6s, só com a seção em cena e nunca em
+  reduced-motion. Refeita duas vezes a pedido do dono em 2026-09-08 ("deixe lindo" → "mais bonito"): a versão
+  de cartões empilhados foi rejeitada. `item`/`pilha` seguem sendo o componente das listas de produtos e
+  soberania — não misturar.
+- **O duelo é um capítulo escuro numa dobra só** (pedidos do dono em 2026-09-08: "tudo visível de uma vez" e
+  "um fundo lindo e moderno"): painel `.duelo.inv` arredondado, quase preto, com dois brilhos nos cantos (teal
+  e índigo — cores ISOLADAS, não o espectro; a regra 2 segue valendo) e malha de pontos nas bordas, tudo em
+  pseudo-elementos. Duas colunas — esquerda com título, cartão da conta (vidro) e régua do dólar; direita com
+  legenda, as quatro barras, linha de base e fontes. Em 1440×900 o painel mede ~680px. Abaixo de 1000px vira
+  uma coluna. Pílulas, trilhas das barras e régua têm versão noturna em `.duelo.inv …`.
 - **Os três grupos de botões do simulador (cenário, tipo de máquina, sistema) são UMA trilha só**, `.troca`,
   com todos os botões da mesma largura (`--chip`, 116px; 104px até 1180px) — decisão do dono em 2026-09-08,
   "use o mesmo botão e tamanho para todos, padrão o da CPU". Quando a trilha não cabe na coluna ela rola de

@@ -65,23 +65,48 @@ export const item = ({ n, t, d, href, cor, etiquetas }) => {
 
 export const pilha = (itens) => `<div class="pilha">${itens.join('')}</div>`;
 
-/* --- as camadas: quatro lajes empilhadas, do concreto (01, embaixo, a mais
-   escura) ao time que atende (04, em cima, a mais clara). O DOM vai de cima
-   para baixo; a revelação sobe de baixo para cima (--d cresce para o topo).
-   As etiquetas viram uma linha mono quieta, separada por pontos na cor da
-   camada — o contrário dos chips, que faziam ruído. --- */
-export const camadas = (lista) => `
-<ol class="lajes" role="list">
-  ${lista.map((c, i, a) => `
-  <li class="laje" data-ver style="--pt:${c.dot}; --z:${a.length - i}; --d:${a.length - 1 - i}">
-    <span class="laje__n mono">${c.n}</span>
-    <div class="laje__c">
-      <h3 class="grita">${c.t}</h3>
-      <p class="laje__d">${c.d}</p>
-      ${c.itens ? `<p class="laje__tags mono">${c.itens.map((e) => `<span>${e}</span>`).join('<i aria-hidden="true">·</i>')}</p>` : ''}
-    </div>
-  </li>`).join('')}
-</ol>`;
+/* --- as camadas: figura isométrica + linhas ---
+   À esquerda, as quatro lajes desenhadas em SVG (topo, face esquerda, face
+   direita), do concreto (k=0, embaixo, com grão) ao time (k=3, em cima);
+   à direita, uma linha por camada. Passar o mouse numa linha levanta a laje
+   (JS `lajes` em omid.js); sem ninguém, a figura percorre as camadas sozinha.
+   O DOM das linhas vai de cima para baixo (04 → 01); o das lajes, de baixo
+   para cima, que é a ordem de pintura. --- */
+export const camadas = (lista) => {
+  const W = 260, H = 150, T = 26, R = 48, n = lista.length;
+  const topo = `M${W / 2},0 L${W},${H / 2} L${W / 2},${H} L0,${H / 2} Z`;
+  const esq = `M0,${H / 2} L${W / 2},${H} L${W / 2},${H + T} L0,${H / 2 + T} Z`;
+  const dir = `M${W / 2},${H} L${W},${H / 2} L${W},${H / 2 + T} L${W / 2},${H + T} Z`;
+  const fio = `M0,${H / 2} L${W / 2},${H} L${W},${H / 2}`;
+  const lajes = [...lista].reverse().map((c, k) => `
+      <g class="laje" data-k="${k}" style="--pt:${c.dot}; --k:${k}">
+        <path class="laje__esq" d="${esq}"/><path class="laje__dir" d="${dir}"/>
+        <path class="laje__topo" d="${topo}"/>${k === 0 ? `<path d="${topo}" fill="url(#lajes-grao)" stroke="none"/>` : ''}
+        <path class="laje__fio" d="${fio}"/>
+        <text class="laje__rot" transform="translate(16 101) skewY(30)">${c.n}</text>
+      </g>`).join('');
+  return `
+<div class="camadas">
+  <figure class="camadas__fig" data-lajes data-ver aria-hidden="true">
+    <svg viewBox="0 0 ${W + 80} ${H + T + (n - 1) * R + 80}" xmlns="http://www.w3.org/2000/svg" focusable="false">
+      <defs><pattern id="lajes-grao" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1.4" cy="1.4" r=".85"/></pattern></defs>
+      <g transform="translate(40 ${40 + (n - 1) * R})">${lajes}
+      </g>
+    </svg>
+  </figure>
+  <ol class="camadas__lista" role="list">
+    ${lista.map((c, i) => `
+    <li class="camada" data-camada="${n - 1 - i}" data-ver style="--pt:${c.dot}; --d:${i}">
+      <span class="camada__n mono">${c.n}</span>
+      <div>
+        <h3 class="grita">${c.t}</h3>
+        <p class="camada__d">${c.d}</p>
+        ${c.itens ? `<p class="camada__tags mono">${c.itens.map((e) => `<span>${e}</span>`).join('<i aria-hidden="true">·</i>')}</p>` : ''}
+      </div>
+    </li>`).join('')}
+  </ol>
+</div>`;
+};
 
 /* --- quadro --- */
 export const quadro = ({ t, d, href, cor, pe, i = 0, tag = 'h3' }) => {
@@ -285,18 +310,17 @@ export const duelo = (ctx) => {
   const C = ctx.L.comparar, R = ctx.L.regua;
   const ordem = ['omid', 'aws', 'azure', 'gcp'];   // Oracle retirada por decisão do dono (2026-09-08)
   return `
-<div class="duelo" data-duelo hidden
+<div class="duelo inv" data-duelo hidden
      data-vezes="${C.vezes}" data-mais-caro="${C.maisCaro}" data-mais-barato="${C.maisBarato}"
      data-referencia="${C.referencia}" data-ao-vivo="${C.aoVivo}" data-consultado="${C.consultado}"
      data-cambio="${C.cambio}" data-inclui="${C.omidInclui}"
      data-eco-pos="${C.ecoRot}" data-eco-neg="${C.ecoRotNeg}" data-a-menos="${C.aMenos}" data-a-mais="${C.aMais}" data-sem-equivalente="${C.semEquivalente}">
+  <div class="duelo__lado">
   <div class="duelo__cab">
     <p class="mono apaga">${C.rot}<span class="duelo__vivo" data-duelo-vivo hidden></span></p>
     <h3 class="berro duelo__h t-16">${C.h}</h3>
     <p class="lead apaga t-16">${C.p}</p>
   </div>
-
-  <div class="duelo__topo t-32">
     <div class="duelo__eco nota-f">
       <p class="mono apaga" data-duelo-eco-rot>${C.ecoRot}</p>
       <p class="preco__n duelo__eco-n"><small>R$</small><span data-duelo-eco>—</span><span class="mes">${R.mes}</span></p>
@@ -315,7 +339,8 @@ export const duelo = (ctx) => {
     </div>
   </div>
 
-  <p class="mono apaga t-32">${C.legenda}</p>
+  <div class="duelo__corpo">
+  <p class="mono apaga">${C.legenda}</p>
   <ul class="duelo__legenda">
     ${ITENS_DUELO.map((k) => `<li data-item="${k}"><i style="--c:${COR_ITEM[k]}"></i>${R.partes[k]}</li>`).join('')}
   </ul>
@@ -335,6 +360,7 @@ export const duelo = (ctx) => {
     <p class="miudo apaga">${C.base}</p>
     <ul data-duelo-fontes></ul>
   </details>
+  </div>
 </div>`;
 };
 

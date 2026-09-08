@@ -624,6 +624,31 @@
     calc();
   }
 
+  /* ---------- as camadas: linha ↔ laje ----------
+     Passar o mouse numa linha levanta a laje correspondente na figura.
+     Sem ninguém em cima, a figura percorre as camadas devagar — só com a
+     seção em cena e nunca em reduced-motion. */
+  function lajes() {
+    var fig = $('[data-lajes]'); if (!fig) return;
+    var linhas = $$('[data-camada]'), n = linhas.length, i = -1, timer = null;
+    if (!n) return;
+    function marca(k) {
+      if (k == null) delete fig.dataset.ativa; else fig.dataset.ativa = k;
+      $$('.laje', fig).forEach(function (l) { l.classList.toggle('ativa', l.dataset.k === String(k)); });
+      linhas.forEach(function (l) { l.classList.toggle('abre', l.dataset.camada === String(k)); });
+    }
+    function passo() { i = (i + 1) % n; marca(linhas[i].dataset.camada); }
+    function liga() { if (timer || matchMedia('(prefers-reduced-motion: reduce)').matches) return; timer = setInterval(passo, 2600); }
+    function desliga() { clearInterval(timer); timer = null; }
+    linhas.forEach(function (l) {
+      l.addEventListener('mouseenter', function () { desliga(); marca(l.dataset.camada); });
+      l.addEventListener('mouseleave', function () { marca(null); liga(); });
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) liga(); else { desliga(); marca(null); } }); }, { threshold: .25 }).observe(fig);
+    } else liga();
+  }
+
   /* ---------- dobras automáticas ----------
      Páginas internas ganham a mesma coreografia da home sem marcação manual:
      cada seção sem dobra recebe um corte, e nunca o mesmo da seção anterior. */
@@ -657,7 +682,7 @@
     raiz.classList.add('js');
     if (!reduz) raiz.classList.add('sdt');
     estilhar();
-    dobras(); reguaPreco(); trilho(); gaveta(); idioma(); mega();
+    dobras(); reguaPreco(); lajes(); trilho(); gaveta(); idioma(); mega();
     contar(); sanfona(); telas(); formularios(); relogio(); ano();
     /* a revelação e os gestos esperam a cortina subir */
     topoNoite();
@@ -665,7 +690,7 @@
 
     /* ganchos de re-inicialização: o miolo trocou (roteador da prévia) */
     window.__omidPagina = function () {
-      estilhar(); topoNoite(); dobras(); reguaPreco(); contar(); sanfona();
+      estilhar(); topoNoite(); dobras(); reguaPreco(); lajes(); contar(); sanfona();
       telas(); formularios(); relogio(); revelar(); ima(); paralaxe();
     };
     window.__omidChrome = function () { gaveta(); idioma(); mega(); trilho(); ano(); halo(); };

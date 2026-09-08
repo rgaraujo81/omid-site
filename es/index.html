@@ -235,18 +235,17 @@
   </div>
 </div>
 
-<div class="duelo" data-duelo hidden
+<div class="duelo inv" data-duelo hidden
      data-vezes="× OMID" data-mais-caro="más caro que OMID" data-mais-barato="más barato que OMID"
      data-referencia="referencia" data-ao-vivo="cambio en vivo" data-consultado="precios consultados el"
      data-cambio="PTAX venta" data-inclui="contrato en reales · NOC 24×7 · data center propio"
      data-eco-pos="Ahorro al mes, en la misma máquina" data-eco-neg="Diferencia al mes, en la misma máquina" data-a-menos="menos" data-a-mais="más" data-sem-equivalente="sin equivalente directo: familia de uso general">
+  <div class="duelo__lado">
   <div class="duelo__cab">
     <p class="mono apaga">Comparativo en vivo<span class="duelo__vivo" data-duelo-vivo hidden></span></p>
     <h3 class="berro duelo__h t-16">La misma máquina, en los otros.</h3>
     <p class="lead apaga t-16">La máquina que armaste, cotizada en las tres mayores nubes globales — precio público de lista, región de São Paulo, cambio del día. Quién es quién está en las barras.</p>
   </div>
-
-  <div class="duelo__topo t-32">
     <div class="duelo__eco nota-f">
       <p class="mono apaga" data-duelo-eco-rot>Ahorro al mes, en la misma máquina</p>
       <p class="preco__n duelo__eco-n"><small>R$</small><span data-duelo-eco>—</span><span class="mes">/mes</span></p>
@@ -265,7 +264,8 @@
     </div>
   </div>
 
-  <p class="mono apaga t-32">Cada barra muestra de dónde viene el precio</p>
+  <div class="duelo__corpo">
+  <p class="mono apaga">Cada barra muestra de dónde viene el precio</p>
   <ul class="duelo__legenda">
     <li data-item="compute"><i style="--c:#40ADB7"></i>Cómputo</li><li data-item="licenca"><i style="--c:#E73587"></i>Licenciamiento</li><li data-item="disco"><i style="--c:#2D93BB"></i>Almacenamiento</li><li data-item="backup"><i style="--c:#545EA0"></i>Backup</li><li data-item="trafego"><i style="--c:#7F2483"></i>Tráfico de salida</li>
   </ul>
@@ -303,6 +303,7 @@
     <p class="miudo apaga">Precios de lista on-demand, sin compromiso, región São Paulo. El cómputo usa la familia equivalente al nivel elegido — Eco ↔ instancias burstable (t3, Bsv2, E2); Pro ↔ uso general (m6i, Dsv5, N2); XPro ↔ optimizadas para cómputo (c6i, Fsv2, C2); UMax ↔ la familia premium más cara de 8 vCPU de cada proveedor, sin GPU, storage ni bare metal (m5zn a 4,5 GHz, Ebdsv5, C3 highmem), con la memoria que trae. Donde el proveedor vende por instancia, entran tantas como hagan falta para cubrir vCPU y memoria; donde vende por recurso, por vCPU y GiB. Disco SSD de uso general; backup como snapshot u objeto; salida a internet en los tramos públicos. No incluye soporte, IPs, impuestos ni descuentos por compromiso. Las marcas citadas pertenecen a sus dueños.</p>
     <ul data-duelo-fontes></ul>
   </details>
+  </div>
 </div></div>
   </div>
 </section>
@@ -310,50 +311,81 @@
 <!-- INTEGRAÇÃO VERTICAL -->
 <section class="bloco dobra dobra--fio dobra--corte">
   <div class="faixa-p max">
-    <div class="camadas">
-      
+    
 <div class="cabeca" data-ver style="--d:0">
   <p class="mono apaga">Integración vertical</p>
   <h2 class="berro t-16 respira"><span class="lume"><w style="--w:0">Del</w> <w style="--w:1">piso</w> <w style="--w:2">del</w> <w style="--w:3">data</w> <w style="--w:4">center</w><br><w style="--w:5">al</w> <w style="--w:6">equipo</w> <w style="--w:7">que</w> <w style="--w:8">atiende</w> <w style="--w:9">tu</w> <w style="--w:10">llamada.</w></span></h2>
   <p class="lead apaga t-24">Las nubes globales montan tu operación sobre capas de terceros repartidas por el mundo. En OMID las cuatro capas son nuestras — y por eso podemos garantizar precio fijo, baja latencia y respuesta en minutos.</p>
 </div>
-      
-<ol class="lajes" role="list">
-  
-  <li class="laje" data-ver style="--pt:var(--c-purple); --z:4; --d:3">
-    <span class="laje__n mono">04</span>
-    <div class="laje__c">
-      <h3 class="grita">Atención humana · NOC 24x7</h3>
-      <p class="laje__d">Equipo brasileño al mando de la operación, con respuesta media de 2 minutos.</p>
-      <p class="laje__tags mono"><span>Especialistas certificados</span><i aria-hidden="true">·</i><span>NOC 24x7 proactivo</span><i aria-hidden="true">·</i><span>Atención humana</span><i aria-hidden="true">·</i><span>Foco en la experiencia</span></p>
-    </div>
-  </li>
-  <li class="laje" data-ver style="--pt:var(--c-teal); --z:3; --d:2">
-    <span class="laje__n mono">03</span>
-    <div class="laje__c">
-      <h3 class="grita">Seguridad & Cloud Cognitiva</h3>
-      <p class="laje__d">Defensa en capas y observabilidad por IA sobre todo el entorno.</p>
-      <p class="laje__tags mono"><span>Seguridad multicapa</span><i aria-hidden="true">·</i><span>Observabilidad por IA</span><i aria-hidden="true">·</i><span>Detección y respuesta</span><i aria-hidden="true">·</i><span>Compliance y gobernanza</span><i aria-hidden="true">·</i><span>Gestión de identidades</span></p>
-    </div>
-  </li>
-  <li class="laje" data-ver style="--pt:var(--c-cyan); --z:2; --d:1">
-    <span class="laje__n mono">02</span>
-    <div class="laje__c">
-      <h3 class="grita">Plataforma de nube soberana</h3>
-      <p class="laje__d">Virtualización y contenedores sobre KVM y Kubernetes, orquestados por nosotros.</p>
-      <p class="laje__tags mono"><span>Orquestación y gestión</span><i aria-hidden="true">·</i><span>Compute</span><i aria-hidden="true">·</i><span>Storage</span><i aria-hidden="true">·</i><span>Network</span><i aria-hidden="true">·</i><span>Database</span><i aria-hidden="true">·</i><span>Backup & DR</span><i aria-hidden="true">·</i><span>KVM</span><i aria-hidden="true">·</i><span>Kubernetes</span></p>
-    </div>
-  </li>
-  <li class="laje" data-ver style="--pt:var(--c-green); --z:1; --d:0">
-    <span class="laje__n mono">01</span>
-    <div class="laje__c">
-      <h3 class="grita">Infraestructura física</h3>
-      <p class="laje__d">Data center propio Tier III en Brasil, del terreno al rack.</p>
-      <p class="laje__tags mono"><span>Tier III certified facility</span><i aria-hidden="true">·</i><span>Data center en Brasil</span><i aria-hidden="true">·</i><span>Infraestructura propia</span><i aria-hidden="true">·</i><span>100% soberanía de datos</span></p>
-    </div>
-  </li>
-</ol>
-    </div>
+    <div class="t-56">
+<div class="camadas">
+  <figure class="camadas__fig" data-lajes data-ver aria-hidden="true">
+    <svg viewBox="0 0 340 400" xmlns="http://www.w3.org/2000/svg" focusable="false">
+      <defs><pattern id="lajes-grao" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1.4" cy="1.4" r=".85"/></pattern></defs>
+      <g transform="translate(40 184)">
+      <g class="laje" data-k="0" style="--pt:var(--c-green); --k:0">
+        <path class="laje__esq" d="M0,75 L130,150 L130,176 L0,101 Z"/><path class="laje__dir" d="M130,150 L260,75 L260,101 L130,176 Z"/>
+        <path class="laje__topo" d="M130,0 L260,75 L130,150 L0,75 Z"/><path d="M130,0 L260,75 L130,150 L0,75 Z" fill="url(#lajes-grao)" stroke="none"/>
+        <path class="laje__fio" d="M0,75 L130,150 L260,75"/>
+        <text class="laje__rot" transform="translate(16 101) skewY(30)">01</text>
+      </g>
+      <g class="laje" data-k="1" style="--pt:var(--c-cyan); --k:1">
+        <path class="laje__esq" d="M0,75 L130,150 L130,176 L0,101 Z"/><path class="laje__dir" d="M130,150 L260,75 L260,101 L130,176 Z"/>
+        <path class="laje__topo" d="M130,0 L260,75 L130,150 L0,75 Z"/>
+        <path class="laje__fio" d="M0,75 L130,150 L260,75"/>
+        <text class="laje__rot" transform="translate(16 101) skewY(30)">02</text>
+      </g>
+      <g class="laje" data-k="2" style="--pt:var(--c-teal); --k:2">
+        <path class="laje__esq" d="M0,75 L130,150 L130,176 L0,101 Z"/><path class="laje__dir" d="M130,150 L260,75 L260,101 L130,176 Z"/>
+        <path class="laje__topo" d="M130,0 L260,75 L130,150 L0,75 Z"/>
+        <path class="laje__fio" d="M0,75 L130,150 L260,75"/>
+        <text class="laje__rot" transform="translate(16 101) skewY(30)">03</text>
+      </g>
+      <g class="laje" data-k="3" style="--pt:var(--c-purple); --k:3">
+        <path class="laje__esq" d="M0,75 L130,150 L130,176 L0,101 Z"/><path class="laje__dir" d="M130,150 L260,75 L260,101 L130,176 Z"/>
+        <path class="laje__topo" d="M130,0 L260,75 L130,150 L0,75 Z"/>
+        <path class="laje__fio" d="M0,75 L130,150 L260,75"/>
+        <text class="laje__rot" transform="translate(16 101) skewY(30)">04</text>
+      </g>
+      </g>
+    </svg>
+  </figure>
+  <ol class="camadas__lista" role="list">
+    
+    <li class="camada" data-camada="3" data-ver style="--pt:var(--c-purple); --d:0">
+      <span class="camada__n mono">04</span>
+      <div>
+        <h3 class="grita">Atención humana · NOC 24x7</h3>
+        <p class="camada__d">Equipo brasileño al mando de la operación, con respuesta media de 2 minutos.</p>
+        <p class="camada__tags mono"><span>Especialistas certificados</span><i aria-hidden="true">·</i><span>NOC 24x7 proactivo</span><i aria-hidden="true">·</i><span>Atención humana</span><i aria-hidden="true">·</i><span>Foco en la experiencia</span></p>
+      </div>
+    </li>
+    <li class="camada" data-camada="2" data-ver style="--pt:var(--c-teal); --d:1">
+      <span class="camada__n mono">03</span>
+      <div>
+        <h3 class="grita">Seguridad & Cloud Cognitiva</h3>
+        <p class="camada__d">Defensa en capas y observabilidad por IA sobre todo el entorno.</p>
+        <p class="camada__tags mono"><span>Seguridad multicapa</span><i aria-hidden="true">·</i><span>Observabilidad por IA</span><i aria-hidden="true">·</i><span>Detección y respuesta</span><i aria-hidden="true">·</i><span>Compliance y gobernanza</span><i aria-hidden="true">·</i><span>Gestión de identidades</span></p>
+      </div>
+    </li>
+    <li class="camada" data-camada="1" data-ver style="--pt:var(--c-cyan); --d:2">
+      <span class="camada__n mono">02</span>
+      <div>
+        <h3 class="grita">Plataforma de nube soberana</h3>
+        <p class="camada__d">Virtualización y contenedores sobre KVM y Kubernetes, orquestados por nosotros.</p>
+        <p class="camada__tags mono"><span>Orquestación y gestión</span><i aria-hidden="true">·</i><span>Compute</span><i aria-hidden="true">·</i><span>Storage</span><i aria-hidden="true">·</i><span>Network</span><i aria-hidden="true">·</i><span>Database</span><i aria-hidden="true">·</i><span>Backup & DR</span><i aria-hidden="true">·</i><span>KVM</span><i aria-hidden="true">·</i><span>Kubernetes</span></p>
+      </div>
+    </li>
+    <li class="camada" data-camada="0" data-ver style="--pt:var(--c-green); --d:3">
+      <span class="camada__n mono">01</span>
+      <div>
+        <h3 class="grita">Infraestructura física</h3>
+        <p class="camada__d">Data center propio Tier III en Brasil, del terreno al rack.</p>
+        <p class="camada__tags mono"><span>Tier III certified facility</span><i aria-hidden="true">·</i><span>Data center en Brasil</span><i aria-hidden="true">·</i><span>Infraestructura propia</span><i aria-hidden="true">·</i><span>100% soberanía de datos</span></p>
+      </div>
+    </li>
+  </ol>
+</div></div>
   </div>
 </section>
 
