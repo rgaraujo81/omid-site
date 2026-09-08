@@ -134,8 +134,14 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
   informação é jurídica: qual lei, o número dela e o que ela alcança — LGPD (13.709/2018), Marco Civil da
   Internet (12.965/2014) e foro no Brasil. Abaixo entram sete certificações de `certificacoes` (índices
   0,1,2,5,6,8,9), que é o que sustenta a promessa por auditoria de terceiro, e só depois as coordenadas dos
-  sites e o relógio de Brasília. Nada aqui é claim novo: os números de lei são públicos e a afirmação sobre
-  jurisdição já estava na promessa 02. **Ainda assim, as citações de lei entram na revisão jurídica pendente.**
+  sites e o relógio de Brasília — e cada site vem com a FICHA TÉCNICA dele (`.sites`, mesma CSS 10d):
+  rótulo, cidade, coordenada e os quatro itens de `home.infra.dc[i]` (Tier III, sala cofre, links, uptime em
+  SP; Tier III, múltiplas operadoras, site de DR, latência no RJ). A ordem de `enderecos.filter(papel==='dc')`
+  precisa casar com a de `home.infra.rotulos`/`dc` — hoje casa (SP, depois RJ); se mexer em `enderecos`,
+  conferir. A leitura da dobra é: a promessa → a lei que obriga → quem audita → onde o dado está e o que há
+  lá. Nada aqui é claim novo: os números de lei são públicos, a afirmação sobre jurisdição já estava na
+  promessa 02 e as fichas dos sites já eram texto do dono na seção de infraestrutura.
+  **Ainda assim, as citações de lei entram na revisão jurídica pendente.**
 - **A seção "Soluções" da home é a grade de cartões** (`solucoes()` em `ui.mjs`, CSS 10c). Era uma `pilha` de
   `item`, com a descrição jogada na borda direita: o olho atravessava a tela para ligar nome e explicação, e
   nada dizia o que havia DENTRO de cada produto. Cada cartão agora traz a categoria (`produtos[i].tag`), o

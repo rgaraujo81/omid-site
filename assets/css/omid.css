@@ -636,6 +636,20 @@ a.quadro:hover, .quadro--hov:hover { transform: translateY(-4px); box-shadow: va
 .marco__d { margin-top: 4px; font-size: var(--t-s); line-height: 1.55; color: var(--cinza); }
 @media (max-width: 860px) { .marco { grid-template-columns: 1fr; } }
 
+/* os dois sites com ficha tecnica: "onde o dado mora" deixa de ser so uma
+   coordenada e passa a dizer o que existe naquele endereco */
+.sites { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--fio); border-block: 1px solid var(--fio); }
+.sites__i { background: var(--papel); padding: clamp(20px, 2.2vw, 28px) clamp(18px, 2vw, 24px); display: grid; gap: 4px; align-content: start; }
+.sites__r { color: var(--pt); }
+.sites__c { font-size: var(--t-t4); font-weight: 600; letter-spacing: -.02em; }
+.sites__co { color: var(--cinza); letter-spacing: .12em; }
+.sites__f { list-style: none; margin: 12px 0 0; padding: 12px 0 0; border-top: 1px solid var(--fio-2); display: grid; gap: 6px; }
+.sites__f li { font-size: var(--t-s); color: var(--cinza); display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: baseline; }
+.sites__f li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--pt); opacity: .6; }
+.sites__hora { color: var(--cinza); }
+.sites__hora span { color: var(--tinta); font-variant-numeric: tabular-nums; }
+@media (max-width: 860px) { .sites { grid-template-columns: 1fr; } }
+
 /* ---------- 10c. As solucoes: um cartao por produto ----------
    Antes era uma lista com a descricao jogada na borda direita: o olho
    atravessava a tela para ligar nome e explicacao, e nada dizia o que havia

@@ -108,9 +108,19 @@ ${credenciais(ctx, faixa1)}
         ${[0, 1, 2, 5, 6, 8, 9].map((i) => `<li>${L.certificacoes[i][0]}</li>`).join('')}
       </ul>
     </div>
-    <div class="defs t-56" style="max-width:640px"${ver(3)}>
-      ${enderecos.filter((e) => e.papel === 'dc').map((e) => `<div><dt>${e.cidade} — ${e.uf}</dt><dd>${e.coord}</dd></div>`).join('')}
-      <div><dt>${L.soberania.agora}</dt><dd><span data-relogio>--:--:--</span></dd></div>
+    <!-- onde o dado mora, com a ficha tecnica de cada site -->
+    <div class="t-56"${ver(3)}>
+      ${rotulo(L.soberania.coordEb)}
+      <div class="sites t-16">
+        ${enderecos.filter((e) => e.papel === 'dc').map((e, i) => `
+        <div class="sites__i" style="--pt:${e.dot}">
+          <p class="sites__r mono">${H.infra.rotulos[i]}</p>
+          <p class="sites__c">${e.cidade} — ${e.uf}</p>
+          <p class="sites__co mono">${e.coord}</p>
+          <ul class="sites__f">${(H.infra.dc[i] || []).map((f) => `<li>${f}</li>`).join('')}</ul>
+        </div>`).join('')}
+      </div>
+      <p class="sites__hora mono t-16">${L.soberania.agora} <span data-relogio>--:--:--</span></p>
     </div>
     <p class="miudo apaga t-16">${L.soberania.nota}</p>
   </div>
