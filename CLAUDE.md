@@ -72,6 +72,11 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
 - `translate:` (propriedade) + `transform: translate()` no keyframe SOMAM — o elemento anda o dobro. Aconteceu
   três vezes nesta base. Use um ou outro.
 - `filter: blur()` dentro de `preserve-3d` é rasterizado à parte e o borrão escapa do elemento. Use `box-shadow`.
+- **Tipo de máquina no simulador:** CPU Eco (R$ 32,42/vCPU) ou CPU UMax (R$ 356,56/vCPU), ambos da tabela
+  pública; a RAM é a padrão nos dois. O duelo compara os dois tipos com as MESMAS instâncias de uso geral dos
+  concorrentes (m6i, D8s v5, N2) — em UMax a OMID fica perto da paridade e o bloco mostra isso. Se o dono
+  disser o que Eco e UMax são tecnicamente (vCPU compartilhada? dedicada? alta frequência?), as famílias
+  comparadas devem mudar: Eco ↔ burstable (t3, B, e2); UMax ↔ dedicada/otimizada (c6i, F, c2). Pendente.
 - **O simulador tem quatro alavancas além das réguas:** cenários de um clique (`CENARIOS` em `ui.mjs`;
   os números têm que cair nos passos das réguas), a régua do câmbio (move os concorrentes, a OMID não),
   a frase gerada (`fraseItem`: qual item explica a maior parte da diferença para a mais barata das três

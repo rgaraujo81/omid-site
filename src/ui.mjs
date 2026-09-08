@@ -188,7 +188,7 @@ export const regua = (ctx) => {
       <input id="rg-${id}" type="range" min="${min}" max="${max}" step="${passo}" value="${ini}" data-rg="${id}" data-un="${un}">
     </div>`;
   return `
-<div class="prova" data-regua data-vcpu="${precoUnit.vcpu}" data-ram="${precoUnit.ram}" data-ssd="${precoUnit.ssd}"
+<div class="prova" data-regua data-vcpu="${precoUnit.vcpu}" data-vcpu-umax="${precoUnit.vcpuUmax}" data-ram="${precoUnit.ram}" data-ssd="${precoUnit.ssd}"
      data-backup="${precoUnit.backup}" data-egress="${precoUnit.egress}" data-win="${precoUnit.winPar}">
   <div${ver()}>
     ${rotulo(R.rot)}
@@ -201,6 +201,13 @@ export const regua = (ctx) => {
           ${Object.entries(CENARIOS).map(([k, v]) =>
             `<button type="button" class="troca__b" data-cen='${JSON.stringify(v)}' aria-pressed="false">${ctx.L.comparar.cenarios.itens[k]}</button>`).join('')}
           <button type="button" class="troca__b abre" data-cen="" aria-pressed="true">${ctx.L.comparar.cenarios.custom}</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <div class="ctl__cab"><span class="mono apaga" id="rot-tipo">${R.tipo}</span></div>
+        <div class="troca" role="group" aria-labelledby="rot-tipo">
+          <button type="button" class="troca__b abre" data-tipo="eco" aria-pressed="true">${R.eco}</button>
+          <button type="button" class="troca__b" data-tipo="umax" aria-pressed="false">${R.umax}</button>
         </div>
       </div>
       <div class="ctl">
@@ -238,10 +245,10 @@ ${duelo(ctx)}`;
 
 /* cenários de um clique: números nos passos das réguas (backup 250, saída 500) */
 const CENARIOS = {
-  site:  { vcpu: 4,  ram: 8,   ssd: 100,  backup: 250,  egress: 500,  so: 0 },
-  erp:   { vcpu: 8,  ram: 32,  ssd: 500,  backup: 500,  egress: 1000, so: 1 },
-  banco: { vcpu: 16, ram: 64,  ssd: 1000, backup: 2000, egress: 500,  so: 0 },
-  k8s:   { vcpu: 32, ram: 128, ssd: 1000, backup: 500,  egress: 5000, so: 0 }
+  site:  { vcpu: 4,  ram: 8,   ssd: 100,  backup: 250,  egress: 500,  so: 0, tipo: 'eco' },
+  erp:   { vcpu: 8,  ram: 32,  ssd: 500,  backup: 500,  egress: 1000, so: 1, tipo: 'eco' },
+  banco: { vcpu: 16, ram: 64,  ssd: 1000, backup: 2000, egress: 500,  so: 0, tipo: 'umax' },
+  k8s:   { vcpu: 32, ram: 128, ssd: 1000, backup: 500,  egress: 5000, so: 0, tipo: 'eco' }
 };
 
 /* --- o duelo: a mesma máquina cotada nos hyperscalers ---

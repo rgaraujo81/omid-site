@@ -354,8 +354,9 @@
     var cx = $('[data-regua]');
     if (!cx) return;
     var out = $('[data-preco-out]', cx);
-    var unit = { vcpu: +cx.dataset.vcpu, ram: +cx.dataset.ram, ssd: +cx.dataset.ssd,
+    var unit = { vcpu: +cx.dataset.vcpu, vcpuUmax: +cx.dataset.vcpuUmax || +cx.dataset.vcpu, ram: +cx.dataset.ram, ssd: +cx.dataset.ssd,
                  backup: +cx.dataset.backup, egress: +cx.dataset.egress, win: +cx.dataset.win };
+    var tipo = 'eco';                                  /* 'eco' | 'umax' — linha da tabela usada na vCPU */
     var fmt0 = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 });
     var fmt2 = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     var so = 0;
@@ -367,7 +368,7 @@
         var alvo = $('[data-val="' + i.dataset.rg + '"]', cx);
         if (alvo) alvo.textContent = fmt0.format(+i.value) + ' ' + i.dataset.un;
       });
-      var compute = g.vcpu * unit.vcpu + g.ram * unit.ram;
+      var compute = g.vcpu * (tipo === 'umax' ? unit.vcpuUmax : unit.vcpu) + g.ram * unit.ram;
       var disco = g.ssd * unit.ssd;
       var bk = g.backup * unit.backup;
       var tr = g.egress * unit.egress;
@@ -517,6 +518,7 @@
     function aplica(c) {
       ['vcpu', 'ram', 'ssd', 'backup', 'egress'].forEach(function (k) { var i = $('input[data-rg="' + k + '"]', cx); if (i && c[k] != null) i.value = c[k]; });
       if (c.so != null) { so = +c.so; $$('.troca__b[data-so]', cx).forEach(function (o) { var on = +o.dataset.so === so; o.classList.toggle('abre', on); o.setAttribute('aria-pressed', String(on)); }); }
+      if (c.tipo === 'eco' || c.tipo === 'umax') { tipo = c.tipo; marcaTipo(); }
     }
     cens.forEach(function (b) {
       b.addEventListener('click', function () {
@@ -532,7 +534,7 @@
       var q = [], g = {};
       $$('input[data-rg]', cx).forEach(function (i) { g[i.dataset.rg] = i.value; });
       ['vcpu', 'ram', 'ssd', 'backup', 'egress'].forEach(function (k) { q.push(k + '=' + g[k]); });
-      q.push('so=' + so); if (fxUser) q.push('fx=' + fxUser.toFixed(2));
+      q.push('so=' + so); q.push('tipo=' + tipo); if (fxUser) q.push('fx=' + fxUser.toFixed(2));
       var url = location.origin + location.pathname + '#simular?' + q.join('&');
       var ok = function () { var t = btCopiar.textContent; btCopiar.textContent = btCopiar.dataset.copiado; setTimeout(function () { btCopiar.textContent = t; }, 1800); };
       if (navigator.clipboard) navigator.clipboard.writeText(url).then(ok, function () { prompt('', url); });
@@ -540,7 +542,7 @@
     });
     function deHash() {
       var m = /^#simular\?(.+)$/.exec(location.hash || ''); if (!m) return;
-      var c = {}; m[1].split('&').forEach(function (par) { var kv = par.split('='); if (kv.length === 2) c[kv[0]] = +kv[1]; });
+      var c = {}; m[1].split('&').forEach(function (par) { var kv = par.split('='); if (kv.length === 2) c[kv[0]] = kv[0] === 'tipo' ? kv[1] : +kv[1]; });
       aplica(c); cenario(null);
       if (c.fx > 3 && c.fx < 9) fxUser = c.fx;
       // Três coisas engoliam este scroll: o scroll-behavior suave do html, a
@@ -570,6 +572,12 @@
     }
 
     $$('input[data-rg]', cx).forEach(function (i) { i.addEventListener('input', function () { cenario(null); calc(); }, { passive: true }); });
+    function marcaTipo() {
+      $$('.troca__b[data-tipo]', cx).forEach(function (o) { var on = o.dataset.tipo === tipo; o.classList.toggle('abre', on); o.setAttribute('aria-pressed', String(on)); });
+    }
+    $$('.troca__b[data-tipo]', cx).forEach(function (b) {
+      b.addEventListener('click', function () { tipo = b.dataset.tipo; marcaTipo(); cenario(null); calc(); });
+    });
     $$('.troca__b[data-so]', cx).forEach(function (b) {
       b.addEventListener('click', function () {
         so = +b.dataset.so;

@@ -120,6 +120,7 @@ export const modalidadeDots = ['var(--c-teal)', 'var(--c-cyan)', 'var(--c-blue)'
    (CPU Eco por vCPU, memória padrão por GiB, SSD por GB). */
 export const precoUnit = {
   vcpu: 32.42,      // CPU Eco, por vCPU/mês
+  vcpuUmax: 356.56, // CPU UMax, por vCPU/mês (tipo selecionável na calculadora)
   ram: 11.60,       // memória padrão, por GiB/mês
   ssd: 0.72,        // SSD, por GB/mês
   backup: 0.09,     // BKaaS, por GB/mês

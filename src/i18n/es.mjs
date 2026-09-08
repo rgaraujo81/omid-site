@@ -86,6 +86,7 @@ regua: {
   rot: 'La prueba, en reales',
   h: 'Ármalo aquí.<br>Este es el precio.',
   p: 'Arrastra y mira la factura recalcularse al instante, con los precios públicos de la tabla OMID. Nada sale de esta página hasta que decidas contratar.',
+  tipo: 'Tipo de máquina', eco: 'CPU Eco', umax: 'CPU UMax',
   so: 'Sistema operativo', linux: 'Linux', windows: 'Windows Server',
   vcpu: 'vCPU', ram: 'Memoria', ssd: 'Disco SSD', backup: 'Backup', egress: 'Tráfico de salida',
   mes: '/mes', total: 'Estimación mensual',
