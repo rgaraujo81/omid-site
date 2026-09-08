@@ -165,6 +165,18 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
   grade, então as duas colunas têm exatamente a mesma altura em qualquer conteúdo. Não voltar a pôr o
   `cabeca()` fora de `camadas()`. `item`/`pilha` seguem sendo o componente das listas de produtos e
   soberania — não misturar.
+- **`--t-t1` é a MANCHETE DA PÁGINA e mais nada** — o `h1` do hero na home, o `h1` do chapéu nas internas —
+  além do componente de número grande (`.placar b`, `.preco__n`). Todo título de seção é `.berro`
+  (`--t-t2`). O bloco do 40% (`.cmp__t h2`) usava `--t-t1` e ficava maior que qualquer outra seção; corrigido
+  em 2026-09-08 quando o dono pediu para replicar o padrão da home nas outras páginas.
+- **A lista `.item` mostra a descrição AO LADO do título, alinhada à esquerda**, e a mantém no celular.
+  Antes ela era jogada na borda direita (o olho atravessava a tela, mesmo problema que o dono rejeitou nas
+  Soluções) e no celular vinha com `display: none` — a página inteira virava uma lista de títulos sem
+  explicação. `.item` aparece mais de 100 vezes nas páginas internas, então esta é a correção de maior
+  alcance do site.
+- **O rodapé divide a faixa de cima**: manchete e link de um lado, os dois canais diretos (NOC e comercial)
+  do outro, com rótulo, valor grande e uma linha de descrição. Esses dois canais SAÍRAM da coluna "Fale com
+  a gente" para não duplicar; a coluna ficou com login, simulador, e-mail do NOC e WhatsApp.
 - **A chamada final usa o MESMO título de seção do resto do site** (`.berro`, `--t-t2`). Ela e o topo do
   rodapé usavam `--t-t1`, o degrau da manchete da home, e ficavam maiores que tudo à volta; e as duas
   repetiam o mesmo par de botões, uma embaixo da outra, em 8 das 12 páginas. Agora o par de botões vive só

@@ -170,7 +170,9 @@ b, strong { font-weight: 600; }
   filter: blur(26px); }
 .cmp .cifra { justify-content: start; }
 .cmp__t { margin-top: 0; }
-.cmp__t h2 { font-size: var(--t-t1); max-width: none; }
+/* titulo de secao usa o degrau de secao: o --t-t1 e da manchete da pagina
+   (hero da home, h1 do chapeu) e de mais nada */
+.cmp__t h2 { font-size: var(--t-t2); max-width: none; }
 .cmp__t .lead { font-size: var(--t-l); max-width: 64ch; margin: 18px 0 0; }
 /* os três pilares: mesma pontuação colorida da faixa de certificações */
 .cmp__pilares { list-style: none; padding: 0; margin: clamp(32px, 5vh, 52px) 0 0; width: 100%;
@@ -435,7 +437,7 @@ body.aberto .gaveta__a { animation: gavIn .5s var(--ease) forwards; animation-de
 /* ---------- 10. A lista: linhas de ar ---------- */
 .pilha { border-top: 1px solid var(--fio); }
 .item {
-  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: clamp(14px, 3vw, 44px);
+  display: grid; grid-template-columns: auto minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(14px, 2.6vw, 40px);
   align-items: baseline; padding: clamp(22px, 3.4vw, 38px) clamp(4px, .8vw, 12px);
   border-bottom: 1px solid var(--fio);
   border-radius: 0; position: relative;
@@ -444,8 +446,14 @@ body.aberto .gaveta__a { animation: gavIn .5s var(--ease) forwards; animation-de
 a.item:hover, .item--hov:hover { background: var(--papel-2); border-radius: var(--rd); border-color: transparent; padding-inline: clamp(14px, 2vw, 24px); }
 .item__n { font-family: var(--mono); font-size: var(--t-mono); letter-spacing: .14em; color: var(--pt); font-weight: 500; min-width: 34px; }
 .item .grita { display: block; }
-.item__d { max-width: 36ch; text-align: right; font-size: var(--t-s); line-height: 1.5; color: var(--cinza); }
-@media (max-width: 860px) { .item { grid-template-columns: auto minmax(0, 1fr); } .item__d { display: none; } }
+/* a descricao fica AO LADO do titulo e alinhada a esquerda: encostada na
+   borda direita o olho atravessava a tela para ligar as duas (mesma correcao
+   feita nas Solucoes da home) */
+.item__d { max-width: 48ch; text-align: left; font-size: var(--t-s); line-height: 1.55; color: var(--cinza); }
+/* no celular a descricao vinha com `display: none` — a pagina inteira virava
+   uma lista de titulos sem explicacao. Agora ela desce para baixo do titulo. */
+@media (max-width: 860px) { .item { grid-template-columns: auto minmax(0, 1fr); }
+  .item__d { grid-column: 2; margin-top: 8px; max-width: none; } }
 .etiquetas { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
 .etiquetas li { font-family: var(--mono); font-size: var(--t-mono); letter-spacing: .12em; text-transform: uppercase; padding: 6px 12px; border: 1px solid var(--fio); border-radius: 999px; color: var(--cinza); }
 
@@ -611,6 +619,17 @@ a.quadro:hover, .quadro--hov:hover { transform: translateY(-4px); box-shadow: va
 .rodape__g { font-weight: 600; font-stretch: 102%; font-size: var(--t-t3); line-height: 1.14; letter-spacing: -.02em; color: #EFEDE6; max-width: 20ch; }
 .rodape__acao { margin-top: 18px; }
 .rodape__acao .varre { color: #EFEDE6; }
+/* a faixa de cima divide a largura: manchete de um lado, canais diretos do
+   outro — antes o titulo ficava sozinho com dois tercos de vazio a direita */
+.rodape__topo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(30px, 5vw, 84px); align-items: start; }
+.rodape__canais { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 3vw, 44px); }
+.rodape__canal { display: grid; gap: 5px; align-content: start; }
+.rodape__rot { color: #64615B; }
+.rodape__canal a { font-size: var(--t-t4); font-weight: 600; letter-spacing: -.02em; color: #EFEDE6; word-break: break-word; }
+.rodape__canal a:hover { color: #fff; }
+.rodape__canal p { margin-top: 2px; font-size: var(--t-xs); line-height: 1.5; color: #64615B; }
+@media (max-width: 860px) { .rodape__topo { grid-template-columns: 1fr; gap: 34px; } }
+@media (max-width: 460px) { .rodape__canais { grid-template-columns: 1fr; } }
 .rodape__cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 34px; margin-top: clamp(38px, 6vh, 76px); padding-top: 30px; border-top: 1px solid #202024; }
 .rodape h5 { font-family: var(--mono); font-size: var(--t-mono); letter-spacing: .2em; text-transform: uppercase; color: #64615B; margin-bottom: 15px; font-weight: 400; }
 .rodape__nav { display: grid; gap: 10px; font-size: var(--t-s); }

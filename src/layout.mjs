@@ -83,10 +83,27 @@ const rodape = (ctx) => `
 <footer class="rodape">
   <div class="regua regua--inv" aria-hidden="true"></div>
   <div class="faixa-p max" style="position:relative;z-index:1">
-    <!-- o rodape nao repete a chamada: manchete no degrau de bloco e UM link.
-         O par de botoes fica na secao de cima, que e onde a acao pertence. -->
-    <p class="rodape__g">${linhas(ctx.L.footer.grito)}</p>
-    <div class="rodape__acao"><a class="varre" href="${ctx.u('contato')}"><span>${ctx.L.nav.cta}</span>${seta}</a></div>
+    <!-- o rodape nao repete a chamada (o par de botoes fica na secao de cima).
+         A manchete divide a faixa com os dois canais diretos, que subiram da
+         coluna "Fale com a gente" para nao ficarem enterrados numa lista. -->
+    <div class="rodape__topo">
+      <div>
+        <p class="rodape__g">${linhas(ctx.L.footer.grito)}</p>
+        <div class="rodape__acao"><a class="varre" href="${ctx.u('contato')}"><span>${ctx.L.nav.cta}</span>${seta}</a></div>
+      </div>
+      <div class="rodape__canais">
+        <div class="rodape__canal">
+          <span class="rodape__rot mono">${ctx.L.contato.canais[1][0]}</span>
+          <a href="${contato.noc.href}">${contato.noc.tel}</a>
+          <p>${ctx.L.contato.canais[1][1]}</p>
+        </div>
+        <div class="rodape__canal">
+          <span class="rodape__rot mono">${ctx.L.contato.canais[0][0]}</span>
+          <a href="mailto:${contato.comercial.mail}">${contato.comercial.mail}</a>
+          <p>${ctx.L.contato.canais[0][1]}</p>
+        </div>
+      </div>
+    </div>
 
     <div class="rodape__cols">
       <div>
@@ -111,10 +128,10 @@ const rodape = (ctx) => `
       <div>
         <h5>${ctx.L.footer.fale}</h5>
         <div class="rodape__nav">
-          <a href="${contato.noc.href}">NOC ${contato.noc.tel}</a>
-          <a href="mailto:${contato.comercial.mail}">${contato.comercial.mail}</a>
           <a href="${site.app}">${ctx.L.footer.cliente}</a>
           <a href="${site.simulador}">${ctx.L.footer.simulador}</a>
+          <a href="mailto:${contato.noc.mail}">${contato.noc.mail}</a>
+          <a href="${contato.noc.wa}" rel="noopener">WhatsApp ${contato.noc.waTel}</a>
         </div>
         <div class="social">
           <a href="${social.li}" aria-label="LinkedIn" rel="noopener">${redes.li}</a>
