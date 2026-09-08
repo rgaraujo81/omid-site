@@ -418,9 +418,16 @@ a.item:hover, .item--hov:hover { background: var(--papel-2); border-radius: var(
    grão) ao time (k=3). Cada laje sobe 48px por k via `transform`; o levantar
    da laje ativa usa `translate` (canal à parte, os dois somam de propósito).
    A revelação sobe laje a laje. Sem hover, o JS percorre as camadas. */
-.camadas { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: clamp(32px, 6vw, 120px); align-items: start; }
-.camadas__fig { position: sticky; top: 118px; margin: 0; }
-.camadas__fig svg { display: block; width: 100%; max-width: 560px; height: auto; overflow: visible; }
+/* o cabeçalho mora DENTRO da coluna da figura: assim a lista começa no alto
+   da seção e o canto superior direito deixa de ser um vazio (dono, 2026-09-08:
+   "que espaço gigante em branco, melhore a distribuição na tela"). */
+.camadas { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.06fr); gap: clamp(30px, 5vw, 92px); align-items: stretch; }
+/* as duas colunas terminam juntas: o texto no alto e a figura centrada no que
+   sobrar — nenhuma das duas deixa um bloco de vazio embaixo */
+.camadas__lado { display: grid; grid-template-rows: auto 1fr; }
+.camadas__lado .cabeca { max-width: none; }
+.camadas__fig { margin: clamp(22px, 3.4vh, 44px) 0 0; align-self: center; justify-self: center; width: 100%; }
+.camadas__fig svg { display: block; width: 100%; max-width: 390px; height: auto; overflow: visible; margin-inline: auto; }
 .laje { --lift: 0px; translate: 0 var(--lift); transform: translateY(calc(var(--k) * -48px)); opacity: 1;
   filter: drop-shadow(0 18px 22px rgba(18, 18, 20, .13)); transition: translate .7s var(--ease), filter .7s var(--ease), opacity .6s var(--ease); }
 .laje path { stroke: color-mix(in srgb, var(--tinta) 9%, transparent); stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
@@ -436,7 +443,7 @@ a.item:hover, .item--hov:hover { background: var(--papel-2); border-radius: var(
 
 .camadas__lista { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--fio); }
 .camada { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: clamp(12px, 1.6vw, 22px); align-items: start;
-  padding: clamp(22px, 2.6vw, 32px) clamp(6px, 1vw, 14px); border-bottom: 1px solid var(--fio); border-radius: 0;
+  padding: clamp(26px, 3.2vw, 40px) clamp(6px, 1vw, 14px); border-bottom: 1px solid var(--fio); border-radius: 0;
   transition: background .5s var(--ease), border-radius .5s var(--ease), padding .5s var(--ease); }
 .camada::before { content: ""; position: absolute; left: 0; top: 24px; bottom: 24px; width: 3px; border-radius: 2px; background: var(--pt);
   transform: scaleY(0); transform-origin: 50% 100%; transition: transform .5s var(--ease), left .5s var(--ease); }
@@ -454,7 +461,7 @@ a.item:hover, .item--hov:hover { background: var(--papel-2); border-radius: var(
   transition-delay: calc(var(--k) * 140ms + .1s), calc(var(--k) * 140ms + .1s), 0s, 0s; }
 .sdt [data-lajes].viu[data-ativa] .laje { opacity: .72; transition-delay: 0s; }
 .sdt [data-lajes].viu[data-ativa] .laje.ativa { opacity: 1; }
-@media (max-width: 1000px) { .camadas { grid-template-columns: 1fr; gap: 28px; } .camadas__fig { position: static; max-width: 440px; margin-inline: auto; } }
+@media (max-width: 1000px) { .camadas { grid-template-columns: 1fr; gap: 28px; } .camadas__lado { position: static; } .camadas__fig { max-width: 380px; margin-inline: auto; } }
 @media (max-width: 560px) { .camada { grid-template-columns: 1fr; gap: 6px; } .camada__n { padding-top: 0; } }
 
 .checa { display: grid; gap: 12px; }

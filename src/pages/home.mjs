@@ -66,8 +66,7 @@ ${credenciais(ctx, faixa1)}
 <!-- INTEGRAÇÃO VERTICAL -->
 <section class="bloco dobra dobra--fio dobra--corte">
   <div class="faixa-p max">
-    ${cabeca({ rot: H.vertical.eb, h: lume(H.vertical.h), p: H.vertical.p })}
-    <div class="t-56">${camadas(L.camadas)}</div>
+    ${camadas(L.camadas, cabeca({ rot: H.vertical.eb, h: lume(H.vertical.h), p: H.vertical.p }))}
   </div>
 </section>
 

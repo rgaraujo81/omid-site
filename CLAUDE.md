@@ -104,8 +104,13 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
   na base) à esquerda, fixas na rolagem, e uma linha por camada à direita. Cada laje sobe 48px por `--k` via
   `transform`; a laje ativa levanta via `translate` (os dois canais somam de propósito). Passar o mouse numa
   linha ativa a laje; sem ninguém, o JS percorre as camadas a cada 2,6s, só com a seção em cena e nunca em
-  reduced-motion. Refeita duas vezes a pedido do dono em 2026-09-08 ("deixe lindo" → "mais bonito"): a versão
-  de cartões empilhados foi rejeitada. `item`/`pilha` seguem sendo o componente das listas de produtos e
+  reduced-motion. Refeita a pedido do dono em 2026-09-08 ("deixe lindo" → "mais bonito"): a versão de cartões
+  empilhados foi rejeitada. **A distribuição é de duas colunas que terminam juntas** (dono: "que espaço
+  gigante em branco, melhore a distribuição"): o cabeçalho da seção mora DENTRO da coluna esquerda, acima da
+  figura — antes ele era full-width por cima da grade e deixava o canto superior direito vazio. A coluna
+  esquerda é `grid-template-rows: auto 1fr` com a figura centrada na sobra, e `align-items: stretch` na
+  grade, então as duas colunas têm exatamente a mesma altura em qualquer conteúdo. Não voltar a pôr o
+  `cabeca()` fora de `camadas()`. `item`/`pilha` seguem sendo o componente das listas de produtos e
   soberania — não misturar.
 - **O respiro vertical é escala fechada, como a tipografia** (dono, 2026-09-08: "deixe mais espaços entre as
   dobras" e depois "padronize a separação entre as dobras"). Três degraus no `:root` e **nenhum

@@ -72,7 +72,7 @@ export const pilha = (itens) => `<div class="pilha">${itens.join('')}</div>`;
    (JS `lajes` em omid.js); sem ninguém, a figura percorre as camadas sozinha.
    O DOM das linhas vai de cima para baixo (04 → 01); o das lajes, de baixo
    para cima, que é a ordem de pintura. --- */
-export const camadas = (lista) => {
+export const camadas = (lista, cabecalho = '') => {
   const W = 260, H = 150, T = 26, R = 48, n = lista.length;
   const topo = `M${W / 2},0 L${W},${H / 2} L${W / 2},${H} L0,${H / 2} Z`;
   const esq = `M0,${H / 2} L${W / 2},${H} L${W / 2},${H + T} L0,${H / 2 + T} Z`;
@@ -87,13 +87,16 @@ export const camadas = (lista) => {
       </g>`).join('');
   return `
 <div class="camadas">
-  <figure class="camadas__fig" data-lajes data-ver aria-hidden="true">
+  <div class="camadas__lado">
+    ${cabecalho}
+    <figure class="camadas__fig" data-lajes data-ver aria-hidden="true">
     <svg viewBox="0 0 ${W + 80} ${H + T + (n - 1) * R + 80}" xmlns="http://www.w3.org/2000/svg" focusable="false">
       <defs><pattern id="lajes-grao" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1.4" cy="1.4" r=".85"/></pattern></defs>
       <g transform="translate(40 ${40 + (n - 1) * R})">${lajes}
       </g>
     </svg>
-  </figure>
+    </figure>
+  </div>
   <ol class="camadas__lista" role="list">
     ${lista.map((c, i) => `
     <li class="camada" data-camada="${n - 1 - i}" data-ver style="--pt:${c.dot}; --d:${i}">
