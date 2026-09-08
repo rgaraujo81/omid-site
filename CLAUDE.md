@@ -69,9 +69,11 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
    Nada de 3D aqui, então `filter: blur()` é seguro.
    **O fluxo é CONTÍNUO** (dono, 2026-09-08: "as nuvens se mexendo fluindo constantemente"): cada nuvem
    atravessa a tela em linha reta, `linear` e `infinite`, sem `alternate`. Com `ease-io` + `alternate` elas
-   desaceleravam até parar nas pontas e o céu congelava duas vezes por ciclo. Cada uma tem `--dur` (34s a 74s,
-   depois de o dono pedir "mais rápido") e `--atraso` NEGATIVO próprio, para o céu já nascer povoado e nunca
-   sincronizar. As da frente andam
+   desaceleravam até parar nas pontas e o céu congelava duas vezes por ciclo. Cada uma tem `--dur` e `--atraso`
+   NEGATIVO próprios, para o céu já nascer povoado e nunca sincronizar. **Velocidade de VOO** (dono, em duas
+   rodadas: "mais rápido" e depois "como se estivesse em voo"): as de longe em 26–38s e as de perto em
+   9–15s. No desktop a mais rápida cruza a tela em ~2,3s e a mais lenta em ~11s — é esse contraste, e não a
+   velocidade absoluta, que faz parecer janela de avião. As da frente andam
    quase o dobro da velocidade das de trás — é isso que dá a profundidade.
    **A travessia é de 168% da largura da própria nuvem, não 142%:** o `blur` pinta até ~70px além da caixa,
    então ela precisa sair INTEIRA da tela antes do salto do laço, senão a borda desfocada reaparece do outro

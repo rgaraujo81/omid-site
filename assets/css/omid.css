@@ -380,17 +380,17 @@ body.aberto .gaveta__a { animation: gavIn .5s var(--ease) forwards; animation-de
 }
 .nuvens__fundo i { filter: blur(46px);
   background: radial-gradient(closest-side, rgba(255, 255, 255, .78), rgba(250, 244, 255, .5) 34%, rgba(236, 224, 248, .2) 58%, rgba(236, 224, 248, 0) 80%); }
-.nuvens__fundo i:nth-child(1) { left: -12%; top: 8%;   width: 78%; height: 46%; --dur: 64s; --atraso: -8s; }
-.nuvens__fundo i:nth-child(2) { right: -14%; top: 34%; width: 72%; height: 44%; --dur: 74s; --atraso: -38s; }
-.nuvens__fundo i:nth-child(3) { left: 22%;  bottom: 2%; width: 84%; height: 42%; --dur: 58s; --atraso: -22s; }
-.nuvens__fundo i:nth-child(4) { left: 34%;  top: -6%;  width: 62%; height: 36%; --dur: 70s; --atraso: -52s; }
+.nuvens__fundo i:nth-child(1) { left: -12%; top: 8%;   width: 78%; height: 46%; --dur: 30s; --atraso: -4s; }
+.nuvens__fundo i:nth-child(2) { right: -14%; top: 34%; width: 72%; height: 44%; --dur: 38s; --atraso: -19s; }
+.nuvens__fundo i:nth-child(3) { left: 22%;  bottom: 2%; width: 84%; height: 42%; --dur: 26s; --atraso: -10s; }
+.nuvens__fundo i:nth-child(4) { left: 34%;  top: -6%;  width: 62%; height: 36%; --dur: 34s; --atraso: -25s; }
 .nuvens__frente i { filter: blur(34px);
   background: radial-gradient(closest-side, var(--papel), color-mix(in srgb, var(--papel) 88%, #EFE4FA) 40%, color-mix(in srgb, var(--papel) 38%, transparent) 66%, transparent 84%); }
-.nuvens__frente i:nth-child(1) { left: -22%; top: 42%;    width: 92%;  height: 50%; --dur: 38s;  --atraso: -5s; }
-.nuvens__frente i:nth-child(2) { right: -24%; top: 4%;    width: 86%;  height: 46%; --dur: 46s; --atraso: -28s; }
-.nuvens__frente i:nth-child(3) { left: 4%;   bottom: -26%; width: 104%; height: 48%; --dur: 42s;  --atraso: -16s; }
-.nuvens__frente i:nth-child(4) { left: 18%;  top: -24%;    width: 82%;  height: 40%; --dur: 50s; --atraso: -37s; }
-.nuvens__frente i:nth-child(5) { right: -6%; bottom: 20%;  width: 68%;  height: 36%; --dur: 34s;  --atraso: -11s; }
+.nuvens__frente i:nth-child(1) { left: -22%; top: 42%;    width: 92%;  height: 50%; --dur: 11s;  --atraso: -2s; }
+.nuvens__frente i:nth-child(2) { right: -24%; top: 4%;    width: 86%;  height: 46%; --dur: 14s; --atraso: -8s; }
+.nuvens__frente i:nth-child(3) { left: 4%;   bottom: -26%; width: 104%; height: 48%; --dur: 12s;  --atraso: -5s; }
+.nuvens__frente i:nth-child(4) { left: 18%;  top: -24%;    width: 82%;  height: 40%; --dur: 15s; --atraso: -11s; }
+.nuvens__frente i:nth-child(5) { right: -6%; bottom: 20%;  width: 68%;  height: 36%; --dur: 9s;  --atraso: -3s; }
 /* o texto é o assunto: chão de papel suficiente, sem borrão */
 .abertura--nuvens .sereno { position: relative; }
 .abertura--nuvens .sereno::before { content: ""; position: absolute; inset: -12% -8%; z-index: -1; border-radius: 50%;
