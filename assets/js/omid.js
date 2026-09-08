@@ -599,6 +599,18 @@
         calc();
       });
     });
+    /* trilha que não cabe na coluna rola de lado sem barra; a classe põe o
+       esmaecido na borda direita como pista, e some no fim da rolagem */
+    var trilhas = $$('.troca', cx);
+    function rolavel() {
+      trilhas.forEach(function (t) { t.classList.toggle('troca--rola', t.scrollWidth > t.clientWidth + 1 && t.scrollLeft + t.clientWidth < t.scrollWidth - 1); });
+    }
+    trilhas.forEach(function (t) {
+      t.addEventListener('scroll', rolavel, { passive: true });
+      if (window.ResizeObserver) new ResizeObserver(rolavel).observe(t);
+    });
+    addEventListener('resize', rolavel, { passive: true });
+    rolavel();
     calc();
   }
 

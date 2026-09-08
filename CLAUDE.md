@@ -80,6 +80,11 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
   XPro a OMID vence os três; em UMax os três ficam 2–20% mais baratos e o bloco mostra isso, em verde.
   Se o dono disser o que cada degrau é tecnicamente (compartilhada? dedicada? alta frequência?), as famílias
   comparadas devem mudar: Eco ↔ burstable (t3, B, e2); UMax ↔ dedicada/otimizada (c6i, F, c2). Pendente.
+- **Os três grupos de botões do simulador (cenário, tipo de máquina, sistema) são UMA trilha só**, `.troca`,
+  com todos os botões da mesma largura (`--chip`, 116px; 104px até 1180px) — decisão do dono em 2026-09-08,
+  "use o mesmo botão e tamanho para todos, padrão o da CPU". Quando a trilha não cabe na coluna ela rola de
+  lado sem barra e o JS acende `.troca--rola` (esmaecido na borda) até o fim da rolagem. No celular os grupos
+  curtos dividem a largura em partes iguais e o de cenários rola. Não voltar aos chips contornados.
 - **O simulador tem quatro alavancas além das réguas:** cenários de um clique (`CENARIOS` em `ui.mjs`;
   os números têm que cair nos passos das réguas), a régua do câmbio (move os concorrentes, a OMID não),
   a frase gerada (`fraseItem`: qual item explica a maior parte da diferença para a mais barata das três
