@@ -98,6 +98,26 @@ export const letreiro = (itens) => `
   </div>
 </div>`;
 
+/* --- credenciais: números e certificações como grade, não como letreiro ---
+   Duas grades com fio entre as células (gap de 1px sobre fundo de fio):
+   em cima os quatro números, embaixo as dez certificações. O que era um
+   parágrafo centrado e serrilhado vira tabela — mesma coluna, mesmo eixo. */
+export const credenciais = (ctx, { numeros, certs }) => {
+  /* "Até 40% de economia" → destaque "Até 40%", apoio "de economia":
+     parte no primeiro termo com dígito, em qualquer idioma */
+  const parte = (t) => { const w = t.split(' '); const i = w.findIndex((x) => /\d/.test(x)); return i < 0 ? [t, ''] : [w.slice(0, i + 1).join(' '), w.slice(i + 1).join(' ')]; };
+  const cel = (main, sub, cor) => `<div class="cred__c" style="--pt:${cor}"><i></i><b>${main}</b>${sub ? `<span>${sub}</span>` : ''}</div>`;
+  return `
+<div class="cred">
+  <div class="cred__g cred__nums">
+    ${numeros.map(({ t, cor }) => { const [m, sb] = parte(t); return cel(m, sb, cor); }).join('')}
+  </div>
+  <div class="cred__g cred__certs">
+    ${certs.map(({ t, d, cor }) => cel(t, d, cor)).join('')}
+  </div>
+</div>`;
+};
+
 /* --- sanfona --- */
 export const sanfona = (itens) => `
 <div class="sanfona">

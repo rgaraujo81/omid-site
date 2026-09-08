@@ -1,7 +1,7 @@
 import { prodMeta, numeroValores, certDots, enderecos } from '../shared.mjs';
 import {
   ver, rotulo, botao, botaoSim, varre, cabeca, item, pilha,
-  letreiro, defs, chamada, linhas, lume, regua
+  letreiro, credenciais, defs, chamada, linhas, lume, regua
 } from '../ui.mjs';
 
 const CORES = ['var(--a)', 'var(--t)', 'var(--i)', 'var(--m)', 'var(--r)'];
@@ -12,8 +12,10 @@ const CORES = ['var(--a)', 'var(--t)', 'var(--i)', 'var(--m)', 'var(--r)'];
 export const home = (ctx) => {
   const { L, u } = ctx;
   const H = L.home;
-  const faixa1 = L.numCurto.map((t, i) => ({ t, cor: numeroValores[i].dot }))
-    .concat(L.certificacoes.map(([t, d], i) => ({ t: `${t} · ${d}`, cor: certDots[i] })));
+  const faixa1 = {
+    numeros: L.numCurto.map((t, i) => ({ t, cor: numeroValores[i].dot })),
+    certs: L.certificacoes.map(([t, d], i) => ({ t, d, cor: certDots[i] }))
+  };
 
   return `
 <section class="abertura abertura--ive faixa-p max">
@@ -36,7 +38,7 @@ export const home = (ctx) => {
   </div>
 </section>
 
-${letreiro(faixa1)}
+${credenciais(ctx, faixa1)}
 
 <!-- A PROVA: o número e a régua que o demonstra -->
 <section id="simular" class="bloco dobra dobra--colapso">
