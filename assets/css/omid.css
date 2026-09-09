@@ -104,6 +104,11 @@ table { border-collapse: collapse; width: 100%; }
 
 /* ---------- 3. Voz ---------- */
 .mono { font-family: var(--mono); font-size: var(--t-mono); font-weight: 400; letter-spacing: .2em; text-transform: uppercase; }
+/* o rotulo abre o tracking ao entrar: anuncia o titulo sem competir com ele */
+.sdt [data-ver] > .mono:first-child, .sdt .cabeca .mono { letter-spacing: .34em; opacity: 0; }
+.sdt [data-ver].viu > .mono:first-child, .sdt .viu .cabeca .mono, .sdt .cabeca.viu .mono {
+  letter-spacing: .2em; opacity: 1;
+  transition: letter-spacing 1s var(--ease), opacity .7s var(--ease); }
 .apaga { color: var(--cinza); }
 .lead { font-size: var(--t-l); line-height: 1.6; max-width: 46ch; }
 .pequeno { font-size: var(--t-s); line-height: 1.6; }
@@ -816,8 +821,15 @@ html:not(.sdt) .inv.dobra--inverte { background: var(--papel); }
 
 /* palavra a palavra: os títulos chegam andando, não acendendo */
 .lume w { display: inline-block; }
-.sdt .lume w { opacity: 0; transform: translateY(.45em); transition: opacity .6s var(--ease), transform .75s var(--ease); transition-delay: calc(var(--w, 0) * 34ms + .08s); }
-.sdt .viu .lume w, .sdt .lume.viu w { opacity: 1; transform: none; }
+/* mesma linguagem da manchete (bloco 28): a palavra sai do desfoque subindo.
+   O `will-change` so existe enquanto a palavra ainda nao chegou — depois o JS
+   nao precisa fazer nada, a transicao termina e a camada e descartada. */
+.sdt .lume w { opacity: 0; transform: translateY(.5em) scale(.985); filter: blur(9px); will-change: opacity, transform, filter; }
+.sdt .viu .lume w, .sdt .lume.viu w {
+  opacity: 1; transform: none; filter: blur(0); will-change: auto;
+  transition: opacity .65s var(--ease), transform .85s var(--ease), filter .7s var(--ease);
+  transition-delay: calc(var(--w, 0) * 46ms + .06s);
+}
 
 /* ---------- 21. O simulador: um instrumento ---------- */
 .prova { display: grid; grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr); gap: clamp(26px, 4vw, 72px); align-items: start; }
@@ -898,7 +910,8 @@ html:not(.sdt) .inv.dobra--inverte { background: var(--papel); }
   .sdt [data-ver], .sdt .ent, .sdt .dobra > .faixa-p, .sdt .dobra--inverte > .faixa-p, .sdt .dobra--colapso .cifra { opacity: 1 !important; transform: none !important; }
   .sdt .dobra--inverte::after { transform: scaleY(1); }
   .sdt .linhas > span > i { transform: none; }
-  .sdt .lume w { opacity: 1; transform: none; transition: none; }
+  .sdt .lume w { opacity: 1; transform: none; filter: none; transition: none; }
+  .sdt .cabeca .mono, .sdt [data-ver] > .mono:first-child { opacity: 1; letter-spacing: .2em; transition: none; }
   .procedencia i::after { animation: none; top: 12px; }
   .trilho { display: none; }
   ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
@@ -962,11 +975,11 @@ html.com-halo .halo, html.com-halo .halo-p { opacity: 1; }
    ========================================================================= */
 .sereno__h cw { display: inline-block; white-space: nowrap; }
 .sereno__h c { display: inline-block; font: inherit; }
-.sdt .sereno__h c { opacity: 0; transform: translateY(.5em) rotate(2deg); filter: blur(8px); }
+.sdt .sereno__h c { opacity: 0; transform: translateY(.56em) scale(.96); filter: blur(11px); will-change: opacity, transform, filter; }
 .sdt .sereno__h.viu c {
-  opacity: 1; transform: none; filter: blur(0);
-  transition: opacity .7s var(--ease), transform .95s var(--ease), filter .8s var(--ease);
-  transition-delay: calc(var(--k, 0) * 17ms + .05s);
+  opacity: 1; transform: none; filter: blur(0); will-change: auto;
+  transition: opacity .68s var(--ease), transform .9s var(--ease), filter .78s var(--ease);
+  transition-delay: calc(var(--k, 0) * 21ms + .05s);
 }
 .sdt .sereno__h.ent { opacity: 1; transform: none; transition: none; }   /* o bloco cede a vez às letras */
 

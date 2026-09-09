@@ -95,6 +95,19 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
      `hidden` cria contexto de rolagem e quebra `position: sticky`).
    - A aurora ficou ROXA (`paleta()` em `aurora.js`: índigo → roxo → magenta). Razão do dono: "azul é o
      padrão visual da Microsoft". Teal e ciano seguem na paleta do site, só não lideram mais o céu.
+3d. **As letras têm UMA linguagem só: sair do desfoque, subindo** (dono, 2026-09-09: "efeitos de transição
+   nas letras, algo moderno"). Três níveis, do mais dramático ao mais discreto:
+   - **manchete da página** (`.sereno__h`, bloco 28): letra a letra, `blur(11px)` + `translateY(.56em)` +
+     `scale(.96)`, cascata de 21ms. A rotação de 2° saiu — sujava o traço nos corpos grandes.
+   - **título de seção** (`.lume`): palavra a palavra, `blur(9px)` + subida, cascata de 46ms. Antes era só
+     opacidade + subida, sem desfoque, e destoava da manchete.
+   - **rótulo mono**: abre de `.34em` para `.2em` de tracking ao entrar. Anuncia o título sem competir.
+   `will-change` só existe no estado ANTES da revelação e volta a `auto` com a classe `.viu` — a camada de
+   GPU é descartada quando a transição acaba.
+   **Cuidado ao mexer:** a regra de `prefers-reduced-motion` precisa zerar TAMBÉM o `filter`. Ela zerava só
+   `opacity` e `transform`, e com o desfoque novo as palavras ficariam borradas para sempre em quem tem
+   movimento reduzido ligado. Verificado rolando a página inteira: zero letras, palavras ou rótulos presos
+   em `opacity: 0` ou `blur`.
 4. **Movimento é classe `.viu` + transição via IntersectionObserver.** NUNCA usar
    `animation-timeline`/scroll-timelines para estados de entrada — travou no Safari do dono
    deixando conteúdo invisível (lição cara). Nada pode ficar oculto sem a classe `.sdt`
