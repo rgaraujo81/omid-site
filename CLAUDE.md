@@ -209,6 +209,14 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
   (36px) no salto dentro de uma dobra (`.t-dobra`, o 40% → configurador) e na base do chapéu; o rodapé usa
   `--dobra`. No celular caem juntos (82px entre dobras). Únicas exceções: `.abertura`, que é `min-height:
   100svh` centrada (padding é folga interna da 1ª tela, não separação).
+- **O 40% e o simulador são DUAS dobras, não uma** (dono, 2026-09-09: "transforme as duas primeiras em
+  dobras e separe um pouco elas"). Dividiam a mesma `<section>` com só um `.t-dobra` (36px) entre elas e
+  ficavam coladas. Hoje: `.bloco.dobra.dobra--colapso` (o 40%, que carrega a revelação da cifra) e
+  `#simular.bloco.dobra.dobra--fio` (a régua + o comparativo). **A âncora `#simular` mora na segunda**, então
+  todo CTA "Simular preço" e todo link compartilhado caem direto no configurador — conferido com
+  `#simular?vcpu=16&…&tipo=pro`, que rola e aplica a configuração.
+- **A faixa de certificações (`.cred`) é uma BANDA entre dobras e tem `margin-block: var(--dobra)`.** Sem
+  isso ela ficava espremida entre a abertura e o 40% (36px e 58px, contra os 116px de todo o resto).
 - **Vão percebido ≠ padding.** Quando o dono reclamar de "espaço gigante" entre duas seções, MEÇA da última
   coisa pintada até a próxima, não o padding: três coisas inflam o vão sem aparecer no CSS da seção —
   (a) moldura vazia dentro de um SVG (a figura das camadas tinha 40px de margem no viewBox; hoje `M = 14`),

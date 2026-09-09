@@ -43,8 +43,9 @@ export const home = (ctx) => {
 
 ${credenciais(ctx, faixa1)}
 
-<!-- A PROVA: o número e a régua que o demonstra -->
-<section id="simular" class="bloco dobra dobra--colapso">
+<!-- COMPARATIVO: o 40%. Dobra propria — antes dividia a secao com o
+     simulador e os dois ficavam colados (dono, 2026-09-09). -->
+<section class="bloco dobra dobra--colapso">
   <div class="faixa-p max">
     <div class="cmp">
       <div class="cmp__n">
@@ -62,8 +63,12 @@ ${credenciais(ctx, faixa1)}
     </ul>
     <!-- o 40% ligado ao número real do duelo: preenchido pelo JS, escondido sem dado -->
     <p class="mono apaga cmp__vivo" data-cmp-vivo data-molde="${H.cmp.vivo}" hidden></p>
-    <div class="t-dobra">${regua(ctx)}</div>
   </div>
+</section>
+
+<!-- A PROVA: o simulador e o comparativo de precos, na dobra seguinte -->
+<section id="simular" class="bloco dobra dobra--fio">
+  <div class="faixa-p max">${regua(ctx)}</div>
 </section>
 
 <!-- INTEGRAÇÃO VERTICAL -->
