@@ -803,6 +803,12 @@ a.cartao:hover::before, a.cartao:focus-visible::before { transform: scaleX(1); }
 a.cartao:hover .cartao__ir svg { transform: translateX(4px); }
 @media (max-width: 1000px) { .cartoes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 680px)  { .cartoes { grid-template-columns: 1fr; } }
+
+/* convite de conversao: cartao largo, titulo de um lado e acao do outro */
+.convite { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(20px, 3vw, 48px); align-items: center; }
+.convite .grita { font-size: var(--t-t3); }
+.convite .lead { max-width: 56ch; }
+@media (max-width: 760px) { .convite { grid-template-columns: 1fr; justify-items: start; } }
 .valor-mono { font-family: var(--mono); font-size: var(--t-s); }
 .rodape__pe { display: flex; flex-wrap: wrap; gap: 12px 30px; justify-content: space-between; margin-top: 38px; padding-top: 20px; border-top: 1px solid #202024; font-family: var(--mono); font-size: var(--t-mono); letter-spacing: .14em; text-transform: uppercase; color: #64615B; }
 .social { display: flex; gap: 8px; margin-top: 18px; }

@@ -1,5 +1,5 @@
 import { prodMeta, certDots, site } from '../shared.mjs';
-import { ver, rotulo, botao, botaoSim, cabeca, item, pilha, quadro, checa, letreiro, defs, tela, chamada, lume } from '../ui.mjs';
+import { ver, rotulo, botao, botaoSim, cabeca, item, pilha, quadro, cartoes, checa, letreiro, defs, tela, chamada, lume } from '../ui.mjs';
 import { chapeu } from '../layout.mjs';
 
 const CORES = ['var(--a)', 'var(--t)', 'var(--i)', 'var(--m)', 'var(--r)'];
@@ -16,13 +16,21 @@ ${chapeu(ctx, {
 
 ${letreiro(certs)}
 
-<section class="bloco">
+<section class="bloco dobra dobra--fio">
   <div class="faixa-p max">
-    ${pilha(prodMeta.map((p, i) => item({
-      n: String(i + 1).padStart(2, '0'), t: p.nome, d: L.produtos[i].resumo,
-      cor: CORES[i], href: u('solucoes', p.slug),
-      etiquetas: L.produtos[i].bullets.slice(0, 3)
+    ${cartoes(prodMeta.map((p, i) => ({
+      rot: L.produtos[i].tag, t: p.nome, d: L.produtos[i].resumo,
+      itens: (L.produtos[i].blocos || []).slice(0, 3).map(([t]) => t),
+      cor: CORES[i], href: u('solucoes', p.slug), ir: L.c.verSolucao
     })))}
+    <!-- convite de conversao: texto que existia no i18n e nunca era mostrado -->
+    <div class="convite nota-f t-56"${ver(1)}>
+      <div>
+        <h2 class="grita">${L.hub.cardH}</h2>
+        <p class="lead apaga t-16">${L.hub.cardP}</p>
+      </div>
+      ${botao(L.hub.cardBtn, u('contato'), 'botao--g')}
+    </div>
   </div>
 </section>
 
@@ -56,6 +64,27 @@ ${chapeu(ctx, {
   acao: `${botaoSim(ctx, L.c.simularPreco, true)}${botao(L.c.especialista, u('contato'), 'botao--vazio botao--g')}`
 })}
 
+${i === 4 ? `
+<!-- a camada de inteligencia: texto que estava escrito no i18n e sem uso -->
+<section class="bloco dobra dobra--fio">
+  <div class="faixa-p max">
+    ${cabeca({ rot: L.home.cog.eb, h: lume(L.home.cog.h), p: L.home.cog.p })}
+    <div class="t-56">
+      ${cartoes(L.home.cog.minis.map(([t, d], j) => ({ t, d, cor: CORES[j] })), 4)}
+    </div>
+  </div>
+</section>` : ''}
+${i === 1 ? `
+<!-- os tres pilares da infraestrutura propria, tambem sem uso ate agora -->
+<section class="bloco dobra dobra--fio">
+  <div class="faixa-p max">
+    ${cabeca({ rot: L.home.infra.eb, h: lume(L.home.infra.h), p: L.home.infra.p })}
+    <div class="t-56">
+      ${cartoes(L.home.infra.tres.map(([t, d], j) => ({ t, d, cor: CORES[j] })), 3)}
+    </div>
+  </div>
+</section>` : ''}
+
 <section class="bloco bloco--curto regra">
   <div class="faixa-p max">
     <div class="duo duo--alto">
@@ -72,7 +101,7 @@ ${chapeu(ctx, {
   <div class="faixa-p max">
     ${cabeca({ rot: U.incluso, h: `${U.inclusoH}<br>${m.nome}` })}
     <div class="t-56">
-      ${pilha(p.blocos.map(([t, d], j) => item({ n: String(j + 1).padStart(2, '0'), t, d, cor })))}
+      ${cartoes(p.blocos.map(([t, d], j) => ({ rot: String(j + 1).padStart(2, '0'), t, d, cor })))}
     </div>
   </div>
 </section>

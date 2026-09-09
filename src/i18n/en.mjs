@@ -476,6 +476,13 @@ docs:   { eb: 'Documentation', h: 'Technical reference.', p: 'Product guides, AP
           areasH: 'From the first account<br>to the billing rule.',
           areasP: 'Six fronts cover the whole cycle of whoever runs it: create, integrate, scale, protect, recover and pay.',
           btn: 'Open',
+          segEb: 'Where to go next',
+          segH: 'A technical question<br>almost always lands in three places.',
+          seg: [
+            ['Frequently asked questions', 'Twenty-three straight answers on cloud, infrastructure, security, cost and AI.', 'See the questions'],
+            ['Price list', 'The unit price of every resource, in reais, with the published validity.', 'See the table'],
+            ['24x7x365 NOC', 'Technical support in Portuguese, with a two-minute average response.', 'Talk to the NOC']
+          ],
           btnPrincipal: 'Open the documentation' },
 
 faq: {

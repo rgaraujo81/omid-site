@@ -476,6 +476,13 @@ docs:   { eb: 'Documentación', h: 'Referencia técnica.', p: 'Guías de product
           areasH: 'De la primera cuenta<br>a la regla de cobro.',
           areasP: 'Seis frentes cubren el ciclo entero de quien opera: crear, integrar, escalar, proteger, recuperar y pagar.',
           btn: 'Abrir',
+          segEb: 'Dónde seguir',
+          segH: 'La duda técnica<br>casi siempre cae en tres lugares.',
+          seg: [
+            ['Preguntas frecuentes', 'Veintitrés respuestas directas sobre nube, infraestructura, seguridad, costo e IA.', 'Ver las preguntas'],
+            ['Tabla de precios', 'El valor unitario de cada recurso, en reales, con la vigencia publicada.', 'Ver la tabla'],
+            ['NOC 24x7x365', 'Soporte técnico en portugués, con respuesta media de 2 minutos.', 'Hablar con el NOC']
+          ],
           btnPrincipal: 'Acceder a la documentación' },
 
 faq: {
