@@ -118,6 +118,20 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
    `animation-timeline`/scroll-timelines para estados de entrada — travou no Safari do dono
    deixando conteúdo invisível (lição cara). Nada pode ficar oculto sem a classe `.sdt`
    (só o JS vivo a adiciona) e a 1ª tela tem fallback de 350ms.
+4c. **A montagem do painel do comparativo, "tipo Transformers"** (dono, 2026-09-09), CSS 24b: o painel abre
+   como uma tela ligando (`scaleY(.03)` → `1.035` → `1`), as duas colunas encaixam vindas de lados opostos
+   com um leve `skewX`, as quatro barras entram uma a uma com **overshoot** (vão 4px além e voltam — é o
+   overshoot que dá a sensação de peça encaixando) e o fio de assinatura corre de ponta a ponta.
+   **É `animation` e não `transition` de propósito:** o bloco nasce `hidden` e só aparece quando os preços
+   chegam do JSON; a animação dispara nesse instante, coisa que uma transição por classe `.viu` não faria,
+   porque o observador já passou por ali com o elemento invisível.
+4d. **A marca grande se materializa por MÁSCARA, não peça a peça.** Uma varredura diagonal (`clip-path`
+   polígono) revela o losango enquanto ele sai do desfoque e cresce. **Não tente animar cada traço:** o
+   `<use>` clona o símbolo numa shadow tree e o CSS não alcança os `<path>`. Tentei extrair os grupos e
+   inliná-los (`logoMarcaPecas`) — os 22 traços ficam acessíveis, mas o desenho perde o enquadramento: a
+   caixa vai a 108×98 num viewBox de 80×62 e só o canto do losango aparece. A flutuação mora no EMBRULHO
+   (`.marcao`) e a revelação no SVG; juntas no mesmo elemento, a `animation` do flutuar sobrescreve o
+   `transform` da entrada.
 4b. **A transição ENTRE dobras** (dono, 2026-09-09: "adicione as transições entre as dobras"). Três peças:
    - **O fio que se desenha.** Nas dobras marcadas `--fio`, um traço de 1px cresce da esquerda para a direita
      em 1,15s quando a dobra entra. **O fio ESTÁTICO continua proibido** — foi decisão do dono e o ar é que

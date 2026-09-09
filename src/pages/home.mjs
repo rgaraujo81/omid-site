@@ -24,10 +24,9 @@ export const home = (ctx) => {
   ${nuvens()}
   <!-- a marca em tamanho grande, encostada na direita: as nuvens passam ATRAS
        dela e o texto fica na frente das duas -->
-  <div class="marcao" aria-hidden="true">${logoMarca()}</div>
+  <div class="marcao" data-ver aria-hidden="true">${logoMarca()}</div>
   <div class="sereno">
-    <div class="sereno__marca ent" style="--e:0">${logoMarca()}</div>
-    <h1 class="sereno__h ent" style="--e:1">${H.h1a.replace('<br>', ' ')}<b>${H.h1b}</b>.</h1>
+    <h1 class="sereno__h ent" style="--e:0">${H.h1a.replace('<br>', ' ')}<b>${H.h1b}</b>.</h1>
     <p class="sereno__p ent" style="--e:2">${H.lead}</p>
     <div class="sereno__acao ent" style="--e:3">
       ${botaoSim(ctx, L.c.simularAmbiente, true)}

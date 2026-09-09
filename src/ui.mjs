@@ -387,8 +387,8 @@ export const duelo = (ctx) => {
   </ul>
 
   <ol class="duelo__lista">
-    ${ordem.map((k) => `
-    <li class="duelo__li duelo__li--${k}" data-prov="${k}">
+    ${ordem.map((k, i) => `
+    <li class="duelo__li duelo__li--${k}" data-prov="${k}" style="--r:${i}">
       <div class="duelo__nome"><b>${C.provedores[k]}</b><span class="mono apaga" data-duelo-inst></span></div>
       <div class="duelo__barra">${ITENS_DUELO.map((i) => `<i data-seg="${i}" style="--c:${COR_ITEM[i]}"></i>`).join('')}</div>
       <div class="duelo__preco"><b>R$ <span data-duelo-valor>—</span></b><span>${R.mes}</span></div>
