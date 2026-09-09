@@ -22,6 +22,9 @@ export const home = (ctx) => {
 <section class="abertura abertura--ive abertura--nuvens faixa-p max">
   <canvas class="aurora" aria-hidden="true"></canvas>
   ${nuvens()}
+  <!-- a marca em tamanho grande, encostada na direita: as nuvens passam ATRAS
+       dela e o texto fica na frente das duas -->
+  <div class="marcao" aria-hidden="true">${logoMarca()}</div>
   <div class="sereno">
     <div class="sereno__marca ent" style="--e:0">${logoMarca()}</div>
     <h1 class="sereno__h ent" style="--e:1">${H.h1a.replace('<br>', ' ')}<b>${H.h1b}</b>.</h1>

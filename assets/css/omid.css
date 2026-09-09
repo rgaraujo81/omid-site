@@ -346,6 +346,23 @@ body.aberto .gaveta__a { animation: gavIn .5s var(--ease) forwards; animation-de
 .abertura { min-height: calc(100svh - var(--topo-h)); display: flex; flex-direction: column; justify-content: center; padding-block: clamp(30px, 6vh, 70px) clamp(24px, 4vh, 48px); }
 .abertura--ive { justify-content: center; position: relative; text-align: center; }
 .sereno { display: grid; justify-items: center; }
+/* A MARCA GRANDE da primeira dobra (dono, 2026-09-09: "faça isso como logo na
+   primeira dobra, a nuvem atras passando e voando sem parar"). Encostada na
+   direita e cortada pela borda de proposito — e uma peca de composicao, nao um
+   logo centralizado. Fica ACIMA das nuvens (que passam atras) e ABAIXO do
+   texto. `translate` centra na vertical e o `transform` do keyframe flutua:
+   os dois SOMAM de proposito, como na nevoa. */
+.marcao { position: absolute; right: -7%; top: 49%; translate: 0 -50%; z-index: 0; pointer-events: none;
+  width: clamp(260px, 42vw, 720px); }
+.marcao .marca { display: block; width: 100%; height: auto; opacity: .92;
+  filter: drop-shadow(0 34px 70px rgba(84, 94, 160, .2));
+  animation: marcaoFlutua 13s var(--ease-io) infinite alternate; }
+@keyframes marcaoFlutua { from { transform: translateY(-12px) scale(.99); } to { transform: translateY(14px) scale(1.01); } }
+/* em tela media ela recua; no celular SAI — atravessava a manchete e virava
+   ruido atras do texto, e a marca pequena acima do titulo ja cumpre o papel */
+@media (max-width: 1080px) { .marcao { right: -28%; width: 46vw; } .marcao .marca { opacity: .7; } }
+@media (max-width: 700px)  { .marcao { display: none; } }
+
 /* a marca abre a dobra: so o simbolo do arquivo oficial, acima da manchete.
    O wordmark fica no cabecalho — repeti-lo aqui seria eco. */
 .sereno__marca { width: clamp(74px, 8vw, 112px); margin-bottom: clamp(18px, 2.8vh, 34px); }

@@ -80,11 +80,17 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
    lado e a emenda fica visível. Conferido por aritmética (o painel do navegador com aba oculta não aplica o
    valor da animação, então medir por `getBoundingClientRect` ali não vale): folga mínima de 33px no celular
    e 321px no desktop, já descontado o espalhamento do desfoque.
-   **Histórico, para ninguém repetir:** o dono pediu o símbolo gigante voando entre as nuvens e depois
-   **cancelou** — "deixe apenas as nuvens já que você não conseguiu fazer" (2026-09-08). Quatro tentativas
-   foram rejeitadas: placas genéricas em CSS que não eram o logo ("o que você usou não é o logo da OMID"),
-   o símbolo inteiro cortado nas bordas virando rabisco, o mesmo com emendas duras nas laterais, e a
-   superestrutura só com um pedaço à mostra ("horrível"). Não reabrir sem pedido explícito dele.
+   **A MARCA GRANDE (`.marcao`) voltou em 2026-09-09**, a pedido explícito do dono, e desta vez foi aceita.
+   O que mudou em relação às quatro tentativas rejeitadas: ela não é uma superestrutura centralizada nem
+   um logo cortado no meio — é uma **peça de composição encostada na direita** (`right: -7%`), grande
+   (`clamp(260px, 42vw, 720px)`), cortada pela borda de propósito, com as nuvens passando ATRÁS dela e o
+   texto na frente das duas. Flutua devagar (13s). Some abaixo de 700px, onde atravessava a manchete e a
+   marca pequena acima do título já cumpre o papel; entre 700 e 1080px recua para `right: -28%`, medido para
+   dar sobreposição ZERO com manchete e lead.
+   **Histórico das tentativas rejeitadas (2026-09-08), para não repetir o caminho:** placas genéricas em CSS
+   que não eram o logo ("o que você usou não é o logo da OMID"), o símbolo inteiro cortado nas bordas virando
+   rabisco, o mesmo com emendas duras nas laterais, e a superestrutura só com um pedaço à mostra
+   ("horrível"). O que salvou agora foi a POSIÇÃO, não o tamanho: encostada na borda em vez de centralizada.
    **Duas armadilhas que este bloco resolveu e valem para qualquer fundo:**
    - `mask-image` PINTA mas não CORTA. Fundo maior que a tela precisa de `overflow: clip` de verdade, senão
      a página ganha rolagem lateral (chegou a 7.500px numa das tentativas).
