@@ -133,7 +133,7 @@ ${credenciais(ctx, faixa1)}
   </div>
 </section>
 
-<section class="bloco quieto">
+<section class="bloco quieto dobra">
   <div class="faixa-p max"><p>${L.quieto}</p></div>
 </section>
 

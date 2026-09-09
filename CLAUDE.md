@@ -112,6 +112,18 @@ bash tools/gerar-video.sh       # regenera os loops de vídeo da marca (não usa
    `animation-timeline`/scroll-timelines para estados de entrada — travou no Safari do dono
    deixando conteúdo invisível (lição cara). Nada pode ficar oculto sem a classe `.sdt`
    (só o JS vivo a adiciona) e a 1ª tela tem fallback de 350ms.
+4b. **A transição ENTRE dobras** (dono, 2026-09-09: "adicione as transições entre as dobras"). Três peças:
+   - **O fio que se desenha.** Nas dobras marcadas `--fio`, um traço de 1px cresce da esquerda para a direita
+     em 1,15s quando a dobra entra. **O fio ESTÁTICO continua proibido** — foi decisão do dono e o ar é que
+     anuncia; o que existe aqui é movimento, e só em três dobras por página, para não virar régua em toda
+     emenda. `html:not(.sdt)` esconde o fio, então quem não tem JS nunca vê um traço parado.
+   - **Ninguém fica de fora.** A faixa de certificações (`.cred`) e o bloco quieto não tinham revelação
+     nenhuma: a faixa ganhou `data-ver` em `ui.mjs` e o bloco quieto ganhou a classe `dobra`. O observador em
+     `omid.js` só enxerga `[data-ver], .linhas, section.dobra, .lume, .ent` — **um bloco novo sem uma dessas
+     marcas entra na página sem transição e ninguém percebe.**
+   - **O gesto casa com o das letras** (regra 3d): a dobra sobe 30px e sai de `scale(.994)`, mesma família de
+     movimento do desfoque das palavras.
+   Verificado rolando home e Sobre inteiras, desktop e celular: zero blocos, palavras ou fios presos.
 5. **A aurora** (`aurora.js`) é WebGL puro com a paleta exata do logo; reage a cursor e
    velocidade de rolagem; 1º quadro é síncrono (nunca canvas preto); pausa fora de cena;
    um quadro só em reduced-motion. Se pedirem "mais wow", evoluir a aurora — não trocar a fundação.

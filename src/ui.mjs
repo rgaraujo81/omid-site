@@ -192,7 +192,7 @@ export const credenciais = (ctx, { numeros, certs }) => {
   const parte = (t) => { const w = t.split(' '); const i = w.findIndex((x) => /\d/.test(x)); return i < 0 ? [t, ''] : [w.slice(0, i + 1).join(' '), w.slice(i + 1).join(' ')]; };
   const cel = (main, sub, cor) => `<div class="cred__c" style="--pt:${cor}"><i></i><b>${main}</b>${sub ? `<span>${sub}</span>` : ''}</div>`;
   return `
-<div class="cred">
+<div class="cred" data-ver>
   <div class="cred__g cred__nums">
     ${numeros.map(({ t, cor }) => { const [m, sb] = parte(t); return cel(m, sb, cor); }).join('')}
   </div>
