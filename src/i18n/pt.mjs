@@ -472,7 +472,11 @@ cases:  { eb: 'Cases', h: 'Histórias de quem<br>já fez a conta.', p: 'Exemplos
 videos: { eb: 'Vídeos e podcasts', h: 'Conversas com<br>quem opera.', p: 'Bate-papos técnicos, demonstrações de plataforma e discussões sobre soberania de dados, segurança e IA na infraestrutura.' },
 docs:   { eb: 'Documentação', h: 'Referência técnica.', p: 'Guias de produto, referência de API, limites por serviço e regras específicas de cobrança. O ponto de partida para quem vai operar.',
           links: [['Primeiros passos', 'Criação de conta, primeiro projeto e provisionamento inicial.'], ['API e CLI', 'Referência REST, autenticação e automação de recursos.'], ['Compute e Kubernetes', 'Tipos de máquina, pools de recurso e clusters gerenciados.'], ['Rede e segurança', 'VPC, VPN, firewall, balanceador e regras de tráfego.'], ['Backup e Disaster Recovery', 'Políticas de retenção, replicação e testes de recuperação.'], ['Cobrança', 'Regras por serviço, exceções de egress e ciclo de faturamento.']],
-          btn: 'Acessar documentação' },
+          areasEb: 'Áreas da documentação',
+          areasH: 'Da primeira conta<br>à regra de cobrança.',
+          areasP: 'Seis frentes cobrem o ciclo inteiro de quem opera: criar, integrar, escalar, proteger, recuperar e pagar.',
+          btn: 'Abrir'  ,
+          btnPrincipal: 'Acessar documentação' },
 
 faq: {
   eb: 'Perguntas frequentes', h: 'Respostas diretas.',

@@ -472,7 +472,11 @@ cases:  { eb: 'Case studies', h: 'Stories from teams<br>that ran the numbers.', 
 videos: { eb: 'Videos and podcasts', h: 'Conversations with<br>the people who operate.', p: 'Technical chats, platform demos and discussions on data sovereignty, security and AI in infrastructure.' },
 docs:   { eb: 'Documentation', h: 'Technical reference.', p: 'Product guides, API reference, per-service limits and specific billing rules. The starting point for whoever will run it.',
           links: [['Getting started', 'Account creation, first project and initial provisioning.'], ['API and CLI', 'REST reference, authentication and resource automation.'], ['Compute and Kubernetes', 'Machine types, resource pools and managed clusters.'], ['Network and security', 'VPC, VPN, firewall, load balancer and traffic rules.'], ['Backup and Disaster Recovery', 'Retention policies, replication and recovery testing.'], ['Billing', 'Per-service rules, egress exceptions and the invoicing cycle.']],
-          btn: 'Open the documentation' },
+          areasEb: 'Documentation areas',
+          areasH: 'From the first account<br>to the billing rule.',
+          areasP: 'Six fronts cover the whole cycle of whoever runs it: create, integrate, scale, protect, recover and pay.',
+          btn: 'Open',
+          btnPrincipal: 'Open the documentation' },
 
 faq: {
   eb: 'Frequently asked questions', h: 'Straight answers.',

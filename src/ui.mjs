@@ -103,6 +103,27 @@ export const solucoes = (ctx, meta) => `
   }).join('')}
 </div>`;
 
+/* --- cartoes: a MESMA linguagem da grade de Solucoes, generica ---
+   Um cartao por assunto, com rotulo, titulo, resumo e (opcional) os itens que
+   ele contem. O cartao inteiro vira link quando tem `href`. Usa a grade de 1px
+   sobre o fio, igual a `.solucoes`, para as paginas internas falarem a mesma
+   lingua da home. --- */
+export const cartoes = (itens, cols = 3) => `
+<div class="cartoes" style="--cols:${cols}">
+  ${itens.map((c, i) => {
+    const dentro = `
+    ${c.rot ? `<span class="cartao__rot mono">${c.rot}</span>` : ''}
+    <h3 class="cartao__t">${c.t}</h3>
+    ${c.d ? `<p class="cartao__d">${c.d}</p>` : ''}
+    ${c.itens && c.itens.length ? `<ul class="cartao__i">${c.itens.map((t) => `<li>${t}</li>`).join('')}</ul>` : ''}
+    ${c.ir ? `<span class="cartao__ir">${c.ir}${seta}</span>` : ''}`;
+    const st = ` style="--pt:${c.cor || 'var(--tinta)'}; --d:${i}"`;
+    return c.href
+      ? `<a class="cartao" href="${c.href}"${c.externo ? ' rel="noopener"' : ''} data-ver${st}>${dentro}</a>`
+      : `<div class="cartao" data-ver${st}>${dentro}</div>`;
+  }).join('')}
+</div>`;
+
 /* --- as camadas: figura isométrica + linhas ---
    À esquerda, as quatro lajes desenhadas em SVG (topo, face esquerda, face
    direita), do concreto (k=0, embaixo, com grão) ao time (k=3, em cima);
